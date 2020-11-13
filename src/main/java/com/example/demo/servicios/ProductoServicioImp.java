@@ -2,15 +2,21 @@ package com.example.demo.servicios;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ProductoDao;
 import com.example.demo.entidades.Producto;
 
+@Transactional
+@Service
 public class ProductoServicioImp implements ProductoServicio {
 	
 	@Autowired
 	private ProductoDao productoDao;
+	
 
 	@Override
 	public Producto crearProducto(Producto producto) {
@@ -25,7 +31,7 @@ public class ProductoServicioImp implements ProductoServicio {
 	}
 
 	@Override
-	public Producto obtenerProfesor(long idProfesor) {
+	public Producto obtenerProducto(long idProducto) {
 		// TODO Auto-generated method stub
 		return null;
 	}

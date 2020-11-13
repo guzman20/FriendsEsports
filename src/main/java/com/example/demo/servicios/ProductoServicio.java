@@ -10,7 +10,7 @@ public interface ProductoServicio {
 	
 	public void eliminarProducto (long idProducto);
 
-	public Producto obtenerProfesor(long idProfesor);
+	public Producto obtenerProducto(long idProducto);
 	
 	public Producto modificarProducto(Producto profesor);
 

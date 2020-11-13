@@ -5,6 +5,11 @@ import java.util.List;
 import com.example.demo.entidades.Producto;
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@Component("ProductoDao")
 public class ProductoDaoImp extends DaoGenericoImp<Producto> implements ProductoDao {
 
 	@Override
@@ -27,8 +32,8 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 
 	@Override
 	public List<Producto> listarProductos() {
-		Query query =  this.em.createQuery("FROM productos");
-		List<Producto> lProducto = query.getResultList();
+		Query query =  this.em.createQuery("FROM Producto");
+		List<Producto> lProducto =  query.getResultList();
 
 		if (lProducto != null) {
 			return lProducto;
