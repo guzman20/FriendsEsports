@@ -19,7 +19,7 @@ public class ProductoController {
 	@Autowired
 	ProductoServicio productoServicio;
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/individual/{id}")
+	@RequestMapping(method = RequestMethod.GET, value = "/idProducto/{id}")
 	public ModelAndView perfilProfesor(@PathVariable("id") long idProducto, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
@@ -33,7 +33,7 @@ public class ProductoController {
 
 		mav.addObject("propietario", propietario);
 		mav.addObject("producto", producto);
-		mav.setViewName("producto/individual");
+		mav.setViewName("producto/idProducto");
 		return mav;
 	}
 
