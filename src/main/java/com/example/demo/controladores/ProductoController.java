@@ -84,10 +84,10 @@ public class ProductoController {
 		return "redirect:/index";
 	}
 	
-	@PostMapping("/borrar")
-	public String borrarProducto(@PathVariable("idProducto") long idproducto) {
+	@RequestMapping(method = RequestMethod.GET, value = "/borrar/{idProducto}")
+	public String borrarProducto(@PathVariable("idProducto") long idProducto) {
 		
-		productoServicio.eliminarProducto(idproducto);
+		productoServicio.eliminarProducto(idProducto);
 
 		return "redirect:/index";
 	}
