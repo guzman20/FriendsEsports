@@ -31,17 +31,5 @@ public class IndexController {
 		return mav;
 
 	}
-//	@GetMapping("/home")
-//	public String  get_home(Model modelo) {
-//
-//	    return "home";
-//	}	
-	
-	
-	@RequestMapping(value="/prueba", method=RequestMethod.POST)
-	public String  get_prueba(Model modelo) {
-
-	    return "prueba";
-	}	
 
 }

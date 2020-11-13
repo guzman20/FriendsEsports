@@ -2,6 +2,8 @@ package com.example.demo.dao;
 
 import java.util.Map;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -11,6 +13,12 @@ public class DaoGenericoImp<T>  implements DaoGenerico<T>{
 	protected EntityManager em;
 
 	private Class<T> type;
+	
+	public DaoGenericoImp() {
+		Type t = getClass().getGenericSuperclass();
+		ParameterizedType pt = (ParameterizedType) t;
+		type = (Class) pt.getActualTypeArguments()[0];
+	}
 
 	@Override
 	public long contarTodos(Map<String, Object> params) {
@@ -32,8 +40,7 @@ public class DaoGenericoImp<T>  implements DaoGenerico<T>{
 
 	@Override
 	public T buscar(Object id) {
-		// TODO Auto-generated method stub
-		return null;
+		return (T) this.em.find(type, id);
 	}
 
 	@Override

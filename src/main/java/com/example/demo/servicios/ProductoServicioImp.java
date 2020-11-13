@@ -32,8 +32,8 @@ public class ProductoServicioImp implements ProductoServicio {
 
 	@Override
 	public Producto obtenerProducto(long idProducto) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return productoDao.buscar(idProducto);
 	}
 
 	@Override
