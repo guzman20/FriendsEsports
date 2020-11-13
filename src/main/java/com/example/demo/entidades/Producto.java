@@ -1,11 +1,26 @@
 package com.example.demo.entidades;
 
+import java.io.Serializable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "productos")
-public class Producto {
+public class Producto implements Serializable {
+	
+	private static final long serialVersionUID = -8668594760203621162L;
+
+	@Id
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@Column(name = "idProducto")
+	private Long idProducto;
+	
+	
 	private String nombre;
 	private String descripcion;
 	private String imagen;

@@ -3,7 +3,7 @@ package com.example.demo.dao;
 import java.util.List;
 
 import com.example.demo.entidades.Producto;
-import com.mysql.cj.Query;
+import javax.persistence.Query;
 
 public class ProductoDaoImp extends DaoGenericoImp<Producto> implements ProductoDao {
 
@@ -23,11 +23,11 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 	public Producto anadirProducto(String nombre, String descripcion, String categoria) {
 		// TODO Auto-generated method stub
 		return null;
-	}
+	}	
 
 	@Override
 	public List<Producto> listarProductos() {
-		Query query = (Query) this.em.createQuery("FROM productos");
+		Query query =  this.em.createQuery("FROM productos");
 		List<Producto> lProducto = query.getResultList();
 
 		if (lProducto != null) {
