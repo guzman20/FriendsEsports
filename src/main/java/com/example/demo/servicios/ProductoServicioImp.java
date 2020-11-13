@@ -25,7 +25,7 @@ public class ProductoServicioImp implements ProductoServicio {
 
 	@Override
 	public void eliminarProducto(long idProducto) {
-		// TODO Auto-generated method stub
+		productoDao.borrar(idProducto);
 		
 	}
 

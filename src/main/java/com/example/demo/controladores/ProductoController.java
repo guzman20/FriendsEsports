@@ -83,5 +83,15 @@ public class ProductoController {
 
 		return "redirect:/index";
 	}
+	
+	@PostMapping("/borrar")
+	public String borrarProducto(@PathVariable("idProducto") long idproducto) {
+		
+		productoServicio.eliminarProducto(idproducto);
+
+		return "redirect:/index";
+	}
+	
+	
 
 }

@@ -34,7 +34,7 @@ public class DaoGenericoImp<T>  implements DaoGenerico<T>{
 
 	@Override
 	public void borrar(Object id) {
-		// TODO Auto-generated method stub
+		this.em.remove(this.em.getReference(type, id));
 		
 	}
 
