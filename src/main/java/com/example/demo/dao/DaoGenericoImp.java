@@ -28,8 +28,8 @@ public class DaoGenericoImp<T>  implements DaoGenerico<T>{
 
 	@Override
 	public T crear(T t) {
-		// TODO Auto-generated method stub
-		return null;
+		this.em.persist(t);
+		return t;
 	}
 
 	@Override

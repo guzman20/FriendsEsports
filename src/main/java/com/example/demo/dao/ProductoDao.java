@@ -9,7 +9,7 @@ public interface ProductoDao extends DaoGenerico<Producto>{
 	
 	public Producto buscarPorCategoria(String categoria);
 	
-	public Producto anadirProducto(String nombre, String descripcion, String categoria);
+	public Producto anadirProducto(String nombre, String descripcion, String imagen);
 
 	public List<Producto> listarProductos();
 }

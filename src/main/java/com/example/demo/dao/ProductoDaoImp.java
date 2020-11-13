@@ -25,7 +25,7 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 	}
 
 	@Override
-	public Producto anadirProducto(String nombre, String descripcion, String categoria) {
+	public Producto anadirProducto(String nombre, String descripcion, String imagen) {
 		// TODO Auto-generated method stub
 		return null;
 	}	

@@ -20,8 +20,7 @@ public class ProductoServicioImp implements ProductoServicio {
 
 	@Override
 	public Producto crearProducto(Producto producto) {
-		// TODO Auto-generated method stub
-		return null;
+		return productoDao.crear(producto);
 	}
 
 	@Override

@@ -16,22 +16,21 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="p-5">
-                <form >
                 <table>
 <!--                 	<tr th:each="producto : ${productos}"> -->
 <!--                 		<th style="text-align:center"> <img th:src="${producto.imagen}" width="100" height="100"> </th> -->
 <!--                 	</tr> -->
 				    <tr th:each="producto : ${productos}">
 				    	<td style="text-align:center"> <a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}"> 
-				    	<img th:src="${producto.imagen}" width="100" height="100"> </a> </td>
+				    	<img th:src="@{images/{image}(image=${producto.imagen})}" width="100" height="100"> </a> </td>
 				        <td style="text-align:center" th:text="${producto.nombre}"></td>
 			    	</tr> 
                 
                 </table>
-                </form>
-                  <div class="text-center" style="width:800px; margin:0 auto;">
-                 
-                  </div>
+                
+                <div class="text-center" style="width:800px; margin:0 auto;">
+		<a th:href="@{/producto/crear}" class="btn btn-primary"> Crear producto</a>
+                </div>
                 </div>
               </div>
             </div>
