@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -92,13 +93,18 @@ public class ProductoController {
 		return "redirect:/index";
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/index/{nombre}")
-	public String BuscarProducto(@PathVariable("nombre") String nombre) {
-		
-		productoServicio.listarProductoPorNombre(nombre);
+	@PostMapping("/buscar")
+	public ModelAndView BuscarProducto(@PathVariable String nombre) {
+		ModelAndView mav = new ModelAndView();
 
-		return "redirect:/index";
+		List<Producto> lProducto = productoServicio.listarProductoPorNombre(nombre);
+
+		mav.addObject("productos", lProducto);
+		mav.setViewName("buscar");
+
+		return mav;
 	}
+	
 	
 	
 
