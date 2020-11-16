@@ -13,8 +13,14 @@ import org.springframework.stereotype.Repository;
 public class ProductoDaoImp extends DaoGenericoImp<Producto> implements ProductoDao {
 
 	@Override
-	public Producto buscarPorNombre(String nombre) {
-		// TODO Auto-generated method stub
+	public List<Producto> buscarPorNombre(String nombre) {
+		Query query = this.em.createQuery("FROM Producto u where u.nombre LIKE '%nombre%'");
+		query.setParameter("nombre", nombre);
+		List<Producto> lProducto = query.getResultList();
+
+		if (lProducto != null) {
+			return lProducto;
+		}
 		return null;
 	}
 

@@ -12,8 +12,10 @@ public interface ProductoServicio {
 
 	public Producto obtenerProducto(long idProducto);
 	
-	public Producto modificarProducto(Producto profesor);
+	public Producto modificarProducto(Producto producto);
 
 	public List<Producto> listarProductos();
+	
+	public List<Producto> listarProductoPorNombre(String nombre);
 
 }

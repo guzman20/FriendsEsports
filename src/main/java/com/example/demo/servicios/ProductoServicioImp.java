@@ -46,4 +46,9 @@ public class ProductoServicioImp implements ProductoServicio {
 		return productoDao.listarProductos();
 	}
 
+	@Override
+	public List<Producto> listarProductoPorNombre(String nombre) {
+		return productoDao.buscarPorNombre(nombre);
+	}
+
 }

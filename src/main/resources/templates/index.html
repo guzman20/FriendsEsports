@@ -16,20 +16,39 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="p-5">
-                <table>
-<!--                 	<tr th:each="producto : ${productos}"> -->
-<!--                 		<th style="text-align:center"> <img th:src="${producto.imagen}" width="100" height="100"> </th> -->
-<!--                 	</tr> -->
-				    <tr th:each="producto : ${productos}">
-				    	<td style="text-align:center"> <a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}"> 
-				    	<img th:src="@{images/{image}(image=${producto.imagen})}" width="100" height="100"> </a> </td>
-				        <td style="text-align:center" th:text="${producto.nombre}"></td>
-			    	</tr> 
-                
+                <form>
+                <label>Buscar producto:<input type="search" th:href="@{/index/buscar/{nombre}{nombre}(nombre=${producto.nombre})}" class="form-control form-control-sm" placeholder="" aria-controls="dataTable"></label>
+                </form>
+                <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Imagen del producto</th>
+                      <th>Nombre del producto</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr th:each="producto : ${productos}">
+                      <td> <a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">
+                      <img th:src="@{images/{image}(image=${producto.imagen})}" width="100" height="100"> </a> </td>
+                      <td style="text-align:center" th:text="${producto.nombre}"></td>
+                    </tr>
+                  </tbody>
                 </table>
+              </div>
+            </div>
+              
+<!--                 <table> -->
+<!-- 				    <tr th:each="producto : ${productos}"> -->
+<!-- 				    	<td style="text-align:center"> <a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">  -->
+<!-- 				    	<img th:src="@{images/{image}(image=${producto.imagen})}" width="100" height="100"> </a> </td> -->
+<!-- 				        <td style="text-align:center" th:text="${producto.nombre}"></td> -->
+<!-- 			    	</tr>  -->
+                
+<!--                 </table> -->
                 
                 <div class="text-center" style="width:800px; margin:0 auto;">
-		<a th:href="@{/producto/crear}" class="btn btn-primary"> Crear producto</a>
+					<a th:href="@{/producto/crear}" class="btn btn-primary"> Crear producto</a>
                 </div>
                 </div>
               </div>

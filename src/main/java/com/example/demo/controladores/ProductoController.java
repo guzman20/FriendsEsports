@@ -92,6 +92,14 @@ public class ProductoController {
 		return "redirect:/index";
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/index/{nombre}")
+	public String BuscarProducto(@PathVariable("nombre") String nombre) {
+		
+		productoServicio.listarProductoPorNombre(nombre);
+
+		return "redirect:/index";
+	}
+	
 	
 
 }
