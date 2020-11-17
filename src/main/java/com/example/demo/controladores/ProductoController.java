@@ -33,7 +33,7 @@ public class ProductoController {
 	ProductoServicio productoServicio;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/idProducto/{id}")
-	public ModelAndView perfilProfesor(@PathVariable("id") long idProducto, HttpServletRequest request) {
+	public ModelAndView descripcionProducto(@PathVariable("id") long idProducto, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		Producto producto = productoServicio.obtenerProducto(idProducto);
@@ -92,20 +92,6 @@ public class ProductoController {
 
 		return "redirect:/index";
 	}
-	
-	@PostMapping("/buscar")
-	public ModelAndView BuscarProducto(@PathVariable String nombre) {
-		ModelAndView mav = new ModelAndView();
-
-		List<Producto> lProducto = productoServicio.listarProductoPorNombre(nombre);
-
-		mav.addObject("productos", lProducto);
-		mav.setViewName("buscar");
-
-		return mav;
-	}
-	
-	
 	
 
 }

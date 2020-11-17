@@ -14,7 +14,7 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 
 	@Override
 	public List<Producto> buscarPorNombre(String nombre) {
-		Query query = this.em.createQuery("FROM Producto u where u.nombre LIKE '%nombre%'");
+		Query query = this.em.createQuery("FROM Producto u where u.nombre LIKE CONCAT('%', :nombre ,'%')");
 		query.setParameter("nombre", nombre);
 		List<Producto> lProducto = query.getResultList();
 
