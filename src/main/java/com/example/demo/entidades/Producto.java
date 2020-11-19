@@ -29,14 +29,18 @@ public class Producto implements Serializable {
 	@Column(name = "imagenproducto")
 	private String imagen;
 	
+	@Column(name = "precio")
+	private int precio;
+
 	public Producto() {
 		
 	}
 	
-	private Producto(String nombre, String descripcion, String imagen) {
+	private Producto(String nombre, String descripcion, String imagen, int precio) {
 		setNombre(nombre);
 		setDescripcion(descripcion);
 		setImagen(imagen);
+		setPrecio(precio);
 	}
 
 	public Long getIdProducto() {
@@ -69,5 +73,13 @@ public class Producto implements Serializable {
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
+	}
+	
+	public int getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
 }

@@ -39,6 +39,8 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 	@Override
 	public List<Producto> listarProductos() {
 		Query query =  this.em.createQuery("FROM Producto");
+		query.setFirstResult(0);
+		query.setMaxResults(8);
 		List<Producto> lProducto =  query.getResultList();
 
 		if (lProducto != null) {
