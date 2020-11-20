@@ -23,8 +23,16 @@ public class User implements Serializable {
 	@Column(name = "nombreusuario")
 	private String nombreUsuario;
 	
+	@Column(name = "passwordusuario")
+	private String passwordUsuario;
+	
 	public User() {
 		
+	}
+	
+	private User(String nombreUsuario, String passwordUsuario) {
+		setNombreUsuario(nombreUsuario);
+		setPassword(passwordUsuario);
 	}
 	
 	public Long getIdUsuarios() {
@@ -44,14 +52,11 @@ public class User implements Serializable {
 	}
 
 	public String getPassword() {
-		return password;
+		return passwordUsuario;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(String passwordUsuario) {
+		this.passwordUsuario = passwordUsuario;
 	}
-
-	@Column(name = "password")
-	private String password;
 
 }

@@ -90,7 +90,7 @@ public class ProductoController {
 		
 		productoServicio.eliminarProducto(idProducto);
 
-		return "redirect:/index";
+		return "redirect:/";
 	}
 	
 
