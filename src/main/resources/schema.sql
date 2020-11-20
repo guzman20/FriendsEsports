@@ -11,8 +11,8 @@ CREATE TABLE productos
    nombreproducto VARCHAR (40) NOT NULL,
    descripcionproducto VARCHAR (40) NOT NULL,
    imagenproducto VARCHAR (40) NOT NULL,
-   descuento VARCHAR (40) NOT NULL,
-   precio BIGINT NOT NULL,
+   precio DOUBLE NOT NULL,
+   descuento BIGINT,
    PRIMARY KEY (idproductos)
 );
 
