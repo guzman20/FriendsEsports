@@ -11,6 +11,7 @@
 	 
 	</head>
 	<body class="bg-gradient-primary">
+	<nav th:replace="fragments/header_public"></nav>
     <div class="row justify-content-center">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -42,9 +43,11 @@
               </div>
             </div>
                 
-                <div class="text-center" style="width:800px; margin:0 auto;">
-					<a th:href="@{/producto/crear}" class="btn btn-primary"> Crear producto</a>
-                </div>
+			<div class="text-center" style="width:800px; margin:0 auto;">
+                 	<a
+					th:href="@{/producto/borrar/{idProducto}(idProducto=${producto.idProducto})}"
+					class="btn btn-primary">Borrar este producto</a>
+                 </div>
                 </div>
               </div>
             </div>
