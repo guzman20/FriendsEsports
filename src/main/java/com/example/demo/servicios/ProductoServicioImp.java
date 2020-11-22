@@ -42,8 +42,8 @@ public class ProductoServicioImp implements ProductoServicio {
 	}
 
 	@Override
-	public List<Producto> listarProductos() {
-		return productoDao.listarProductos();
+	public List<Producto> listarProductos(Integer maximo) {
+		return productoDao.listarProductos(maximo);
 	}
 
 	@Override

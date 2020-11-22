@@ -27,7 +27,8 @@ public class IndexController {
 		
 		ModelAndView mav = new ModelAndView();
 
-		List<Producto> lProducto = productoService.listarProductos();
+		List<Producto> lProducto = productoService.listarProductos(8);
+		
 
 		mav.addObject("productos", lProducto);
 		mav.setViewName("index");

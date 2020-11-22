@@ -37,10 +37,10 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 	}	
 
 	@Override
-	public List<Producto> listarProductos() {
-		Query query =  this.em.createQuery("FROM Producto");
+	public List<Producto> listarProductos(Integer maximo) {
+		Query query =  this.em.createQuery("FROM Producto LIMIT :maximo");
 		query.setFirstResult(0);
-		query.setMaxResults(8);
+		query.setParameter("maximo", maximo);
 		List<Producto> lProducto =  query.getResultList();
 
 		if (lProducto != null) {
