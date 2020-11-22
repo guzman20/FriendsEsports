@@ -37,14 +37,7 @@ public class ProductoController {
 
 		ModelAndView mav = new ModelAndView();
 		Producto producto = productoServicio.obtenerProducto(idProducto);
-		Boolean propietario = false;
 
-		if (request.getSession().getAttribute("idUsuario") != null) {
-			long idSession = (long) request.getSession().getAttribute("idUsuario");
-			propietario = idSession == idProducto;
-		}
-
-		mav.addObject("propietario", propietario);
 		mav.addObject("producto", producto);
 		mav.setViewName("producto/idProducto");
 		return mav;
@@ -56,21 +49,18 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/crear")
-	public String crearUsuario(@RequestParam("imagen") MultipartFile multipartFile, HttpServletRequest request) throws IOException {
-		
-		
-		String nombre = request.getParameter("nombre");
-		String descripcion = request.getParameter("descripcion");
-//		String imagen = request.getParameter("imagen");
-
-		Producto p = new Producto();
-		p.setNombre(nombre);
-		p.setDescripcion(descripcion);
-		
+	public String crearProducto(@RequestParam("imagen") MultipartFile multipartFile,
+								@RequestParam(value="nombre",required=false) String nombre,
+								@RequestParam(value="descripcion",required=false) String descripcion,
+								@RequestParam(value="precio",required=false) Double precio,
+								@RequestParam(value="descuento",required=false) Integer descuento
+								, HttpServletRequest request) throws IOException {
+		if(descuento==null) {
+			
+		}
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		
-		p.setImagen(fileName);
+		Producto p = new Producto(nombre,descripcion,fileName,precio,descuento);
 		
         // save the file on the local file system
         try {

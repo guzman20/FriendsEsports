@@ -20,13 +20,6 @@ CREATE TABLE usuarios
 (
    idusuarios BIGINT NOT NULL AUTO_INCREMENT,
    nombreusuario VARCHAR (40) NOT NULL,
-   nombreusuario VARCHAR (200) NOT NULL,
-   emailusuario VARCHAR (40) NOT NULL,
-   fecnacimiento DATE NOT NULL,
-   ntarjeta VARCHAR (40) NOT NULL,
-   titular VARCHAR (40) NOT NULL,
-   csv VARCHAR (40) NOT NULL,
-   direccion VARCHAR (40) NOT NULL,
    passwordusuario VARCHAR (40) NOT NULL,
    PRIMARY KEY (idusuarios)
 );

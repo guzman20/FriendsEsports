@@ -14,7 +14,7 @@ public interface ProductoServicio {
 	
 	public Producto modificarProducto(Producto producto);
 
-	public List<Producto> listarProductos();
+	public List<Producto> listarProductos(Integer maximo);
 	
 	public List<Producto> listarProductoPorNombre(String nombre);
 

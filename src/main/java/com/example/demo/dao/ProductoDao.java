@@ -11,6 +11,6 @@ public interface ProductoDao extends DaoGenerico<Producto>{
 	
 	public Producto anadirProducto(String nombre, String descripcion, String imagen);
 
-	public List<Producto> listarProductos();
+	public List<Producto> listarProductos(Integer maximo);
 	
 }
