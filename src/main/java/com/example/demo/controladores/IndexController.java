@@ -36,7 +36,7 @@ public class IndexController {
 
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/index")
+	@RequestMapping(method = RequestMethod.POST, value = "/filtrado")
 	public ModelAndView BuscarProducto(@RequestParam(name = "nombre") String nombre) {
 		ModelAndView mav = new ModelAndView();
 		List<Producto> lProducto = productoService.listarProductoPorNombre(nombre);

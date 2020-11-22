@@ -53,11 +53,11 @@ public class ProductoController {
 								@RequestParam(value="nombre",required=false) String nombre,
 								@RequestParam(value="descripcion",required=false) String descripcion,
 								@RequestParam(value="precio",required=false) Double precio,
-								@RequestParam(value="descuento",required=false) Integer descuento
-								, HttpServletRequest request) throws IOException {
+								@RequestParam(value="descuento",required=false) Integer descuento) throws IOException {
 		if(descuento==null) {
-			
+			descuento=0;
 		}
+
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		Producto p = new Producto(nombre,descripcion,fileName,precio,descuento);

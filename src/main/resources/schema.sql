@@ -20,7 +20,7 @@ CREATE TABLE usuarios
 (
    idusuarios BIGINT NOT NULL AUTO_INCREMENT,
    nombreusuario VARCHAR (40) NOT NULL,
-   nombreusuario VARCHAR (200) NOT NULL,
+   apellidousuario VARCHAR (200) NOT NULL,
    emailusuario VARCHAR (40) NOT NULL,
    fecnacimiento DATE NOT NULL,
    ntarjeta VARCHAR (40) NOT NULL,
