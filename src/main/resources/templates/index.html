@@ -19,12 +19,13 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="p-5">     
-                <form action="#" th:action="@{/index}" method="post" class="user">
-                <label>Buscar producto:
-                	<input class="form-control mr-sm-2" type="text" placeholder="Nombre del producto" name="nombre">
-                </label>
-                <input type="submit" class="btn btn-primary" value="Buscar">
-                </form>
+
+<!--                 <form action="#" th:action="@{/index}" method="post" class="user"> -->
+<!--                 <label>Buscar producto: -->
+<!--                 	<input class="form-control mr-sm-2" type="text" placeholder="Nombre del producto" name="nombre"> -->
+<!--                 </label> -->
+<!--                 <input type="submit" class="btn btn-primary" value="Buscar"> -->
+<!--                 </form> -->
                 <div class="row">
                 <div class="col-sm-12">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
@@ -44,6 +45,7 @@
                       <td style="text-align:center" th:text="${producto.nombre}"></td>
                       <td style="text-align:center" th:text="${producto.descripcion}"></td>
                       <td style="text-align:center" th:text="${producto.precio}+'€'">€</td>
+
                       <td style="text-align:center" th:text="${producto.descuento}+'%'"></td>
                     </tr>
                   </tbody>
