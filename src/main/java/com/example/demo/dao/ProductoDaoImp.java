@@ -41,7 +41,6 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 		Query query =  this.em.createQuery("FROM Producto");
 		query.setFirstResult(0);
 		query.setMaxResults(maximo);
-		query.setParameter("maximo", maximo);
 		List<Producto> lProducto =  query.getResultList();
 
 		if (lProducto != null) {
