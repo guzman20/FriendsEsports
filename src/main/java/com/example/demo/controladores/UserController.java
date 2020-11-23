@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,14 +16,14 @@ import com.example.demo.servicios.UserServicio;
 
 
 @Controller
-@RequestMapping(value = "/Usuario")
+@RequestMapping(value = "/user")
 public class UserController {
 	
 	@Autowired
 	UserServicio userServicio;
 
-	@PostMapping("/signIn")
-	public String crearProducto(@RequestParam(value="nombre",required=false) String nombre,
+	@PostMapping("/registrado")
+	public String Registrarse(@RequestParam(value="nombre",required=false) String nombre,
 								@RequestParam(value="apellidos",required=false) String apellidos,
 								@RequestParam(value="password",required=false) String password,
 								@RequestParam(value="email",required=false) String email,
@@ -39,7 +40,21 @@ public class UserController {
 
 		return "redirect:/index";
 		}
+	
+	@PostMapping("/logueado")
+	public String Loguearse(@RequestParam(value="nombre",required=false) String nombre,
+								@RequestParam(value="password",required=false) String password,
+								HttpServletRequest request) throws IOException {
+		
+		if(userServicio.logIn(nombre, password))
+			return "redirect:/index";
+		else
+			return "redirect:/user/login";
 
+		
+		}
+	
+	
 	
 	@GetMapping("/registro")
 	public String showFormReg() {

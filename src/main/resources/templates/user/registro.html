@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -15,68 +15,77 @@
 
   <!-- Custom styles for this template-->
   <link rel="stylesheet" type="text/css" th:href="@{../css/sb-admin-2.min.css}">
+  
+  <style type="text/css">
+  	form{
+  		width:100%;
+  	}
+  </style>
 
 </head>
 
 <body class="bg-gradient-primary">
 <nav th:replace="fragments/header_public"></nav>
   <div class="container">
-
+<form action="#" th:action="@{/user/registrado}" method="post" class="user" >
     <div class="card o-hidden border-0 shadow-lg my-5">
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
+        
         <div class="col-lg-6">
         <div class="p-5">
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Crear una cuenta</h1>
               </div>
-              <form class="user">
+              
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="nombre" placeholder="Nombre">
+                    <input type="text" class="form-control form-control-user" id="nombre" placeholder="Nombre" name="nombre">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="apellidos" placeholder="Apellidos">
+                    <input type="text" class="form-control form-control-user" id="apellidos" placeholder="Apellidos" name="apellidos">
                   </div>
                 </div>
                 <div class="form-group">
-                  <input type="email" class="form-control form-control-user" id="correo" placeholder="Correo electronico">
+                  <input type="email" class="form-control form-control-user" id="correo" placeholder="Correo electronico" name="email">
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="password" class="form-control form-control-user" id="contrasenia" placeholder="Contraseña">
+                    <input type="password" class="form-control form-control-user" id="contrasenia" placeholder="Contraseña" name="password">
                   </div>
                   <div class="col-sm-6">
                     <input type="password" class="form-control form-control-user" id="repetircontrasenia" placeholder="Repite la contraseña">
                   </div>
                 </div>
-                </form>
+                
         </div>
         </div>
           <div class="col-lg-6">
             <div class="p-5">
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="tarjeta" placeholder="Número de tarjeta">
+                    <input type="text" class="form-control form-control-user" id="tarjeta" placeholder="Número de tarjeta" name="numeroTarjeta">
+                  </div>
+                 <div class="col-sm-6 mb-3 mb-sm-0">
+                    <input type="text" class="form-control form-control-user" id="titular" placeholder="Titular de tarjeta" name="titularTarjeta">
                   </div>
                   <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="cvv" placeholder="CVV">
+                    <input type="text" class="form-control form-control-user" id="cvv" placeholder="CVV" name="codigoSeguridad">
                   </div>
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="dir" placeholder="Dirección de facturación">
+                    <input type="text" class="form-control form-control-user" id="dir" placeholder="Dirección de facturación" name="direccionFacturacion">
                   </div>
                   <div class="col-sm-6">
-                    <input type="date" class="form-control form-control-user" id="fecha" >
+                    <input type="date" class="form-control form-control-user" id="fecha" name="fechaNacimiento">
                   </div>
                 </div>
-                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                  Reg&iacute;strate
-                </a>
+                <input type="submit" class="btn btn-primary btn-user btn-block" value="Registrate">
+                  
                 <hr>
-              </form>
+              
               <hr>
               <div class="text-center">
                 <!--<a class="small" href="forgot-password.html">Forgot Password?</a>-->
@@ -86,10 +95,11 @@
               </div>
             </div>
           </div>
+          
         </div>
       </div>
     </div>
-
+</form>
   </div>
 
   <!-- Bootstrap core JavaScript-->
