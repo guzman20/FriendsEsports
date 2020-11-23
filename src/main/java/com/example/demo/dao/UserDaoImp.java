@@ -4,10 +4,16 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
 import com.example.demo.entidades.User;
 
-public abstract class UserDaoImp extends DaoGenericoImp<User> implements UserDao{
+@Repository
+@Component("UserDao")
+public class UserDaoImp extends DaoGenericoImp<User> implements UserDao{
 
+	@Override
 	public boolean logIn(String nombreUsuario, String password) {
 		User resultado = buscarPorNombre(nombreUsuario);
 		if(resultado==null)
@@ -18,6 +24,7 @@ public abstract class UserDaoImp extends DaoGenericoImp<User> implements UserDao
 			return true;
 	}
 	
+	@Override
 	public User buscarPorNombre(String nombreUsuario) {
 		Query query = this.em.createQuery("FROM User u where u.nombre LIKE :nombre");
 		query.setParameter("nombre", nombreUsuario);
