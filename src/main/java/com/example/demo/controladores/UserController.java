@@ -36,8 +36,18 @@ public class UserController {
 		User u= new User(nombre,apellidos,password,email,fechaNacimiento,numeroTarjeta,titularTarjeta,codigoSeguridad,direccionFacturacion);
 		
 		User usuario=userServicio.crearUsuario(u);
-		
 
 		return "redirect:/index";
+		}
+
+	
+	@GetMapping("/registro")
+	public String showFormReg() {
+		return "user/registro";
+	}
+	
+	@GetMapping("/login")
+	public String showFormLog() {
+		return "user/login";
 	}
 }
