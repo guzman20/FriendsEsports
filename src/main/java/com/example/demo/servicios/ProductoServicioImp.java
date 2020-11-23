@@ -36,7 +36,7 @@ public class ProductoServicioImp implements ProductoServicio {
 	}
 
 	@Override
-	public Producto modificarProducto(Producto profesor) {
+	public Producto modificarProducto(Producto producto) {
 		// TODO Auto-generated method stub
 		return null;
 	}
