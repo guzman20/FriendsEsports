@@ -1,12 +1,15 @@
 package com.example.demo.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,6 +37,9 @@ public class Producto implements Serializable {
 	
 	@Column(name = "descuento")
 	private int descuento;
+	
+	@ManyToMany(mappedBy = "productos")
+	private Set<Compra> compras = new HashSet<>();
 
 	public Producto() {
 		
@@ -97,5 +103,25 @@ public class Producto implements Serializable {
 
 	public void setPrecio(double precio) {
 		this.precio = precio;
+	}
+	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+
+	public Set<Compra> getCompras() {
+		return compras;
+	}
+
+
+	public void setCompras(Set<Compra> compras) {
+		this.compras = compras;
+	}
+
+
+	public void anadirCompra(Compra c) {
+		this.compras.add(c);
+
 	}
 }

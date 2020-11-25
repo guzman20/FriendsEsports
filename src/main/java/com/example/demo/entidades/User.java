@@ -1,12 +1,16 @@
 package com.example.demo.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -46,6 +50,12 @@ public class User implements Serializable {
 	
 	@Column(name = "direccion_facturacion")
 	private String direccion_facturacion;
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+
+	private Set<Compra> compras = new HashSet<>();
+	
+	
 	public User() {
 		
 	}
@@ -135,6 +145,26 @@ public class User implements Serializable {
 	public void setDireccion_facturacion(String direccion_facturacion) {
 		this.direccion_facturacion = direccion_facturacion;
 	}
+	
+	
+	public Set<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(Set<Compra> compras) {
+		this.compras = compras;
+	}
+
+	public boolean anadirCompras(Compra compra) {
+		compra.setUsuario(this);
+		return getCompras().add(compra);
+	}
+
+	public void eliminarCompras(Compra compra) {
+		getCompras().remove(compra);
+	}
+	
+	
 	
 	
 	

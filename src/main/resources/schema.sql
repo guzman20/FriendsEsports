@@ -30,3 +30,34 @@ CREATE TABLE usuarios
    passwordusuario VARCHAR (40) NOT NULL,
    PRIMARY KEY (idusuarios)
 );
+
+CREATE TABLE `alejandro`.`lineacompra` (
+  `idlineacompra` INT NOT NULL,
+  `idproductos` BIGINT NULL,
+  `cantidad` VARCHAR(45) NULL,
+  PRIMARY KEY (`idlineacompra`),
+  INDEX `idproductos_idx` (`idproductos` ASC),
+  CONSTRAINT `idproductos`
+    FOREIGN KEY (`idproductos`)
+    REFERENCES `alejandro`.`productos` (`idproductos`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+    
+    
+CREATE TABLE `alejandro`.`compra` (
+  `idcompra` INT NOT NULL AUTO_INCREMENT,
+  `idusuarios` BIGINT NULL,
+  `idlinea` INT NULL,
+  PRIMARY KEY (`idcompra`),
+  INDEX `idusuarios_idx` (`idusuarios` ASC),
+  INDEX `idlinea_idx` (`idlinea` ASC),
+  CONSTRAINT `idusuarios`
+    FOREIGN KEY (`idusuarios`)
+    REFERENCES `alejandro`.`usuarios` (`idusuarios`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `idlinea`
+    FOREIGN KEY (`idlinea`)
+    REFERENCES `alejandro`.`lineacompra` (`idlineacompra`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
