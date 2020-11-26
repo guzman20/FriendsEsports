@@ -11,8 +11,10 @@
 	</head>
 	<body class="bg-gradient-primary">
 	
-	<nav th:replace="fragments/header_public"></nav>
-	
+	<div>
+		<div th:if="${logIn == 'true'}"><nav  th:replace="fragments/header_public_iniciado"></nav></div>
+		<div th:unless="${logIn == 'true'}"><nav  th:replace="fragments/header_public_invitado"></nav></div>
+	</div>
     <div class="row justify-content-center">
 
         <div class="card o-hidden border-0 shadow-lg my-5">

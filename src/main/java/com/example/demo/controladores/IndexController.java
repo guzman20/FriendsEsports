@@ -2,6 +2,9 @@ package com.example.demo.controladores;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,13 +26,16 @@ public class IndexController {
 	ProductoServicio productoService;
 
 	@GetMapping({ "/", "index" })
-	public ModelAndView index() {
+	public ModelAndView index(HttpServletRequest request) {
+		
+		if(request.getAttribute("logIn")==null)
+			request.setAttribute("logIn", false);
 		
 		ModelAndView mav = new ModelAndView();
-
+		
 		List<Producto> lProducto = productoService.listarProductos(8);
 		
-
+		mav.addObject("logIn",request.getAttribute("logIn"));
 		mav.addObject("productos", lProducto);
 		mav.setViewName("index");
 		return mav;
@@ -37,10 +43,12 @@ public class IndexController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/filtrado")
-	public ModelAndView BuscarProducto(@RequestParam(name = "nombre") String nombre) {
+	public ModelAndView BuscarProducto(@RequestParam(name = "nombre") String nombre,
+										HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		List<Producto> lProducto = productoService.listarProductoPorNombre(nombre);
 
+		mav.addObject("logIn",request.getAttribute("logIn"));
 		mav.addObject("productos", lProducto);
 		mav.setViewName("index");
 

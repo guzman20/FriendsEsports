@@ -12,7 +12,21 @@
 	</head>
 	<body class="bg-gradient-primary">
 	
-	<nav th:replace="fragments/header_public"></nav>
+	<div>
+	<div th:if="${request.containsKey('logIn')}">
+		<div th:if="${request.LogIn=('true')}">
+			<nav th:replace="fragments/header_public_iniciado"></nav>
+		</div>
+		<div th:unless="${request.LogIn=('true')}">
+			<nav th:replace="fragments/header_public_invitado"></nav>
+		</div>
+	</div>
+	<div th:unless="${request.containsKey('logIn')}">
+		<div>
+			<nav th:replace="fragments/header_public_invitado"></nav>
+		</div>
+	</div>
+	</div>
 	
     <div class="row justify-content-center">
         <div class="card o-hidden border-0 shadow-lg my-5">
