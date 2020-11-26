@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -14,26 +15,21 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "compra")
+@Table(name = "compras")
 public class Compra implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "idcompra")
+	@Column(name = "idCompras")
 	private Long idCompra;
 	
 	@ManyToOne
-	@JoinColumn(name = "idusuarios")
-	private User usuario;
-	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "lineacompra", 
-	joinColumns = @JoinColumn(name = "idcompra"), 
-	inverseJoinColumns = @JoinColumn(name = "idproductos"))
-
-	private Set<Producto> productos = new HashSet<>();
+	@JoinColumn(name = "idUsuarios")
+	private Long idusuario;
 
 	public Long getIdCompra() {
 		return idCompra;
@@ -43,25 +39,12 @@ public class Compra implements Serializable{
 		this.idCompra = idCompra;
 	}
 
-	public User getUsuario() {
-		return usuario;
+	public Long getUsuario() {
+		return idusuario;
 	}
 
 
-	public Set<Producto> getProductos() {
-		return productos;
+	public void setUsuario(Long user) {
+		this.idusuario = user;
 	}
-
-	public void setProductos(Set<Producto> productos) {
-		this.productos = productos;
-	}
-
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
-		
-	}
-
-	
-	
-
 }
