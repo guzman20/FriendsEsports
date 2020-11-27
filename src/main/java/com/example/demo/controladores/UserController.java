@@ -3,7 +3,9 @@ package com.example.demo.controladores;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,19 +47,19 @@ public class UserController {
 	@PostMapping("/logueado")
 	public ModelAndView Loguearse(@RequestParam(value="nombre",required=false) String nombre,
 								@RequestParam(value="password",required=false) String password,
-								HttpServletRequest request) throws IOException {
+								HttpSession session) throws IOException {
 		ModelAndView mav = new ModelAndView();
 		
 		if(userServicio.logIn(nombre, password)) {
-			request.setAttribute("logIn", true);
-			mav.addObject("logIn",request.getAttribute("logIn"));
+			session.setAttribute("logIn", "true");
+			mav.addObject("logIn",session.getAttribute("logIn"));
 			mav.setViewName("redirect:/index");
 		
 			return mav;
 		}
 		else
 		{
-			mav.addObject("logIn",request.getAttribute("logIn"));
+			mav.addObject("logIn",session.getAttribute("logIn"));
 			mav.setViewName("redirect:/user/login");
 		
 			return mav;
@@ -79,13 +81,12 @@ public class UserController {
 	}
 	
 	@PostMapping("/logout")
-	public ModelAndView desloguearse(HttpServletRequest request) {
+	public ModelAndView desloguearse(Session session) {
 		
-		request.setAttribute("logIn", false);
+		session.flush();
 		
 		ModelAndView mav = new ModelAndView();
 		
-		mav.addObject("logIn",request.getAttribute("logIn"));
 		mav.setViewName("redirect:/index");
 		
 		return mav;
