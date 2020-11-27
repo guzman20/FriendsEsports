@@ -13,19 +13,12 @@
 	<body class="bg-gradient-primary">
 	
 	<div>
-	<div th:if="${request.containsKey('logIn')}">
-		<div th:if="${request.LogIn=('true')}">
+		<div th:if="${LogIn=('true')}">
 			<nav th:replace="fragments/header_public_iniciado"></nav>
 		</div>
-		<div th:unless="${request.LogIn=('true')}">
+		<div th:unless="${LogIn=('true')}">
 			<nav th:replace="fragments/header_public_invitado"></nav>
 		</div>
-	</div>
-	<div th:unless="${request.containsKey('logIn')}">
-		<div>
-			<nav th:replace="fragments/header_public_invitado"></nav>
-		</div>
-	</div>
 	</div>
 	
     <div class="row justify-content-center">
