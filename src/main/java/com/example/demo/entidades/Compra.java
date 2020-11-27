@@ -22,14 +22,22 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "compras")
 public class Compra implements Serializable{
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8459003842472014657L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idCompras")
 	private Long idCompra;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "idUsuarios")
-	private Long idusuario;
+	private User user;
+	
 
 	public Long getIdCompra() {
 		return idCompra;
@@ -38,13 +46,14 @@ public class Compra implements Serializable{
 	public void setIdCompra(Long idCompra) {
 		this.idCompra = idCompra;
 	}
-
-	public Long getUsuario() {
-		return idusuario;
+	
+	public User User() {
+		return user;
 	}
 
 
-	public void setUsuario(Long user) {
-		this.idusuario = user;
+	public void setUser(User user) {
+		this.user = user;
 	}
+
 }

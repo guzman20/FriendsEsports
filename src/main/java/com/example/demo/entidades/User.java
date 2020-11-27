@@ -17,7 +17,8 @@ import javax.persistence.Table;
 @Table(name = "usuarios")
 public class User implements Serializable {
 	
-	private static final long serialVersionUID = -8668594760203621162L;
+	
+	private static final long serialVersionUID = -790316512454150774L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -30,7 +31,7 @@ public class User implements Serializable {
 	@Column(name = "apellidos")
 	private String apellidos;
 	
-	@Column(name = "password")
+	@Column(name = "passwordusuario")
 	private String password;
 	
 	@Column(name = "email")
@@ -51,9 +52,8 @@ public class User implements Serializable {
 	@Column(name = "direccion_facturacion")
 	private String direccion_facturacion;
 	
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-
-	private Set<Compra> compras = new HashSet<>();
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Compra> compra = new HashSet<>();
 	
 	
 	public User() {
@@ -147,23 +147,22 @@ public class User implements Serializable {
 	}
 	
 	
-	public Set<Compra> getCompras() {
-		return compras;
+	public Set<Compra> getProductos() {
+		return compra;
 	}
 
-	public void setCompras(Set<Compra> compras) {
-		this.compras = compras;
+	public void setProductos(Set<Compra> compra) {
+		this.compra = compra;
 	}
 
-	public boolean anadirCompras(Compra compra) {
-		compra.setUsuario(this);
-		return getCompras().add(compra);
-	}
+	public boolean anadirProductos(Compra compra) {
+		compra.setUser(this);
+		return getProductos().add(compra);
+		}
+		public void eliminarEmails(Compra compra) {
+			getProductos().remove(compra);
+		}
 
-	public void eliminarCompras(Compra compra) {
-		getCompras().remove(compra);
-	}
-	
 	
 	
 	

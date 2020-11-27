@@ -1,7 +1,7 @@
-drop database if exists Alejandro;
-create database Alejandro;
+drop database if exists alejandro;
+create database alejandro;
 
-use Alejandro;
+use alejandro;
 
 
 
@@ -18,44 +18,23 @@ CREATE TABLE productos
 
 CREATE TABLE usuarios
 (
-   idusuarios BIGINT NOT NULL AUTO_INCREMENT,
-   nombreusuario VARCHAR (40) NOT NULL,
-   apellidousuario VARCHAR (200) NOT NULL,
-   emailusuario VARCHAR (40) NOT NULL,
-   fecnacimiento DATE NOT NULL,
-   ntarjeta VARCHAR (40) NOT NULL,
-   titular VARCHAR (40) NOT NULL,
-   csv VARCHAR (40) NOT NULL,
-   direccion VARCHAR (40) NOT NULL,
+   idUsuarios BIGINT NOT NULL AUTO_INCREMENT,
+   nombre VARCHAR (40) NOT NULL,
+   apellidos VARCHAR (200) NOT NULL,
+   email VARCHAR (40) NOT NULL,
+   fecha_Nacimiento DATE NOT NULL,
+   numeroTarjeta VARCHAR (40) NOT NULL,
+   titularTarjeta VARCHAR (40) NOT NULL,
+   codigoSeguridad VARCHAR (40) NOT NULL,
+   direccion_facturacion VARCHAR (40) NOT NULL,
    passwordusuario VARCHAR (40) NOT NULL,
-   PRIMARY KEY (idusuarios)
+   PRIMARY KEY (idUsuarios)
 );
 
-CREATE TABLE `alejandro`.`compras` (
-  `idCompras` INT NOT NULL AUTO_INCREMENT,
-  `idUsuarios` BIGINT NULL,
-  PRIMARY KEY (`idCompras`),
-  INDEX `idusuarios_idx` (`idUsuarios` ASC),
-  CONSTRAINT `idusuarios`
-    FOREIGN KEY (`idUsuarios`)
-    REFERENCES `alejandro`.`usuarios` (`idusuarios`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
-
-CREATE TABLE `alejandro`.`lineasdecompras` (
-  `idCompra` INT NULL,
-  `idProducto` BIGINT NULL,
-  `cantidad` BIGINT NULL,
-  INDEX `idCompra_idx` (`idCompra` ASC),
-  INDEX `idProducto_idx` (`idProducto` ASC),
-  CONSTRAINT `idCompra`
-    FOREIGN KEY (`idCompra`)
-    REFERENCES `alejandro`.`compras` (`idCompras`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `idProducto`
-    FOREIGN KEY (`idProducto`)
-    REFERENCES `alejandro`.`productos` (`idproductos`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+CREATE TABLE compras
+(
+idCompras BIGINT NOT NULL AUTO_INCREMENT,
+idUsuarios BIGINT NOT NULL,
+PRIMARY KEY (idCompras),
+CONSTRAINT FK_COMPRAS_USUARIOS FOREIGN KEY (idUsuarios) REFERENCES usuarios (idUsuarios) ON DELETE CASCADE
+);
