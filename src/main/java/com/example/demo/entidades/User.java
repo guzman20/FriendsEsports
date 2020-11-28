@@ -40,17 +40,17 @@ public class User implements Serializable {
 	@Column(name = "fecha_Nacimiento")
 	private String fecha_Nacimiento;
 	
-	@Column(name = "numeroTarjeta")
+	@Column(name = "numerotarjeta")
 	private Integer numeroTarjeta;
 	
-	@Column(name = "titularTarjeta")
+	@Column(name = "titulartarjeta")
 	private String titularTarjeta;
 	
-	@Column(name = "codigoSeguridad")
+	@Column(name = "codigoseguridad")
 	private Integer codigoSeguridad;
 	
 	@Column(name = "direccion_facturacion")
-	private String direccion_facturacion;
+	private String direccion_Facturacion;
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Compra> compra = new HashSet<>();
@@ -61,7 +61,7 @@ public class User implements Serializable {
 	}
 	public User(Long idUsuarios, String nombre, String apellidos, String password, String email,
 			String fecha_Nacimiento, Integer numeroTarjeta, String titularTarjeta, Integer codigoSeguridad,
-			String direccion_facturacion) {
+			String direccion_Facturacion) {
 		this.idUsuarios = idUsuarios;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -71,10 +71,10 @@ public class User implements Serializable {
 		this.numeroTarjeta = numeroTarjeta;
 		this.titularTarjeta = titularTarjeta;
 		this.codigoSeguridad = codigoSeguridad;
-		this.direccion_facturacion = direccion_facturacion;
+		this.direccion_Facturacion = direccion_Facturacion;
 	}
 	public User(String nombre, String apellidos, String password, String email, String fecha_Nacimiento,
-			Integer numeroTarjeta, String titularTarjeta, Integer codigoSeguridad, String direccion_facturacion) {
+			Integer numeroTarjeta, String titularTarjeta, Integer codigoSeguridad, String direccion_Facturacion) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.password = password;
@@ -83,7 +83,7 @@ public class User implements Serializable {
 		this.numeroTarjeta = numeroTarjeta;
 		this.titularTarjeta = titularTarjeta;
 		this.codigoSeguridad = codigoSeguridad;
-		this.direccion_facturacion = direccion_facturacion;
+		this.direccion_Facturacion = direccion_Facturacion;
 	}
 	public Long getIdUsuarios() {
 		return idUsuarios;
@@ -140,10 +140,10 @@ public class User implements Serializable {
 		this.codigoSeguridad = codigoSeguridad;
 	}
 	public String getDireccion_facturacion() {
-		return direccion_facturacion;
+		return direccion_Facturacion;
 	}
-	public void setDireccion_facturacion(String direccion_facturacion) {
-		this.direccion_facturacion = direccion_facturacion;
+	public void setDireccion_facturacion(String direccion_Facturacion) {
+		this.direccion_Facturacion = direccion_Facturacion;
 	}
 	
 	
