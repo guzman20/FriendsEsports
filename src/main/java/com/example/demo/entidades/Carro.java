@@ -2,46 +2,54 @@ package com.example.demo.entidades;
 
 public class Carro {
 	
-	private Long idProductoCarrito;
-	private String nombreProductoCarrito;
-	private Double precioProductoCarrito;
-	private Integer cantidadProductoCarrito;
+	private Long idProductoCarro;
+	private String nombreProductoCarro;
+	private Double precioProductoCarro;
+	private Integer cantidadProductoCarro;
 	
 	public Carro() {
 		
 	}
 	
-	public Carro(Long idProductoCarrito, String nombreProductoCarrito, Double precioProductoCarrito,
-			Integer cantidadProductoCarrito) {
+	public Carro(Long idProductoCarro, String nombreProductoCarro, Double precioProductoCarro,
+			Integer cantidadProductoCarro) {
 		super();
-		this.idProductoCarrito = idProductoCarrito;
-		this.nombreProductoCarrito = nombreProductoCarrito;
-		this.precioProductoCarrito = precioProductoCarrito;
-		this.cantidadProductoCarrito = cantidadProductoCarrito;
+		this.idProductoCarro = idProductoCarro;
+		this.nombreProductoCarro = nombreProductoCarro;
+		this.precioProductoCarro = precioProductoCarro;
+		this.cantidadProductoCarro = cantidadProductoCarro;
 	}
-	public Long getIdProductoCarrito() {
-		return idProductoCarrito;
+	
+	public Carro(Producto producto, Integer cantidadProductoCarro) {
+		setIdProductoCarro(producto.getIdProducto());
+		setNombreProductoCarro(producto.getNombre());
+		setPrecioProductoCarro(producto.getPrecio());
+		setCantidadProductoCarro(cantidadProductoCarro);
 	}
-	public void setIdProductoCarrito(Long idProductoCarrito) {
-		this.idProductoCarrito = idProductoCarrito;
+	
+	public Long getIdProductoCarro() {
+		return idProductoCarro;
 	}
-	public String getNombreProductoCarrito() {
-		return nombreProductoCarrito;
+	public void setIdProductoCarro(Long idProductoCarro) {
+		this.idProductoCarro = idProductoCarro;
 	}
-	public void setNombreProductoCarrito(String nombreProductoCarrito) {
-		this.nombreProductoCarrito = nombreProductoCarrito;
+	public String getNombreProductoCarro() {
+		return nombreProductoCarro;
 	}
-	public Double getPrecioProductoCarrito() {
-		return precioProductoCarrito;
+	public void setNombreProductoCarro(String nombreProductoCarro) {
+		this.nombreProductoCarro = nombreProductoCarro;
 	}
-	public void setPrecioProductoCarrito(Double precioProductoCarrito) {
-		this.precioProductoCarrito = precioProductoCarrito;
+	public Double getPrecioProductoCarro() {
+		return precioProductoCarro;
 	}
-	public Integer getCantidadProductoCarrito() {
-		return cantidadProductoCarrito;
+	public void setPrecioProductoCarro(Double precioProductoCarro) {
+		this.precioProductoCarro = precioProductoCarro;
 	}
-	public void setCantidadProductoCarrito(Integer cantidadProductoCarrito) {
-		this.cantidadProductoCarrito = cantidadProductoCarrito;
+	public Integer getCantidadProductoCarro() {
+		return cantidadProductoCarro;
+	}
+	public void setCantidadProductoCarro(Integer cantidadProductoCarro) {
+		this.cantidadProductoCarro = cantidadProductoCarro;
 	}
 	
 	
