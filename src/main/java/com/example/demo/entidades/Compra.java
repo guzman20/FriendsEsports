@@ -38,6 +38,13 @@ public class Compra implements Serializable{
 	@JoinColumn(name = "idUsuarios")
 	private User user;
 	
+	// Relación ManyToMany Producto
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JoinTable(name = "LINEAS_DE_COMPRA", 
+	joinColumns = @JoinColumn(name = "ID_COMPRA"), 
+	inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
+	
+	private Set<Producto> productos = new HashSet<>();
 
 	public Long getIdCompra() {
 		return idCompra;

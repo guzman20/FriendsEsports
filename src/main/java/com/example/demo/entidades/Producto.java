@@ -39,6 +39,10 @@ public class Producto implements Serializable {
 	
 	@Column(name = "descuento")
 	private int descuento;
+	
+	//Relación ManyToMany Compra
+	@ManyToMany(mappedBy = "productos")
+	private Set<Compra> compras = new HashSet<>();
 
 	public Producto() {
 		
@@ -106,6 +110,15 @@ public class Producto implements Serializable {
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public Set<Compra> getCompras() {
+		return compras;
+	}
+
+
+	public void setCompras(Set<Compra> compras) {
+		this.compras = compras;
 	}
 
 }
