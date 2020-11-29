@@ -57,8 +57,6 @@ public class UserController {
 		}
 		else
 			return "redirect:/user/login";
-
-		
 		}
 	
 	

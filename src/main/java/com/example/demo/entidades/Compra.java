@@ -23,14 +23,10 @@ import javax.persistence.Table;
 @Table(name = "compras")
 public class Compra implements Serializable{
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -8459003842472014657L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "idCompras")
 	private Long idCompra;
 
@@ -38,13 +34,11 @@ public class Compra implements Serializable{
 	@JoinColumn(name = "idUsuarios")
 	private User user;
 	
-	// Relación ManyToMany Producto
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-	@JoinTable(name = "LINEAS_DE_COMPRA", 
-	joinColumns = @JoinColumn(name = "ID_COMPRA"), 
-	inverseJoinColumns = @JoinColumn(name = "ID_PRODUCTO"))
-	
-	private Set<Producto> productos = new HashSet<>();
+	// Relación OneToMany LineasProducto
+	@OneToMany(mappedBy="compra", 
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE }, 
+			orphanRemoval=true)
+	private Set<LineaCompra> productos = new HashSet<>();
 
 	public Long getIdCompra() {
 		return idCompra;
@@ -62,5 +56,19 @@ public class Compra implements Serializable{
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public Set<LineaCompra> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(Set<LineaCompra> productos) {
+		this.productos = productos;
+	}
+
+	public User getUser() {
+		return user;
+	}
+	
+	
 
 }

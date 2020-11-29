@@ -2,6 +2,7 @@ package com.example.demo.controladores;
 
 import org.springframework.stereotype.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -41,16 +42,27 @@ public class CompraController {
 	@GetMapping("/add/{idProducto}")
 	public String buscarProducto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 
+		List<Carro> listacarros = (List<Carro>) request.getSession().getAttribute("listacarro");
+		Carro carro = new Carro(productoServicio.obtenerProducto(idProducto));
+		Integer cantidad = 1;
 		// Se recoge la cantidad del producto
-		Integer cantidadproducto = 1;//Integer.parseInt(request.getParameter("cantidadproducto"));
-
-		// Crea carrito con el producto
-		Carro carro = new Carro(productoServicio.obtenerProducto(idProducto), cantidadproducto);
+		if(listacarros==null) {
+			listacarros = new ArrayList<Carro>();
+			carro.setCantidadProductoCarro(cantidad);
+			listacarros.add(carro);
+		}
+		else if(listacarros.contains(carro)) {
+			carro=listacarros.get(listacarros.indexOf(carro));
+			cantidad=carro.getCantidadProductoCarro()+1;
+			carro.setCantidadProductoCarro(cantidad);
+			listacarros.remove(carro);
+			listacarros.add(carro);
+		}
+		else
+			listacarros.add(carro);
 
 		//Meter el carrito en lista
-		List<Carro> listcarro = (List<Carro>) request.getSession().getAttribute("listacarro");
-		listcarro.add(carro);
-		request.getSession().setAttribute("listcarro", listcarro);
+		request.getSession().setAttribute("listacarro", listacarros);
 
 		return "redirect:/index";
 	}
