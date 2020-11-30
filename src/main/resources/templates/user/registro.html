@@ -26,10 +26,7 @@
 
 <body class="bg-gradient-primary">
 
-	<div>
-		<div th:if="${logIn == 'true'}"><nav  th:replace="fragments/header_public_iniciado"></nav></div>
-		<div th:unless="${logIn == 'true'}"><nav  th:replace="fragments/header_public_invitado"></nav></div>
-	</div>
+<nav th:replace="fragments/header_public"></nav>
 
   <div class="container">
 <form action="#" th:action="@{/user/registrado}" method="post" class="user" >
