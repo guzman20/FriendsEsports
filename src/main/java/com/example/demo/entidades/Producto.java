@@ -1,12 +1,19 @@
 package com.example.demo.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -16,7 +23,7 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = -8668594760203621162L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name = "idproductos")
 	private Long idProducto;
 	
@@ -34,6 +41,13 @@ public class Producto implements Serializable {
 	
 	@Column(name = "descuento")
 	private int descuento;
+	
+	//Relación OneToMany Compra
+	@OneToMany(
+			mappedBy = "producto",
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+			orphanRemoval = true)
+	private Set<LineaCompra> lineasCompras = new HashSet<>();
 
 	public Producto() {
 		
@@ -98,4 +112,19 @@ public class Producto implements Serializable {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
+
+
+
+	public Set<LineaCompra> getLineasCompras() {
+		return lineasCompras;
+	}
+
+
+
+	public void setLineasCompras(Set<LineaCompra> lineasCompras) {
+		this.lineasCompras = lineasCompras;
+	}
+	
+	
+
 }

@@ -1,22 +1,27 @@
 package com.example.demo.entidades;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
 public class User implements Serializable {
 	
-	private static final long serialVersionUID = -8668594760203621162L;
+	
+	private static final long serialVersionUID = -790316512454150774L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name = "idUsuarios")
 	private Long idUsuarios;
 	
@@ -26,7 +31,7 @@ public class User implements Serializable {
 	@Column(name = "apellidos")
 	private String apellidos;
 	
-	@Column(name = "password")
+	@Column(name = "passwordusuario")
 	private String password;
 	
 	@Column(name = "email")
@@ -35,23 +40,28 @@ public class User implements Serializable {
 	@Column(name = "fecha_Nacimiento")
 	private String fecha_Nacimiento;
 	
-	@Column(name = "numeroTarjeta")
+	@Column(name = "numerotarjeta")
 	private Integer numeroTarjeta;
 	
-	@Column(name = "titularTarjeta")
+	@Column(name = "titulartarjeta")
 	private String titularTarjeta;
 	
-	@Column(name = "codigoSeguridad")
+	@Column(name = "codigoseguridad")
 	private Integer codigoSeguridad;
 	
 	@Column(name = "direccion_facturacion")
-	private String direccion_facturacion;
+	private String direccion_Facturacion;
+	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Compra> compra = new HashSet<>();
+	
+	
 	public User() {
 		
 	}
 	public User(Long idUsuarios, String nombre, String apellidos, String password, String email,
 			String fecha_Nacimiento, Integer numeroTarjeta, String titularTarjeta, Integer codigoSeguridad,
-			String direccion_facturacion) {
+			String direccion_Facturacion) {
 		this.idUsuarios = idUsuarios;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -61,10 +71,10 @@ public class User implements Serializable {
 		this.numeroTarjeta = numeroTarjeta;
 		this.titularTarjeta = titularTarjeta;
 		this.codigoSeguridad = codigoSeguridad;
-		this.direccion_facturacion = direccion_facturacion;
+		this.direccion_Facturacion = direccion_Facturacion;
 	}
 	public User(String nombre, String apellidos, String password, String email, String fecha_Nacimiento,
-			Integer numeroTarjeta, String titularTarjeta, Integer codigoSeguridad, String direccion_facturacion) {
+			Integer numeroTarjeta, String titularTarjeta, Integer codigoSeguridad, String direccion_Facturacion) {
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.password = password;
@@ -73,7 +83,7 @@ public class User implements Serializable {
 		this.numeroTarjeta = numeroTarjeta;
 		this.titularTarjeta = titularTarjeta;
 		this.codigoSeguridad = codigoSeguridad;
-		this.direccion_facturacion = direccion_facturacion;
+		this.direccion_Facturacion = direccion_Facturacion;
 	}
 	public Long getIdUsuarios() {
 		return idUsuarios;
@@ -130,11 +140,30 @@ public class User implements Serializable {
 		this.codigoSeguridad = codigoSeguridad;
 	}
 	public String getDireccion_facturacion() {
-		return direccion_facturacion;
+		return direccion_Facturacion;
 	}
-	public void setDireccion_facturacion(String direccion_facturacion) {
-		this.direccion_facturacion = direccion_facturacion;
+	public void setDireccion_facturacion(String direccion_Facturacion) {
+		this.direccion_Facturacion = direccion_Facturacion;
 	}
+	
+	
+	public Set<Compra> getProductos() {
+		return compra;
+	}
+
+	public void setProductos(Set<Compra> compra) {
+		this.compra = compra;
+	}
+
+	public boolean anadirProductos(Compra compra) {
+		compra.setUser(this);
+		return getProductos().add(compra);
+		}
+		public void eliminarEmails(Compra compra) {
+			getProductos().remove(compra);
+		}
+
+	
 	
 	
 	
