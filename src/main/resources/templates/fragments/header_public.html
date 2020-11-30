@@ -3,7 +3,16 @@
 
 	 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 	 <link href="css/sb-admin-2.min.css" rel="stylesheet">
-	 
+	  
+	  <!-- 	  Bootstrap core JavaScript--> 
+		 <script th:src="@{../vendor/jquery/jquery.min.js}"></script>
+		 <script th:src="@{../vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+		
+		<!--   Core plugin JavaScript--> 
+		<script th:src="@{../vendor/jquery-easing/jquery.easing.min.js}"></script>
+		
+		<!--   Custom scripts for all pages--> 
+		<script th:src="@{../js/sb-admin-2.min.js}"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
@@ -48,8 +57,14 @@
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow" th:switch="${session.listacarro}">
-              	<a th:case="null" class="nav-link dropdown-toggle" th:href="@{/user/registro}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              	<a th:case="null" class="nav-link dropdown-toggle" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Iniciar sesi&oacute;n</span> <img class="img-profile rounded-circle" src="../../images/login.jpg"></a>
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" th:href="@{/user/registro}">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Iniciar sesi&oacute;n
+                </a>
+                </div>
                 <span th:case="*">
 <!--               <a  class="nav-link dropdown-toggle" th:href="@{/user/logout}" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> -->
 <!--                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"th:text="logOut"></span></a> -->
@@ -76,14 +91,6 @@
         </nav>
 	</body>
 	
-<!-- 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> -->
-<!-- 	  <!-- Bootstrap core JavaScript--> -->
-  <script th:src="@{../vendor/jquery/jquery.min.js}"></script>
-  <script th:src="@{../vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-<!--   <!-- Core plugin JavaScript--> -->
-  <script th:src="@{../vendor/jquery-easing/jquery.easing.min.js}"></script>
-
-<!--   <!-- Custom scripts for all pages--> -->
-  <script th:src="@{../js/sb-admin-2.min.js}"></script>
 </html>
