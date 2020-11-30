@@ -47,6 +47,7 @@
 <!--                       <img th:src="@{images/{image}(image=${producto.imagen})}" width="100" height="100"> </a> </td> -->
                       <td style="text-align:center" th:text="${listacarro.nombreProductoCarro}"></td>
                       <td style="text-align:center" th:text="${listacarro.cantidadProductoCarro}"></td>
+                      <td style="text-align:center" th:value="${listacarro.idProductoCarro}"> <a th:href="@{/compra/borrar/{id}(id=${listacarro.idProductoCarro})}"> Borrame poh favoh </a> </td>
                       <!-- <td style="text-align:center" th:text="${listacarro.precioProductoCarro}+'€'">€</td>-->
                     </tr>
                   </tbody>

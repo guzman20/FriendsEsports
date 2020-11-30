@@ -13,4 +13,6 @@ public interface UserServicio {
 	public User obtenerUsuario(long idUsuarios);
 	
 	public User modificarUsuario(User usuario);
+	
+	public User buscarUsuario(String nombreUsuario);
 }

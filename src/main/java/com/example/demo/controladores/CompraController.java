@@ -66,5 +66,30 @@ public class CompraController {
 
 		return "redirect:/index";
 	}
+	
+	@GetMapping("/borrar/{idProducto}")
+	public String buscarProductoborrar(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
+
+		List<Carro> listacarros = (List<Carro>) request.getSession().getAttribute("listacarro");
+		Carro carro = new Carro(productoServicio.obtenerProducto(idProducto));
+		Integer cantidad = 1;
+		// Se recoge la cantidad del producto
+		if(listacarros.contains(carro)) {
+			carro=listacarros.get(listacarros.indexOf(carro));
+			cantidad=carro.getCantidadProductoCarro()-1;
+			if(cantidad==0)
+				listacarros.remove(carro);
+			else {
+				carro.setCantidadProductoCarro(cantidad);
+				listacarros.remove(carro);
+				listacarros.add(carro);
+			}
+		}
+
+		//Meter el carrito en lista
+		request.getSession().setAttribute("listacarro", listacarros);
+
+		return "redirect:/compra/carrocompra";
+	}
 
 }
