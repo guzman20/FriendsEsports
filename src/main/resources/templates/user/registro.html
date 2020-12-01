@@ -25,7 +25,9 @@
 </head>
 
 <body class="bg-gradient-primary">
+
 <nav th:replace="fragments/header_public"></nav>
+
   <div class="container">
 <form action="#" th:action="@{/user/registrado}" method="post" class="user" >
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -102,6 +104,8 @@
 </form>
   </div>
 
+</body>
+
   <!-- Bootstrap core JavaScript-->
   <script th:src="@{../vendor/jquery/jquery.min.js}"></script>
   <script th:src="@{../vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
@@ -111,7 +115,5 @@
 
   <!-- Custom scripts for all pages-->
   <script th:src="@{../js/sb-admin-2.min.js}"></script>
-
-</body>
 
 </html>

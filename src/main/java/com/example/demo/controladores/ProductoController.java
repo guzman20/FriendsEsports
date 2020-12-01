@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,27 +34,37 @@ public class ProductoController {
 	ProductoServicio productoServicio;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/idProducto/{id}")
-	public ModelAndView descripcionProducto(@PathVariable("id") long idProducto, HttpServletRequest request) {
+	public ModelAndView descripcionProducto(@PathVariable("id") long idProducto, 
+											HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		Producto producto = productoServicio.obtenerProducto(idProducto);
 
+		mav.addObject("logIn",request.getAttribute("logIn"));
 		mav.addObject("producto", producto);
 		mav.setViewName("producto/idProducto");
 		return mav;
 	}
 	
 	@GetMapping("/crear")
-	public String showForm() {
-		return "producto/crear";
+	public ModelAndView showForm(Model model,
+							HttpServletRequest request) {
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("logIn",request.getAttribute("logIn"));
+		mav.setViewName("producto/crear");
+		
+		return mav;
 	}
 	
 	@PostMapping("/crear")
-	public String crearProducto(@RequestParam("imagen") MultipartFile multipartFile,
+	public ModelAndView crearProducto(@RequestParam("imagen") MultipartFile multipartFile,
 								@RequestParam(value="nombre",required=false) String nombre,
 								@RequestParam(value="descripcion",required=false) String descripcion,
 								@RequestParam(value="precio",required=false) Double precio,
-								@RequestParam(value="descuento",required=false) Integer descuento) throws IOException {
+								@RequestParam(value="descuento",required=false) Integer descuento,
+								HttpServletRequest request) throws IOException {
 		if(descuento==null) {
 			descuento=0;
 		}
@@ -72,15 +83,28 @@ public class ProductoController {
 
 		Producto product = productoServicio.crearProducto(p);
 
-		return "redirect:/index";
+		
+		
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("logIn",request.getAttribute("logIn"));
+		mav.setViewName("redirect:/");
+		
+		return mav;
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/borrar/{idProducto}")
-	public String borrarProducto(@PathVariable("idProducto") long idProducto) {
+	public ModelAndView borrarProducto(@PathVariable("idProducto") long idProducto,
+									HttpServletRequest request) {
 		
 		productoServicio.eliminarProducto(idProducto);
 
-		return "redirect:/";
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("logIn",request.getAttribute("logIn"));
+		mav.setViewName("redirect:/");
+		
+		return mav;
 	}
 	
 
