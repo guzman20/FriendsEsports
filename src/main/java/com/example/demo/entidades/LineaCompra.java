@@ -39,6 +39,21 @@ public class LineaCompra implements Serializable{
 	public LineaCompra() {
 		
 	}
+	
+
+	public LineaCompra(Compra compra, Producto producto, int cantidad) {
+		this.compra = compra;
+		this.producto = producto;
+		this.cantidad = cantidad;
+	}
+
+
+	public LineaCompra(Long idLineaCompra, Compra compra, Producto producto, int cantidad) {
+		this.idLineaCompra = idLineaCompra;
+		this.compra = compra;
+		this.producto = producto;
+		this.cantidad = cantidad;
+	}
 
 
 	public int getCantidad() {
@@ -66,7 +81,7 @@ public class LineaCompra implements Serializable{
 
 
 	public void setProducto(Producto producto) {
-		producto = producto;
+		this.producto = producto;
 	}
 
 

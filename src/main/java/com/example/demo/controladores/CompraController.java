@@ -17,8 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entidades.Carro;
+import com.example.demo.entidades.Compra;
+import com.example.demo.entidades.LineaCompra;
 import com.example.demo.entidades.Producto;
+import com.example.demo.entidades.User;
+import com.example.demo.servicios.CompraServicio;
+import com.example.demo.servicios.LineaCompraServicio;
 import com.example.demo.servicios.ProductoServicio;
+import com.example.demo.servicios.UserServicio;
 
 @Controller
 @RequestMapping(value = "/compra")
@@ -26,6 +32,15 @@ public class CompraController {
 	
 	@Autowired
 	private ProductoServicio productoServicio;
+	
+	@Autowired
+	private UserServicio userServicio;
+	
+	@Autowired
+	private CompraServicio compraServicio;
+	
+	@Autowired
+	private LineaCompraServicio lineaCompraServicio;
 	
 	@GetMapping("/carrocompra")
 	public ModelAndView product(HttpSession session) {
@@ -67,7 +82,7 @@ public class CompraController {
 		return "redirect:/index";
 	}
 	
-	@GetMapping("/borrar/{idProducto}")
+	@GetMapping("/quitarcarro/{idProducto}")
 	public String buscarProductoborrar(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
 
 		List<Carro> listacarros = (List<Carro>) request.getSession().getAttribute("listacarro");
@@ -90,6 +105,28 @@ public class CompraController {
 		request.getSession().setAttribute("listacarro", listacarros);
 
 		return "redirect:/compra/carrocompra";
+	}
+	
+	@PostMapping("/{idProducto}")
+	public String compraProductoDirecto(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
+		User usario=new User();
+		Producto producto=new Producto();
+		LineaCompra lineaCompra=new LineaCompra();
+		Compra compra=new Compra();
+
+		if(request.getSession().getAttribute("idUsuario")!=null) {
+			usario=userServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));	
+			producto=productoServicio.obtenerProducto(idProducto);
+			compra.setUser(usario);
+			lineaCompra.setProducto(producto);
+			lineaCompra.setCompra(compra);
+			lineaCompra.setCantidad(1);
+			compraServicio.crearCompra(compra);
+			lineaCompraServicio.crearLineaCompra(lineaCompra);
+			return "redirect:/index";
+		}
+		else
+			return "redirect:/user/login";	
 	}
 
 }

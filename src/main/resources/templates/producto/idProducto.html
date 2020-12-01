@@ -59,6 +59,12 @@
 					th:href="@{/compra/add/{idProducto}(idProducto=${producto.idProducto})}"
 					class="btn btn-primary">Add este producto</a>
           </div>
+          <div class="text-center" style="width:800px; margin:0 auto;">
+          		<form action="#" th:action="@{/compra/{idProducto}(idProducto=${producto.idProducto})}" method="post">
+                 	<input type="submit" value="Comprar Producto"
+					class="btn btn-primary">
+					</form>
+          </div>
                 </div>
               </div>
             </div>
