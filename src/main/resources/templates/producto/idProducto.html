@@ -12,10 +12,7 @@
 	</head>
 	<body class="bg-gradient-primary">
 	
-	<div>
-		<div th:if="${logIn == 'true'}"><nav  th:replace="fragments/header_public_iniciado"></nav></div>
-		<div th:unless="${logIn == 'true'}"><nav  th:replace="fragments/header_public_invitado"></nav></div>
-	</div>
+<nav th:replace="fragments/header_public"></nav>
 	
     <div class="row justify-content-center">
 
@@ -62,7 +59,7 @@
            <div class="text-center" style="width:800px; margin:0 auto;">
                  	<a
 					th:href="@{/compra/add/{idProducto}(idProducto=${producto.idProducto})}"
-					class="btn btn-primary">Add este producto</a>
+					class="btn btn-primary">A&ntilde;adir este producto</a>
           </div>
           <div class="text-center" style="width:800px; margin:0 auto;">
           		<form action="#" th:action="@{/compra/{idProducto}(idProducto=${producto.idProducto})}" method="post">
