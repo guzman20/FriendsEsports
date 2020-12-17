@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.CompraDao;
 import com.example.demo.entidades.Compra;
+import com.example.demo.entidades.LineaCompra;
 import com.example.demo.entidades.Producto;
 import com.example.demo.entidades.User;
 
@@ -21,5 +22,13 @@ public class CompraServicioImp implements CompraServicio {
 	public Compra crearCompra(Compra compra) {
 		return compraDao.crear(compra);
 	}
+
+	@Override
+	public void addLineaCompra(Compra compra, LineaCompra lineaCompra) {
+		compra=compraDao.addLineaCompra(compra, lineaCompra);
+		
+	}
+
+	
 
 }
