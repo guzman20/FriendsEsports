@@ -65,10 +65,20 @@ public class ProductoController {
 								@RequestParam(value="precio",required=false) Double precio,
 								@RequestParam(value="descuento",required=false) Integer descuento,
 								HttpServletRequest request) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		
 		if(descuento==null) {
 			descuento=0;
 		}
-
+		if (nombre.isEmpty() || nombre.isBlank() || nombre == null ||
+			descripcion.isEmpty() || descripcion.isBlank() || descripcion == null ||
+			precio == null) {
+			
+			mav.addObject("error","Todos los campos son obligatorios. Por favor rellénelos.");
+			mav.setViewName("producto/crear");
+			
+			return mav; 
+		}
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		Producto p = new Producto(nombre,descripcion,fileName,precio,descuento);
@@ -83,9 +93,7 @@ public class ProductoController {
 
 		Producto product = productoServicio.crearProducto(p);
 
-		
-		
-		ModelAndView mav = new ModelAndView();
+	
 		
 		mav.addObject("logIn",request.getAttribute("logIn"));
 		mav.setViewName("redirect:/");

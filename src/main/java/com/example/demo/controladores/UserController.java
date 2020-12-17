@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,20 @@ public class UserController {
 								@RequestParam(value="titularTarjeta",required=false) String titularTarjeta,
 								@RequestParam(value="codigoSeguridad",required=false) Integer codigoSeguridad,
 								@RequestParam(value="direccionFacturacion",required=false) String direccionFacturacion,
-								HttpServletRequest request) throws IOException {
+								HttpServletRequest request, Model modelo) throws IOException {
+		
+		if (nombre.isEmpty() || nombre.isBlank() || nombre == null ||
+				apellidos.isEmpty() || apellidos.isBlank() || apellidos == null ||
+				password.isEmpty() || password.isBlank() || password == null ||
+				email.isEmpty() || email.isBlank() || email == null ||
+				fechaNacimiento.isEmpty() || fechaNacimiento.isBlank() || fechaNacimiento == null ||
+				numeroTarjeta == null ||
+				titularTarjeta.isEmpty() || titularTarjeta.isBlank() || titularTarjeta == null ||
+				codigoSeguridad == null ||
+				direccionFacturacion.isEmpty() || direccionFacturacion.isBlank() || direccionFacturacion == null ) {
+			modelo.addAttribute("error", "Todos los campos son obligatorios. Por favor rellénelos.");
+			return "user/registro";
+		}
 		
 		User u= new User(nombre,apellidos,password,email,fechaNacimiento,numeroTarjeta,titularTarjeta,codigoSeguridad,direccionFacturacion);
 		
@@ -51,8 +65,7 @@ public class UserController {
 	@PostMapping("/logueado")
 	public String Loguearse(@RequestParam(value="nombre",required=false) String nombre,
 								@RequestParam(value="password",required=false) String password,
-								HttpServletRequest request, HttpSession session) throws IOException {
-		
+								HttpServletRequest request, HttpSession session, Model modelo) throws IOException {
 		if(userServicio.logIn(nombre, password)) {
 			List<Carro> listacarro = new ArrayList<Carro>();
 			session.setAttribute("listacarro", listacarro);
@@ -63,7 +76,8 @@ public class UserController {
 			return "redirect:/index";
 		}
 		else
-			return "redirect:/user/login";
+			modelo.addAttribute("error", "Usuario o contraseña incorrectos");
+			return "user/login";
 		}
 	
 	@GetMapping("/logout")
