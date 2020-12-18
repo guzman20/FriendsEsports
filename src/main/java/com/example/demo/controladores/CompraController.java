@@ -147,5 +147,34 @@ public class CompraController {
 		mav.setViewName("Carro/miscompras");
 		return mav;
 	}
+	
+	@PostMapping("/realizar")
+	public String realizar(HttpServletRequest request) {
+		Compra compra=new Compra();
+		User usario=new User();
+		
+		if(request.getSession().getAttribute("idUsuario")!=null) {
+			
+			usario=userServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
+			List<Carro> listaCarro= (List<Carro>) request.getSession().getAttribute("listacarro");
+			Compra compracion=compraServicio.crearCompra(compra);
+			compra.setUser(usario);
+			
+		for(int i = 0; i<listaCarro.size();i++) {
+				LineaCompra lineaCompra=new LineaCompra();
+				lineaCompra.setProducto(productoServicio.obtenerProducto(listaCarro.get(i).getIdProductoCarro()));
+				lineaCompra.setCompra(compra);
+				lineaCompra.setCantidad(listaCarro.get(i).getCantidadProductoCarro());
+			
+				lineaCompraServicio.crearLineaCompra(lineaCompra);
+			}
+			compraServicio.crearCompra(compra);
+		return "redirect:/index";
+		}
+			else
+				return "redirect:/user/login";	
+		
+	
+	}
 
 }
