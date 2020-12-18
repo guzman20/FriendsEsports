@@ -135,10 +135,11 @@ public class CompraController {
 		User usario=new User();
 		LineaCompra lineaCompra=new LineaCompra();
 		Compra compra=new Compra();
-		List<LineaCompra> lineaProducto;
+		boolean masCompras=true;
+		List<Compra> listaDeCompras;
 		if(request.getSession().getAttribute("idUsuario")!=null) {
 			usario=userServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
-			lineaProducto = lineaCompraServicio.buscarCompra(usario);
+			
 		}
 		else
 			return null;
