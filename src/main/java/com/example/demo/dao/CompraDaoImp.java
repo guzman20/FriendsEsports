@@ -27,17 +27,7 @@ public class CompraDaoImp extends DaoGenericoImp<Compra> implements CompraDao {
 
 	@Override
 	public List<Compra> comprasUsuario(User usuario) {
-		Query query = this.em.createQuery("select lc, p FROM LineaCompra as lc"
-				+ " inner join lc.compra as c "
-				+ " inner join lc.producto as p"
-				+  " where c.user = :usuario");
-		query.setParameter("usuario", usuario);
-		List<LineaCompra> lineaCompra = query.getResultList();
-
-		if (lineaCompra != null) {
-			return lineaCompra;
-		}
 		return null;
+		
 	}
-
 }
