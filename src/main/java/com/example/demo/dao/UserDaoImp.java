@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.entidades.Compra;
 import com.example.demo.entidades.User;
 
 @Repository
@@ -39,4 +40,5 @@ public class UserDaoImp extends DaoGenericoImp<User> implements UserDao{
 		}
 		return usuario;
 	}
+	
 }

@@ -1,7 +1,9 @@
 package com.example.demo.dao;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -25,9 +27,14 @@ public class CompraDaoImp extends DaoGenericoImp<Compra> implements CompraDao {
 		return compra;
 	}
 
-	@Override
-	public List<Compra> comprasUsuario(User usuario) {
-		return null;
+	public List<Compra> comprasUsuarios(User usuario){
+		List<Compra> listaCompra = new ArrayList<>();
 		
+		Iterator<?> value = usuario.getProductos().iterator(); 
+		  
+        while (value.hasNext()) { 
+            listaCompra.add((Compra) value.next());
+        }
+		return listaCompra;
 	}
 }

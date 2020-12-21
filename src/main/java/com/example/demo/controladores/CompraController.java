@@ -133,18 +133,15 @@ public class CompraController {
 	public ModelAndView misCompras(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User usario=new User();
-		LineaCompra lineaCompra=new LineaCompra();
-		Compra compra=new Compra();
-		boolean masCompras=true;
 		List<Compra> listaDeCompras;
 		if(request.getSession().getAttribute("idUsuario")!=null) {
 			usario=userServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
-			
+			listaDeCompras=compraServicio.comprasDeUsuario(usario);
 		}
 		else
 			return null;
-
-		mav.addObject("lineaProducto", lineaProducto);
+		
+		mav.addObject("listaDeCompras", listaDeCompras);
 		mav.setViewName("Carro/miscompras");
 		return mav;
 	}

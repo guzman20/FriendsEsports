@@ -33,9 +33,15 @@
                     </tr>	
                   </thead>
                   <tbody>
-                    <tr th:each="lineaProducto : ${lineaProducto}">
-                      <td style="text-align:center" th:text="${lineaProducto[1].nombre}"></td>
-                      <td style="text-align:center" th:text="${lineaProducto[0].cantidad}"></td>
+                    <tr th:each="listaDeCompras : ${listaDeCompras}">
+                      <td style="text-align:center" th:text="${listaDeCompras.idCompra}">
+                      <table>
+						<tr th:each="lineaCompra : ${lineaCompra}">
+						 <td style="text-align:center" th:text="${listaDeCompras.nombre}"></td>
+						 <td style="text-align:center" th:text="${listaDeCompras.cantidad}"></td>
+						</tr>
+					  </table>
+					  </td>
                     </tr>
                   </tbody>
                 </table>
