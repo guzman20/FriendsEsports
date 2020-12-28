@@ -46,4 +46,9 @@ public class UserServicioImp implements UserServicio{
 		return userDao.buscarPorNombre(nombreUsuario);
 	}
 
+	@Override
+	public User findByUsername(String username) {
+		return userDao.buscarPorNombre(username);
+	}
+
 }
