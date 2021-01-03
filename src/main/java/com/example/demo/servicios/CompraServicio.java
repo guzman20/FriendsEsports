@@ -14,4 +14,8 @@ public interface CompraServicio {
 	void addLineaCompra(Compra compra, LineaCompra lineaCompra);
 	
 	public List<Compra> comprasDeUsuario(User usuario);
+	
+	public Compra buscarCompra(Long id);
+	
+	public List<LineaCompra> listarCompra(Compra compra);
 }

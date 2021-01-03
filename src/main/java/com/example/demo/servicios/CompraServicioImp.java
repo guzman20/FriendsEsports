@@ -34,6 +34,18 @@ public class CompraServicioImp implements CompraServicio {
 	public List<Compra> comprasDeUsuario(User usuario){
 		return compraDao.comprasUsuarios(usuario);
 	}
+
+	@Override
+	public Compra buscarCompra(Long id) {
+		Compra compra=new Compra();
+		compraDao.buscar(id);
+		return compra;
+	}
+
+	@Override
+	public List<LineaCompra> listarCompra(Compra compra) {
+		return compraDao.listarCompra(compra);
+	}
 	
 
 }

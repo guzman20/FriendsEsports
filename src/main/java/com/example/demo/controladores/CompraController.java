@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entidades.Carro;
@@ -167,12 +168,32 @@ public class CompraController {
 				lineaCompraServicio.crearLineaCompra(lineaCompra);
 			}
 			compraServicio.crearCompra(compra);
+			List<Carro> listacarro = new ArrayList<Carro>();
+			request.getSession().setAttribute("listacarro", listacarro);
+			
 		return "redirect:/index";
 		}
 			else
 				return "redirect:/user/login";	
 		
 	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/detalles/{id}")
+	public ModelAndView perfil(@PathVariable("id") long idCompra, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Compra compra=new Compra();
+		compra= compraServicio.buscarCompra(idCompra);
+		List<LineaCompra> listaDeLineaDeCompras;
+		if(request.getSession().getAttribute("idUsuario")!=compra.getUser()) {
+			listaDeLineaDeCompras = compraServicio.listarCompra(compra);
+		}
+		else
+			return null;
+		
+		mav.addObject("listaDeLineaDeCompras", listaDeLineaDeCompras);
+		mav.setViewName("Compra/detalles");
+		return mav;
 	}
 
 }

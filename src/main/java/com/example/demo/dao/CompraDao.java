@@ -11,4 +11,6 @@ public interface CompraDao extends DaoGenerico<Compra> {
 	public Compra addLineaCompra(Compra compra, LineaCompra lineaCompra);
 	
 	public List<Compra> comprasUsuarios(User usuario);
+	
+	public List<LineaCompra> listarCompra(Compra compra);
 }
