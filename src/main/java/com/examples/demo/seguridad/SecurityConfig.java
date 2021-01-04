@@ -17,20 +17,10 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+	
 	@Autowired
 	private UserDetailsService userDetailsService;
 
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		return bCryptPasswordEncoder;
-	}
-
-	@Bean
-	public AuthenticationSuccessHandler myAuthenticationSuccessHandler() {
-		return null;
-//		return new MySimpleUrlAuthenticationSuccessHandler();
-	}
 
 	// Pagina 95 pdf SpringVII
 	@Override
@@ -45,10 +35,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll();
 	}
 
-	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
-	}
+	  @Autowired
+	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception { 
+	 
+	        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());     
+	    }
+	    
+	  @Bean
+	  public BCryptPasswordEncoder passwordEncoder() {
+	      return new BCryptPasswordEncoder();
+	  }
+		
+	    @Bean
+	    public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
+	        return new AuthenticationSuccessHandlerImpl();
+	    }
 
 
 }
