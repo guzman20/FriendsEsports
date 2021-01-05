@@ -72,7 +72,7 @@ public class UserController {
 		return "redirect:/index";
 	}
 	
-	
+	//Ahora estos dos van en LoginController
 //	@GetMapping("/registro")
 //	public String showFormReg() {
 //		return "user/registro";
