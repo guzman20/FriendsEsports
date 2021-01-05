@@ -73,15 +73,15 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/registro")
-	public String showFormReg() {
-		return "user/registro";
-	}
-	
-	@GetMapping("/login")
-	public String showFormLog() {
-		return "user/login";
-	}
+//	@GetMapping("/registro")
+//	public String showFormReg() {
+//		return "user/registro";
+//	}
+//	
+//	@GetMapping("/login")
+//	public String showFormLog() {
+//		return "user/login";
+//	}
 	
 	@GetMapping("/perfil")
 	public ModelAndView verPerfil(HttpServletRequest request){

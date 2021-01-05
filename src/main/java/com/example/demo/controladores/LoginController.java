@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.entidades.User;
 import com.example.demo.servicios.UserServicio;
@@ -22,21 +23,21 @@ public class LoginController {
 		return "auth/login";
 	}
 
-	@GetMapping("/access-denied")
-	public String accessDenied() {
-		return "/error/access-denied";
-	}
-
+//	@GetMapping("/access-denied")
+//	public String accessDenied() {
+//		return "/error/access-denied";
+//	}
+//
 	@PostMapping("/crearUsuario")
-	public String createUser(@ModelAttribute("profesor") User usuario) {
-		User usuario1 = userServicio.crearUsuario(usuario);
+	public String createUser(@ModelAttribute("usuario") User elUsuario) {
+		User usuario = userServicio.crearUsuario(elUsuario);
 
 		return "redirect:/index";
 	}
 
-	@GetMapping("/signup")
+	@GetMapping("/registro")
 	public String showForm() {
-		return "auth/signup";
+		return "auth/registro";
 	}
 
 	@PostMapping("/signup")

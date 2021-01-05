@@ -24,7 +24,7 @@ public class UserServicioImp implements UserServicio{
 	public BCryptPasswordEncoder passwordEncoder() {
 	    return new BCryptPasswordEncoder(); // or any other password encoder
 	}
-
+	
 	@Override
 	public boolean logIn(String nombreUsuario, String password) {
 		return userDao.logIn(nombreUsuario, password);

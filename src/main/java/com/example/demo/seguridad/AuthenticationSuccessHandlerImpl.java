@@ -1,4 +1,4 @@
-package com.examples.demo.seguridad;
+package com.example.demo.seguridad;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -36,8 +36,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		session.setAttribute("idUsuario", authUser.getIdUsuarios());
 //		handle(request, response, authentication);
 //		clearAuthenticationAttributes(request);
-		
-		
+
+
 		//FALTA CREAR LAS TABLAS DE ROLES Y ADAPTAR ESTE CÓDIGO
 		boolean isProfesor = false;
 		boolean isAdmin = false;
