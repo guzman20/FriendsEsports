@@ -21,6 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
     private UserDetailsService userDetailsService;
 	
+	//Configuración inicial para que los no conectados solo accedan a registro y login
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	    http

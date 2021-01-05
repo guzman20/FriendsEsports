@@ -17,7 +17,8 @@ public class LoginController {
 	
 	@Autowired
 	UserServicio userServicio;
-
+	
+	//Página de login custom
 	@GetMapping("/login")
 	public String login() {
 		return "auth/login";
@@ -40,6 +41,7 @@ public class LoginController {
 		return "auth/registro";
 	}
 
+	//No quiere funcionar SOLUCIONAR
 	@PostMapping("/signup")
 	public String crearUsuario(HttpServletRequest request) {
 
