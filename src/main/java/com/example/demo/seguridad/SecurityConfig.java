@@ -30,15 +30,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/","/index",
                     "/js/**",
                     "/css/**",
+                    "/vendor/**",
                     "/images/**",
                     "/registro",
                     "/login",
+                    "/fragments/**",
                     "/webjars/**").permitAll()
+	        	
 	        	.anyRequest().authenticated()
-	            .and()
+	            .and().csrf().disable()  
 	        .formLogin()
-            .loginPage("/login")
-            .loginProcessingUrl("/login")
+            .loginPage("/index")
+            .loginProcessingUrl("/index")
             .successHandler((AuthenticationSuccessHandler) myAuthenticationSuccessHandler())
             .permitAll()
         .and()
@@ -50,7 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
             .logoutSuccessUrl("/login?logout")
             .permitAll();
-        http.csrf().ignoringAntMatchers("/imagenes/**");
 }
 	
 	

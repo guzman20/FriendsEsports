@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.demo.entidades.User;
 import com.example.demo.servicios.UserServicio;
@@ -40,6 +41,13 @@ public class LoginController {
 	public String showForm() {
 		return "auth/registro";
 	}
+	
+	@GetMapping("/signup")
+	public String showForm2() {
+		return "auth/registro";
+	}
+	
+	
 
 	//No quiere funcionar SOLUCIONAR
 	@PostMapping("/signup")
