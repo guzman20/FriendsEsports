@@ -49,7 +49,6 @@ public class LoginController {
 	
 	
 
-	//No quiere funcionar SOLUCIONAR
 	@PostMapping("/signup")
 	public String crearUsuario(HttpServletRequest request) {
 
@@ -57,12 +56,14 @@ public class LoginController {
 		String apellidos = request.getParameter("apellidos");
 		String direccionemail = request.getParameter("email");
 		String password = request.getParameter("password");
+		Integer csv = Integer.parseInt(request.getParameter("codigoSeguridad"));
 		
 		User u = new User();
 		u.setNombre(nombre);
 		u.setApellidos(apellidos);;
 		u.setPassword(password);
 		u.setEmail(direccionemail);
+		u.setCodigoSeguridad(csv);
 		System.out.println(u.toString());
 		userServicio.crearUsuario(u);
 		

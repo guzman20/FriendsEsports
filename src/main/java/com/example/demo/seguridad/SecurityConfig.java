@@ -34,14 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/images/**",
                     "/registro",
                     "/login",
+                    "/signup",
                     "/fragments/**",
                     "/webjars/**").permitAll()
-	        	
 	        	.anyRequest().authenticated()
 	            .and().csrf().disable()  
-	        .formLogin()
-            .loginPage("/index")
-            .loginProcessingUrl("/index")
+	     .formLogin()
+            .loginPage("/login")
+            .loginProcessingUrl("/user/logueado")
+            .usernameParameter("nombre")
             .successHandler((AuthenticationSuccessHandler) myAuthenticationSuccessHandler())
             .permitAll()
         .and()
