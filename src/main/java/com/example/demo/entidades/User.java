@@ -62,7 +62,7 @@ public class User implements Serializable {
 	// Relación ManyToMany Rol
 
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_USUARIO"), inverseJoinColumns = @JoinColumn(name = "ID_ROL"))
+	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "idUsuarios"), inverseJoinColumns = @JoinColumn(name = "ID_ROL"))
 	private Set<Rol> roles = new HashSet<>();
 
 	public Set<Rol> getRoles() {

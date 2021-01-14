@@ -38,7 +38,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 //		clearAuthenticationAttributes(request);
 
 
-		//FALTA CREAR LAS TABLAS DE ROLES Y ADAPTAR ESTE CÓDIGO
 		boolean isRegistrado = false;
 		boolean isAdmin = false;
 		final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

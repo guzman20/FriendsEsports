@@ -27,7 +27,7 @@ public class Rol {
 	private String nombreRol;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_ROL"), inverseJoinColumns = @JoinColumn(name = "ID_USUARIO"))
+	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_ROL"), inverseJoinColumns = @JoinColumn(name = "idUsuarios"))
 	private Set<User> usuarios;
 
 	public int getIdRol() {
