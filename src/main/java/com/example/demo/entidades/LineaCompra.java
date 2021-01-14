@@ -37,7 +37,6 @@ public class LineaCompra implements Serializable{
 	private int cantidad;
 	
 	public LineaCompra() {
-		
 	}
 	
 
@@ -84,5 +83,11 @@ public class LineaCompra implements Serializable{
 		this.producto = producto;
 	}
 
+
+	public Long getIdLineaCompra() {
+		return idLineaCompra;
+	}
+
+	
 
 }

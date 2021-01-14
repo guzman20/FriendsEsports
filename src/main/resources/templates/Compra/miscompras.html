@@ -35,7 +35,11 @@
                   <tbody>
                     <tr th:each="listaDeCompras : ${listaDeCompras}">
                       <td style="text-align:center" th:text="${listaDeCompras.idCompra}"></td>
-                      <td style="text-align:center"><a th:href="@{/compra/detalles/{id}(id=${listaDeCompras.idCompra})}" class="btn btn-primary"> Detalles</a></td>
+                      <td style="text-align:center">
+                      
+                      <a th:href="@{/compra/detalles/{id}(id=${listaDeCompras.idCompra})}" class="btn btn-primary"> Detalles</a>
+                      </td>
+                      
 					</tr>
                   </tbody>
                 </table>

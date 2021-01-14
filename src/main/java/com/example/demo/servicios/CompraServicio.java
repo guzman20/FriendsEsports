@@ -18,4 +18,6 @@ public interface CompraServicio {
 	public Compra buscarCompra(Long id);
 	
 	public List<LineaCompra> listarCompra(Compra compra);
+	
+	public void borrarCompra(Long id);
 }

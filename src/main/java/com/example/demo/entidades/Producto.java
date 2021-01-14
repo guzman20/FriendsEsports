@@ -50,10 +50,7 @@ public class Producto implements Serializable {
 	private Set<LineaCompra> lineasCompras = new HashSet<>();
 
 	public Producto() {
-		
 	}
-	
-	
 	
 	public Producto(String nombre, String descripcion, String imagen, double precio, int descuento) {
 		this.nombre = nombre;

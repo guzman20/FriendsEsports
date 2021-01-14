@@ -143,7 +143,7 @@ public class CompraController {
 			return null;
 		
 		mav.addObject("listaDeCompras", listaDeCompras);
-		mav.setViewName("Carro/miscompras");
+		mav.setViewName("Compra/miscompras");
 		return mav;
 	}
 	
@@ -185,15 +185,31 @@ public class CompraController {
 		Compra compra=new Compra();
 		compra= compraServicio.buscarCompra(idCompra);
 		List<LineaCompra> listaDeLineaDeCompras;
-		if(request.getSession().getAttribute("idUsuario")!=compra.getUser()) {
-			listaDeLineaDeCompras = compraServicio.listarCompra(compra);
-		}
-		else
-			return null;
+		
+		listaDeLineaDeCompras = compraServicio.listarCompra(compra);
 		
 		mav.addObject("listaDeLineaDeCompras", listaDeLineaDeCompras);
 		mav.setViewName("Compra/detalles");
 		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/devolucion/{id}")
+	public String devolverProducto(HttpServletRequest request, @PathVariable("id") Long id) {
+
+		LineaCompra lineaCompra=new LineaCompra();
+		lineaCompra= lineaCompraServicio.buscarLineaCompra(id);
+		if(lineaCompra.getCantidad()>1) {
+			lineaCompra.setCantidad(lineaCompra.getCantidad()-1);
+		}
+		else {
+			lineaCompraServicio.borraLineaCompra(id);
+			Compra compra = new Compra();
+			compra=lineaCompra.getCompra();
+			if(compra.getProductos()==null || compra.getProductos().isEmpty())
+				compraServicio.borrarCompra(compra.getIdCompra());
+		}
+
+		return "redirect:/index";
 	}
 
 }

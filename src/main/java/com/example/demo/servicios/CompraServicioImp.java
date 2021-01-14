@@ -37,14 +37,18 @@ public class CompraServicioImp implements CompraServicio {
 
 	@Override
 	public Compra buscarCompra(Long id) {
-		Compra compra=new Compra();
-		compraDao.buscar(id);
-		return compra;
+		return compraDao.buscar(id);
 	}
 
 	@Override
 	public List<LineaCompra> listarCompra(Compra compra) {
 		return compraDao.listarCompra(compra);
+	}
+
+	@Override
+	public void borrarCompra(Long id) {
+		compraDao.borrar(id);
+		
 	}
 	
 
