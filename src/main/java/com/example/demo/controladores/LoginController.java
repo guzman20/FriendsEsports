@@ -56,6 +56,10 @@ public class LoginController {
 		String apellidos = request.getParameter("apellidos");
 		String direccionemail = request.getParameter("email");
 		String password = request.getParameter("password");
+		String direccion = request.getParameter("direccionFacturacion");
+		String fecha = request.getParameter("fechaNacimiento");
+		String titularTarjeta = request.getParameter("titularTarjeta");
+		Integer tarjeta = Integer.parseInt(request.getParameter("numeroTarjeta"));
 		Integer csv = Integer.parseInt(request.getParameter("codigoSeguridad"));
 		
 		User u = new User();
@@ -64,6 +68,10 @@ public class LoginController {
 		u.setPassword(password);
 		u.setEmail(direccionemail);
 		u.setCodigoSeguridad(csv);
+		u.setDireccion_facturacion(direccion);
+		u.setFecha_Nacimiento(fecha);
+		u.setNumeroTarjeta(tarjeta);
+		u.setTitularTarjeta(titularTarjeta);
 		System.out.println(u.toString());
 		userServicio.crearUsuario(u);
 		
