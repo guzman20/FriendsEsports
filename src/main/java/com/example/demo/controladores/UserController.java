@@ -29,24 +29,24 @@ public class UserController {
 	@Autowired
 	UserServicio userServicio;
 
-	@PostMapping("/registrado")
-	public String Registrarse(@RequestParam(value="nombre",required=false) String nombre,
-								@RequestParam(value="apellidos",required=false) String apellidos,
-								@RequestParam(value="password",required=false) String password,
-								@RequestParam(value="email",required=false) String email,
-								@RequestParam(value="fechaNacimiento",required=false) String fechaNacimiento,
-								@RequestParam(value="numeroTarjeta",required=false) Integer numeroTarjeta,
-								@RequestParam(value="titularTarjeta",required=false) String titularTarjeta,
-								@RequestParam(value="codigoSeguridad",required=false) Integer codigoSeguridad,
-								@RequestParam(value="direccionFacturacion",required=false) String direccionFacturacion,
-								HttpServletRequest request) throws IOException {
-		
-		User u= new User(nombre,apellidos,password,email,fechaNacimiento,numeroTarjeta,titularTarjeta,codigoSeguridad,direccionFacturacion);
-		
-		User usuario=userServicio.crearUsuario(u);
-
-		return "redirect:/index";
-		}
+//	@PostMapping("/registrado")
+//	public String Registrarse(@RequestParam(value="nombre",required=false) String nombre,
+//								@RequestParam(value="apellidos",required=false) String apellidos,
+//								@RequestParam(value="password",required=false) String password,
+//								@RequestParam(value="email",required=false) String email,
+//								@RequestParam(value="fechaNacimiento",required=false) String fechaNacimiento,
+//								@RequestParam(value="numeroTarjeta",required=false) Integer numeroTarjeta,
+//								@RequestParam(value="titularTarjeta",required=false) String titularTarjeta,
+//								@RequestParam(value="codigoSeguridad",required=false) Integer codigoSeguridad,
+//								@RequestParam(value="direccionFacturacion",required=false) String direccionFacturacion,
+//								HttpServletRequest request) throws IOException {
+//		
+//		User u= new User(nombre,apellidos,password,email,fechaNacimiento,numeroTarjeta,titularTarjeta,codigoSeguridad,direccionFacturacion);
+//		
+//		User usuario=userServicio.crearUsuario(u);
+//
+//		return "redirect:/index";
+//		}
 	
 	@PostMapping("/logueado")
 	public String Loguearse(@RequestParam(value="nombre",required=false) String nombre,

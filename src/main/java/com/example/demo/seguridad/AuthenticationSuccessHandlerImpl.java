@@ -39,12 +39,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
 
 		//FALTA CREAR LAS TABLAS DE ROLES Y ADAPTAR ESTE CÓDIGO
-		boolean isProfesor = false;
+		boolean isRegistrado = false;
 		boolean isAdmin = false;
 		final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 		for (final GrantedAuthority grantedAuthority : authorities) {
-			if (grantedAuthority.getAuthority().equals("ROL_PROFESOR")) {
-				isProfesor = true;
+			if (grantedAuthority.getAuthority().equals("ROL_REGISTRADO")) {
+				isRegistrado = true;
 				break;
 			} else if (grantedAuthority.getAuthority().equals("ROL_ADMIN")) {
 				isAdmin = true;
@@ -52,8 +52,8 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 			}
 		}
 		String targetUrl;
-		if (isProfesor) {
-			targetUrl = "/profesor/myprofile";
+		if (isRegistrado) {
+			targetUrl = "/user/perfil";
 		} else if (isAdmin) {
 			targetUrl = "/index";
 		} else {

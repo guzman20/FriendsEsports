@@ -72,7 +72,6 @@ public class LoginController {
 		u.setFecha_Nacimiento(fecha);
 		u.setNumeroTarjeta(tarjeta);
 		u.setTitularTarjeta(titularTarjeta);
-		System.out.println(u.toString());
 		userServicio.crearUsuario(u);
 		
 

@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/fragments/**",
                     "/webjars/**").permitAll()
 	        	.anyRequest().authenticated()
-	            .and().csrf().disable()  
+	            .and()
 	     .formLogin()
             .loginPage("/login")
             .loginProcessingUrl("/user/logueado")
