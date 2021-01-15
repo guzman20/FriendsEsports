@@ -26,6 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
 	        .authorizeRequests()
+	        //Permisos públicos
 	        .antMatchers(
                     "/","/index",
                     "/js/**",
@@ -37,6 +38,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/signup",
                     "/fragments/**",
                     "/webjars/**").permitAll()
+	        //Permisos registrados
+	        .antMatchers("/","/perfil", "/carrocompra", "/quitarcarro", "/misCompras", "/realizar").access("hasRole('ROL_REGISTRADO') or hasRole('ROL_ADMINISTRADOR')")
+	        //Permisos para administrador
+	        .antMatchers("/**").hasRole("ROL_ADMINISTRADOR")
 	        	.anyRequest().authenticated()
 	            .and()
 	     .formLogin()

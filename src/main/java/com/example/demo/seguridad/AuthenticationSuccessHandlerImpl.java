@@ -1,7 +1,9 @@
 package com.example.demo.seguridad;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.example.demo.entidades.Carro;
 import com.example.demo.entidades.User;
 import com.example.demo.servicios.UserServicio;
 
@@ -29,13 +32,15 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
+		List<Carro> listacarro = new ArrayList<Carro>();
+		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		HttpSession session = request.getSession();
 		User authUser = userServicio.findByUsername(userDetails.getUsername());
-		session.setAttribute("username", authUser.getNombre());
+		session.setAttribute("nombre", authUser.getNombre());
 		session.setAttribute("idUsuario", authUser.getIdUsuarios());
+		session.setAttribute("listacarro", listacarro);
 //		handle(request, response, authentication);
-//		clearAuthenticationAttributes(request);
 
 
 		boolean isRegistrado = false;
@@ -52,6 +57,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		}
 		String targetUrl;
 		if (isRegistrado) {
+
 			targetUrl = "/user/perfil";
 		} else if (isAdmin) {
 			targetUrl = "/index";
