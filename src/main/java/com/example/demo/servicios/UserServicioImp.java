@@ -16,6 +16,8 @@ import com.example.demo.entidades.User;
 @Service
 public class UserServicioImp implements UserServicio{
 	
+	private final int ROL_REGISTRADO = 1;
+	
 	@Autowired
 	private UserDao userDao;
 	
@@ -38,7 +40,7 @@ public class UserServicioImp implements UserServicio{
 	@Override
 	public User crearUsuario(User usuario) {
 		usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
-		Rol r = rolRepository.findById(2).orElse(null);
+		Rol r = rolRepository.findById(ROL_REGISTRADO).orElse(null);
 		usuario.anadirRol(r);
 		return userDao.crear(usuario);
 	}
