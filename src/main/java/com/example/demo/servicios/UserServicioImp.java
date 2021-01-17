@@ -3,6 +3,8 @@ package com.example.demo.servicios;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.UserDao;
@@ -14,7 +16,15 @@ public class UserServicioImp implements UserServicio{
 	
 	@Autowired
 	private UserDao userDao;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder(); // or any other password encoder
+	}
+	
 	@Override
 	public boolean logIn(String nombreUsuario, String password) {
 		return userDao.logIn(nombreUsuario, password);
@@ -22,6 +32,7 @@ public class UserServicioImp implements UserServicio{
 
 	@Override
 	public User crearUsuario(User usuario) {
+		usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
 		return userDao.crear(usuario);
 	}
 
@@ -44,6 +55,11 @@ public class UserServicioImp implements UserServicio{
 	@Override
 	public User buscarUsuario(String nombreUsuario) {
 		return userDao.buscarPorNombre(nombreUsuario);
+	}
+
+	@Override
+	public User findByUsername(String username) {
+		return userDao.buscarPorNombre(username);
 	}
 
 }

@@ -24,7 +24,9 @@
 </head>
 
 <body class="bg-gradient-primary">
+
 <nav th:replace="fragments/header_public"></nav>
+
   <div class="container">
 
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -80,15 +82,14 @@
               </div>
             </div>
           </div>
-          
-        </div>
-      </div>
-    </div>
-		<div class="text-center" style="width:800px; margin:0 auto;">
+          		<div class="text-center" style="width:800px; margin:0 auto;">
                  	<a
 					th:href="@{/compra/misCompras}"
 					class="btn btn-primary">Ir a mis compras</a>
           </div>
+        </div>
+      </div>
+    </div>
   </div>
 
 <!--   <!-- Bootstrap core JavaScript--> -->
@@ -102,5 +103,7 @@
 <!--   <script th:src="@{../js/sb-admin-2.min.js}"></script> -->
 
 </body>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
 
 </html>

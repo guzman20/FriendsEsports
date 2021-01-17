@@ -1,13 +1,10 @@
 package com.example.demo.controladores;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,10 +62,20 @@ public class ProductoController {
 								@RequestParam(value="precio",required=false) Double precio,
 								@RequestParam(value="descuento",required=false) Integer descuento,
 								HttpServletRequest request) throws IOException {
+		ModelAndView mav = new ModelAndView();
+		
 		if(descuento==null) {
 			descuento=0;
 		}
-
+		if (nombre.isEmpty() || nombre.isBlank() || nombre == null ||
+			descripcion.isEmpty() || descripcion.isBlank() || descripcion == null ||
+			precio == null) {
+			
+			mav.addObject("error","Todos los campos son obligatorios. Por favor rellénelos.");
+			mav.setViewName("producto/crear");
+			
+			return mav; 
+		}
 		
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		Producto p = new Producto(nombre,descripcion,fileName,precio,descuento);
@@ -83,9 +90,7 @@ public class ProductoController {
 
 		Producto product = productoServicio.crearProducto(p);
 
-		
-		
-		ModelAndView mav = new ModelAndView();
+	
 		
 		mav.addObject("logIn",request.getAttribute("logIn"));
 		mav.setViewName("redirect:/");
