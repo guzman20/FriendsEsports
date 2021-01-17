@@ -7,7 +7,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.dao.RolRepository;
 import com.example.demo.dao.UserDao;
+import com.example.demo.entidades.Rol;
 import com.example.demo.entidades.User;
 
 @Transactional
@@ -16,6 +18,9 @@ public class UserServicioImp implements UserServicio{
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private RolRepository rolRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -33,6 +38,8 @@ public class UserServicioImp implements UserServicio{
 	@Override
 	public User crearUsuario(User usuario) {
 		usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
+		Rol r = rolRepository.findById(2).orElse(null);
+		usuario.anadirRol(r);
 		return userDao.crear(usuario);
 	}
 
