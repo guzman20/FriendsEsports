@@ -15,4 +15,6 @@ public interface UserServicio {
 	public User modificarUsuario(User usuario);
 	
 	public User buscarUsuario(String nombreUsuario);
+
+	public User findByUsername(String username);
 }

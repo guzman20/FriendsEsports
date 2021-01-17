@@ -50,7 +50,7 @@
               </div>
             </div>
                 
-			<div class="text-center" style="width:800px; margin:0 auto;">
+			<div class="text-center" style="width:800px; margin:0 auto;" sec:authorize="hasAuthority('ROL_ADMIN')">
                  	<a
 					th:href="@{/producto/borrar/{idProducto}(idProducto=${producto.idProducto})}"
 					class="btn btn-primary">Borrar este producto</a>
