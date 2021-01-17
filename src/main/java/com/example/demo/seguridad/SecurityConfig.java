@@ -36,14 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/registro",
                     "/login",
                     "/signup",
+                    "/filtrado",
                     "/fragments/**",
                     "/webjars/**").permitAll()
-	        //Permisos registrados
-	        .antMatchers("/","/perfil", "/carrocompra", "/quitarcarro", "/misCompras", "/realizar").access("hasRole('ROL_REGISTRADO') or hasRole('ROL_ADMINISTRADOR')")
-	        //Permisos para administrador
-	        .antMatchers("/**").hasRole("ROL_ADMINISTRADOR")
-	        	.anyRequest().authenticated()
-	            .and()
+//	        //Permisos registrados
+	        .antMatchers("/","/user/**", "/compra/**", "/producto/idProducto/{id}" ).hasAnyAuthority("ROL_REGISTRADO","ROL_ADMIN")
+//	        //Permisos para administrado
+	        .antMatchers("/", "/user/**", "/compra/**", "/producto/**" ).hasAuthority("ROL_ADMIN")
+	        .anyRequest().authenticated()
+	         .and()
 	     .formLogin()
            .loginPage("/login")
            .loginProcessingUrl("/user/logueado")
@@ -59,6 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
           .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
           .logoutSuccessUrl("/login?logout")
           .permitAll();
+	    
 }
 	
 	
