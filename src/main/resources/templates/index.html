@@ -58,8 +58,8 @@
               </div>
             </div>
                 
-                <div class="text-center" style="width:800px; margin:0 auto;">
-					<a th:href="@{/producto/crear}" class="btn btn-primary"> Crear producto</a>
+                <div class="text-center" style="width:800px; margin:0 auto;" sec:authorize="hasAuthority('ROL_ADMIN')">
+					<a  th:href="@{/producto/crear}" class="btn btn-primary"> Crear producto</a>
                 </div>
                 </div>
               </div>

@@ -26,6 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	    http
 	        .authorizeRequests()
+	        .antMatchers("/user/**").hasAnyAuthority("ROL_REGISTRADO", "ROL_ADMIN")
+	        .antMatchers("/producto/idProducto/{id}").hasAnyAuthority("ROL_REGISTRADO", "ROL_ADMIN")
 	        //Permisos públicos
 	        .antMatchers(
                     "/","/index",
@@ -40,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/fragments/**",
                     "/webjars/**").permitAll()
 //	        //Permisos registrados
-	        .antMatchers("/","/user/**", "/compra/**", "/producto/idProducto/{id}" ).hasAnyAuthority("ROL_REGISTRADO","ROL_ADMIN")
+	        .antMatchers("/", "/compra/**" ).hasAuthority("ROL_REGISTRADO")
 //	        //Permisos para administrado
-	        .antMatchers("/", "/user/**", "/compra/**", "/producto/**" ).hasAuthority("ROL_ADMIN")
+	        .antMatchers("/", "/compra/**", "/producto/**" ).hasAuthority("ROL_ADMIN")
 	        .anyRequest().authenticated()
 	         .and()
 	     .formLogin()
