@@ -51,9 +51,22 @@ CREATE TABLE productos
 
 CREATE TABLE compras
 (
-idCompras BIGINT NOT NULL AUTO_INCREMENT,
+id_compras BIGINT NOT NULL AUTO_INCREMENT,
 ID_USUARIOS BIGINT NOT NULL,
-PRIMARY KEY (idCompras),
+PRIMARY KEY (id_compras),
 CONSTRAINT FK_COMPRAS_USUARIOS FOREIGN KEY (ID_USUARIOS) REFERENCES usuarios (ID_USUARIOS) ON DELETE CASCADE
 on update cascade
 );
+
+create table lineadecompras (
+id_compras bigint not null,
+idproductos bigint not null,
+cantidad int not null,
+primary key (id_compras, idproductos),
+constraint fk_compra_producto_1
+foreign key (id_compras) references compras (id_compras) 
+on delete cascade,
+constraint fk_compra_producto_2
+foreign key (idproductos) references productos (idproductos) 
+on delete cascade
+) ;

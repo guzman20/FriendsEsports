@@ -26,7 +26,7 @@ public class Compra implements Serializable{
 	private static final long serialVersionUID = -8459003842472014657L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "idCompras")
 	private Long idCompra;
 
