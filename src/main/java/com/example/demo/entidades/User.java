@@ -25,7 +25,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -790316512454150774L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name = "idUsuarios")
 	private Long idUsuarios;
 	
@@ -61,8 +61,9 @@ public class User implements Serializable {
 	
 	// Relación ManyToMany Rol
 
-	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+//	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "idUsuarios"), inverseJoinColumns = @JoinColumn(name = "ID_ROL"))
+	@ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
 	private Set<Rol> roles = new HashSet<>();
 
 	public Set<Rol> getRoles() {
@@ -177,13 +178,18 @@ public class User implements Serializable {
 		compra.setUser(this);
 		return getProductos().add(compra);
 		}
-		public void eliminarEmails(Compra compra) {
+	public void eliminarEmails(Compra compra) {
 			getProductos().remove(compra);
 		}
+		
+	public boolean anadirRol(Rol rol) {
+	    rol.anadirUsuario(this);
+		return getRoles().add(rol);
+	}
 
-	
-	
-	
-	
+	public void eliminarRol(Rol rol) {
+		this.roles.remove(rol);
+		rol.getUsuarios().remove(this);
+	}
 
 }

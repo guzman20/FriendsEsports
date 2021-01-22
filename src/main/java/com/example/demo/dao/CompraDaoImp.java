@@ -1,8 +1,12 @@
 package com.example.demo.dao;
 
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.persistence.Query;
 
 import org.hibernate.mapping.Set;
 import org.springframework.stereotype.Component;
@@ -23,4 +27,26 @@ public class CompraDaoImp extends DaoGenericoImp<Compra> implements CompraDao {
 		return compra;
 	}
 
+	public List<Compra> comprasUsuarios(User usuario){
+		List<Compra> listaCompra = new ArrayList<>();
+		
+		Iterator<?> value = usuario.getProductos().iterator(); 
+		  
+        while (value.hasNext()) { 
+            listaCompra.add((Compra) value.next());
+        }
+		return listaCompra;
+	}
+
+	@Override
+	public List<LineaCompra> listarCompra(Compra compra) {
+		List<LineaCompra> listaLineaCompra = new ArrayList<>();
+		
+		Iterator<?> value = compra.getProductos().iterator();
+		  
+        while (value.hasNext()) { 
+        	listaLineaCompra.add((LineaCompra) value.next());
+        }
+		return listaLineaCompra;
+	}
 }

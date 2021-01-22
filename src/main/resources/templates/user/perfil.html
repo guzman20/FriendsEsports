@@ -1,4 +1,3 @@
-	<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -40,36 +39,44 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Perfil</h1>
               </div>
-              
+              	<h1 class="h5 text-gray-900 mb-4">Datos de la cuenta</h1>
                 <div class="form-group row">
+                
+                
                   <div class="col-sm-6 mb-3 mb-sm-0">
+                  	<span class="">Nombre: </span>
                     <span class="" th:text="${usuario.nombre}"></span>
                   </div>
                   <div class="col-sm-6">
+                  	<span class="">Apellidos: </span>
                     <span class="" th:text="${usuario.apellidos}"></span>
                   </div>
                 </div>
                 <div class="form-group">
+                  <span class="">Correo Electronico: </span>
                   <span class="" th:text="${usuario.email}"></span>
                 </div>
-                <div class="form-group row">
-                  <div class="col-sm-6 mb-3 mb-sm-0">
-                    <span class="" th:text="${usuario.password}"></span>
-                  </div>
+                <div class="form-group">
+                  <span class="">Fecha de nacimiento: </span>
+                  <span class="" th:text="${usuario.fecha_Nacimiento}"></span>
                 </div>
                 
         </div>
         </div>
           <div class="col-lg-6">
             <div class="p-5">
+            <h1 class="h5 text-gray-900 mb-4">Datos de Facturacion</h1>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
+                    <span class="">Numero: </span>
                     <span class="" th:text="${usuario.numeroTarjeta}"></span>
                   </div>
                  <div class="col-sm-6 mb-3 mb-sm-0">
+                 	<span class="">Titular: </span>
                     <span class="" th:text="${usuario.titularTarjeta}"></span>
                   </div>
                   <div class="col-sm-6">
+                  <span class="">Codigo de seguridad: </span>
                     <span class="" th:text="${usuario.codigoSeguridad}"></span>
                   </div>
                 </div>

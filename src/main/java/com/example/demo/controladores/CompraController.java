@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entidades.Carro;
@@ -133,18 +134,16 @@ public class CompraController {
 	public ModelAndView misCompras(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User usario=new User();
-		LineaCompra lineaCompra=new LineaCompra();
-		Compra compra=new Compra();
-		List<LineaCompra> lineaProducto;
+		List<Compra> listaDeCompras;
 		if(request.getSession().getAttribute("idUsuario")!=null) {
 			usario=userServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
-			lineaProducto = lineaCompraServicio.buscarCompra(usario);
+			listaDeCompras=compraServicio.comprasDeUsuario(usario);
 		}
 		else
 			return null;
-
-		mav.addObject("lineaProducto", lineaProducto);
-		mav.setViewName("Carro/miscompras");
+		
+		mav.addObject("listaDeCompras", listaDeCompras);
+		mav.setViewName("Compra/miscompras");
 		return mav;
 	}
 	
@@ -169,12 +168,48 @@ public class CompraController {
 				lineaCompraServicio.crearLineaCompra(lineaCompra);
 			}
 			compraServicio.crearCompra(compra);
+			List<Carro> listacarro = new ArrayList<Carro>();
+			request.getSession().setAttribute("listacarro", listacarro);
+			
 		return "redirect:/index";
 		}
 			else
 				return "redirect:/user/login";	
 		
 	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/detalles/{id}")
+	public ModelAndView perfil(@PathVariable("id") long idCompra, HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Compra compra=new Compra();
+		compra= compraServicio.buscarCompra(idCompra);
+		List<LineaCompra> listaDeLineaDeCompras;
+		
+		listaDeLineaDeCompras = compraServicio.listarCompra(compra);
+		
+		mav.addObject("listaDeLineaDeCompras", listaDeLineaDeCompras);
+		mav.setViewName("Compra/detalles");
+		return mav;
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/devolucion/{id}")
+	public String devolverProducto(HttpServletRequest request, @PathVariable("id") Long id) {
+
+		LineaCompra lineaCompra=new LineaCompra();
+		lineaCompra= lineaCompraServicio.buscarLineaCompra(id);
+		if(lineaCompra.getCantidad()>1) {
+			lineaCompra.setCantidad(lineaCompra.getCantidad()-1);
+		}
+		else {
+			lineaCompraServicio.borraLineaCompra(id);
+			Compra compra = new Compra();
+			compra=lineaCompra.getCompra();
+			if(compra.getProductos()==null || compra.getProductos().isEmpty())
+				compraServicio.borrarCompra(compra.getIdCompra());
+		}
+
+		return "redirect:/index";
 	}
 
 }

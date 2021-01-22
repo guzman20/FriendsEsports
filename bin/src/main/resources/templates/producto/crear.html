@@ -1,4 +1,4 @@
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 
 	 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -10,6 +10,7 @@
 	 
 	</head>
 	<body class="bg-gradient-primary">
+<nav th:replace="fragments/header_public"></nav>
     <div class="row justify-content-center">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -37,7 +38,7 @@
 							
 							<div class="form-group col-md-8">
 								<label for="descuento" class="col-form-label">Porcentaje de descuento</label>
-								<input type="number" class="form-control" name="descuento" id="descuento" required="true" min="0" max="100" placeholder="Descuento en %">
+								<input type="number" class="form-control" name="descuento" id="descuento" min="0" max="100" placeholder="Descuento en %">
 							</div>
 
 							<label>Selecciona la imagen:

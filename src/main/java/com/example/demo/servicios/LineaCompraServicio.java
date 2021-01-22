@@ -9,4 +9,6 @@ public interface LineaCompraServicio{
 	
 	public LineaCompra crearLineaCompra(LineaCompra lineaCompra);
 	public List<LineaCompra> buscarCompra(User usuario);
+	public LineaCompra buscarLineaCompra(Long id);
+	public void borraLineaCompra(Long id);
 }

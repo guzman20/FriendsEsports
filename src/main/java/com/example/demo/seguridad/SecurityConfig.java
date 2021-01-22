@@ -42,9 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/fragments/**",
                     "/webjars/**").permitAll()
 //	        //Permisos registrados
-	        .antMatchers("/", "/compra/**" ).hasAuthority("ROL_REGISTRADO")
+	        .antMatchers("/compra/**").hasAnyAuthority("ROL_REGISTRADO", "ROL_ADMIN")
 //	        //Permisos para administrado
-	        .antMatchers("/", "/compra/**", "/producto/**" ).hasAuthority("ROL_ADMIN")
+	        .antMatchers("/producto/**" ).hasAuthority("ROL_ADMIN")
 	        .anyRequest().authenticated()
 	         .and()
 	     .formLogin()

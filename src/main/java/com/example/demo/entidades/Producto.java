@@ -23,7 +23,7 @@ public class Producto implements Serializable {
 	private static final long serialVersionUID = -8668594760203621162L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	@Column(name = "idproductos")
 	private Long idProducto;
 	
@@ -50,10 +50,7 @@ public class Producto implements Serializable {
 	private Set<LineaCompra> lineasCompras = new HashSet<>();
 
 	public Producto() {
-		
 	}
-	
-	
 	
 	public Producto(String nombre, String descripcion, String imagen, double precio, int descuento) {
 		this.nombre = nombre;

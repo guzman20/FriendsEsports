@@ -1,5 +1,7 @@
 package com.example.demo.servicios;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,25 @@ public class CompraServicioImp implements CompraServicio {
 		
 	}
 
+	public List<Compra> comprasDeUsuario(User usuario){
+		return compraDao.comprasUsuarios(usuario);
+	}
+
+	@Override
+	public Compra buscarCompra(Long id) {
+		return compraDao.buscar(id);
+	}
+
+	@Override
+	public List<LineaCompra> listarCompra(Compra compra) {
+		return compraDao.listarCompra(compra);
+	}
+
+	@Override
+	public void borrarCompra(Long id) {
+		compraDao.borrar(id);
+		
+	}
 	
 
 }

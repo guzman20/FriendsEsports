@@ -25,9 +25,10 @@ public class Rol {
 
 	@Column(name = "NOMBRE_ROL")
 	private String nombreRol;
-
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_ROL"), inverseJoinColumns = @JoinColumn(name = "idUsuarios"))
+//
+//	@ManyToMany(fetch = FetchType.EAGER)
+//	@JoinTable(name = "USUARIO_ROL", joinColumns = @JoinColumn(name = "ID_ROL"), inverseJoinColumns = @JoinColumn(name = "idUsuarios"))
+	@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
 	private Set<User> usuarios;
 
 	public int getIdRol() {
@@ -52,5 +53,14 @@ public class Rol {
 
 	public void setUsuarios(Set<User> usuario) {
 		usuarios = usuario;
+	}
+	
+	public void anadirUsuario(User usuario) {
+		this.usuarios.add(usuario);
+		usuario.getRoles().add(this);
+	}
+
+	public void deleteUsuario(User usuario) {
+		this.usuarios.remove(usuario) ;
 	}
 } 

@@ -28,4 +28,15 @@ public class LineaCompraServicioImp implements LineaCompraServicio{
 		return lineaCompraDao.buscarComprasPorIdCompra(usuario);
 	}
 
+	@Override
+	public LineaCompra buscarLineaCompra(Long id) {
+		return lineaCompraDao.buscar(id);
+	}
+
+	@Override
+	public void borraLineaCompra(Long id) {
+		lineaCompraDao.borrar(id);
+		
+	}
+
 }
