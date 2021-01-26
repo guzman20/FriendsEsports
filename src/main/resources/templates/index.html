@@ -44,8 +44,16 @@
                   </thead>
                   <tbody>
                     <tr th:each="producto : ${productos}">
-                      <td> <a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">
-                      <img th:src="@{images/{image}(image=${producto.imagen})}" width="100" height="100"> </a> </td>
+						<td th:if="${producto.imagen != ''}"> 
+						<a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">
+				    		<img th:src="@{/images/{idProducto}(idProducto=${producto.imagen})}" width="100" height="100"> 
+				    		</a>
+				    	</td>
+				    	<td th:if="${producto.imagen == ''}"> 
+				    	<a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">
+				    		<img th:src="@{/images/producto.jpg}" width="100" height="100"> 
+				    		</a>
+				    	</td>                      
                       <td style="text-align:center" th:text="${producto.nombre}"></td>
                       <td style="text-align:center" th:text="${producto.descripcion}"></td>
                       <td style="text-align:center" th:text="${producto.precio}+'€'">€</td>
