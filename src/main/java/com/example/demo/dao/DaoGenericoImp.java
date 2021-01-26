@@ -49,4 +49,6 @@ public class DaoGenericoImp<T>  implements DaoGenerico<T>{
 		return null;
 	}
 
+	
+
 }

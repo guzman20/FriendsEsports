@@ -199,7 +199,7 @@ public class CompraController {
 		LineaCompra lineaCompra=new LineaCompra();
 		lineaCompra= lineaCompraServicio.buscarLineaCompra(id);
 		if(lineaCompra.getCantidad()>1) {
-			lineaCompra.setCantidad(lineaCompra.getCantidad()-1);
+			lineaCompraServicio.actualizar(lineaCompra);
 		}
 		else {
 			lineaCompraServicio.borraLineaCompra(id);
