@@ -48,6 +48,12 @@ public class Producto implements Serializable {
 			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
 			orphanRemoval = true)
 	private Set<LineaCompra> lineasCompras = new HashSet<>();
+	
+	@OneToMany(
+			mappedBy = "producto",
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+			orphanRemoval = true)
+	private Set<Pregunta> preguntas = new HashSet<>();
 
 	public Producto() {
 	}
