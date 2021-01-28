@@ -11,4 +11,5 @@ public interface LineaCompraServicio{
 	public List<LineaCompra> buscarCompra(User usuario);
 	public LineaCompra buscarLineaCompra(Long id);
 	public void borraLineaCompra(Long id);
+	public LineaCompra actualizar(LineaCompra lineacompra);
 }

@@ -7,4 +7,6 @@ import com.example.demo.entidades.User;
 
 public interface LineaCompraDao extends DaoGenerico<LineaCompra>{
 	public List<LineaCompra> buscarComprasPorIdCompra(User usuario);
+	
+	public LineaCompra actualizar(LineaCompra lineaCompra);
 }
