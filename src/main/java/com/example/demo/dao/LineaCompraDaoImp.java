@@ -29,4 +29,14 @@ public class LineaCompraDaoImp extends DaoGenericoImp<LineaCompra> implements Li
 		return null;
 	}
 
+	@Override
+	public LineaCompra actualizar(LineaCompra lineaCompra) {
+		 LineaCompra lc= (LineaCompra)em.find(LineaCompra.class , lineaCompra.getIdLineaCompra());
+		 lc.setCantidad(lineaCompra.getCantidad()-1);
+//		 em
+//		     .createQuery("update Employee set name = \'xxxx\' where id=cantidad")
+//		     .executeUpdate();
+		return lc;
+	}
+
 }

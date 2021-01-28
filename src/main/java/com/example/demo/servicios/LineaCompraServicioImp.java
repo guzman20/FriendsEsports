@@ -39,4 +39,9 @@ public class LineaCompraServicioImp implements LineaCompraServicio{
 		
 	}
 
+	@Override
+	public LineaCompra actualizar(LineaCompra lineacompra) {
+		return lineaCompraDao.actualizar(lineacompra);
+	}
+
 }
