@@ -42,7 +42,7 @@ public class Pregunta implements Serializable {
 	@JoinColumn(name = "idproductos")
 	private Producto producto;
 	
-	@OneToMany(mappedBy = "preguntas", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
 	public Pregunta(Long idPregunta, String pregunta, User usuario, Producto producto) {
