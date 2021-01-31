@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,9 +34,6 @@ public class Producto implements Serializable {
 	@Column(name = "descripcionproducto")
 	private String descripcion;
 	
-	@Column(name = "imagenproducto" ,nullable = true)
-	private String imagen;
-	
 	@Column(name = "precio")
 	private double precio;
 	
@@ -48,14 +46,16 @@ public class Producto implements Serializable {
 			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
 			orphanRemoval = true)
 	private Set<LineaCompra> lineasCompras = new HashSet<>();
+	
+	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "producto", orphanRemoval = true)
+	private Set<Imagen> imagen = new HashSet<>();
 
 	public Producto() {
 	}
 	
-	public Producto(String nombre, String descripcion, String imagen, double precio, int descuento) {
+	public Producto(String nombre, String descripcion,  double precio, int descuento) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
-		this.imagen = imagen;
 		this.precio = precio;
 		this.descuento = descuento;
 	}
@@ -93,14 +93,6 @@ public class Producto implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
 	
 	public double getPrecio() {
 		return precio;
@@ -117,9 +109,21 @@ public class Producto implements Serializable {
 	}
 
 
-
 	public void setLineasCompras(Set<LineaCompra> lineasCompras) {
 		this.lineasCompras = lineasCompras;
+	}
+	
+	public void addImagen(Imagen img) {
+		this.imagen.add(img);
+		img.setProducto(this);
+	}
+	
+	public Set<Imagen> getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Set<Imagen> imagen) {
+		this.imagen = imagen;
 	}
 	
 	
