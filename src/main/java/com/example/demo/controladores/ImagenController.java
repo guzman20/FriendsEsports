@@ -78,7 +78,7 @@ public class ImagenController {
 		try {
 			Imagen imagesObj = imgServicio.obtenerImagen(Long.parseLong(id));
 			byte[] media = imagesObj.getImagen();
-			HttpHeaders headers = new HttpHeaders(null);
+			HttpHeaders headers = new HttpHeaders();
 			headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 
 			ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(media, headers, HttpStatus.OK);
