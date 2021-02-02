@@ -5,6 +5,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.demo.entidades.Pregunta;
 import com.example.demo.entidades.Producto;
+import com.example.demo.servicios.PreguntasServicio;
 import com.example.demo.servicios.ProductoServicio;
 
 @Controller
@@ -29,13 +33,18 @@ public class ProductoController {
 
 	@Autowired
 	ProductoServicio productoServicio;
+	
+	@Autowired
+	PreguntasServicio preguntasServicio;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/idProducto/{id}")
 	public ModelAndView descripcionProducto(@PathVariable("id") long idProducto, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		Producto producto = productoServicio.obtenerProducto(idProducto);
-
+		List<Pregunta> preguntas= preguntasServicio.listarPreguntas(producto);
+		
+		mav.addObject("Preguntas", preguntas);
 		mav.addObject("logIn", request.getAttribute("logIn"));
 		mav.addObject("producto", producto);
 		mav.setViewName("producto/idProducto");

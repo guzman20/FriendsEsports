@@ -84,11 +84,43 @@
 					</form>
           </div>
                 </div>
+              
+              
+              	<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0" role="grid" aria-describedby="dataTable_info"
+									style="width: 100%;">
+									<thead>
+										<tr>
+											<!-- <th>Imagen del producto</th> -->
+											<th>Usuarios</th>
+											<th>Preguntas</th>
+											<th>Fecha de publicacion</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="Preguntas : ${Preguntas}">
+											<td style="text-align: center"
+												th:text="${Preguntas.usuario.getNombre()}"></td>
+											<td style="text-align: center"
+												th:text="${Preguntas.Pregunta}"></td>
+											<td style="text-align: center"
+												th:text="${Preguntas.FechaDeCreacion}"></td>
+											<!--  <td style="text-align: center"
+												th:value="${listacarro.idProductoCarro}"><a
+												th:href="@{/compra/quitarcarro/{id}(id=${listacarro.idProductoCarro})}">
+													<i class="far fa-trash-alt"></i>
+
+											</a></td>-->
+											<!-- <td style="text-align:center" th:text="${listacarro.precioProductoCarro}+'€'">€</td>-->
+										</tr>
+									</tbody>
+								</table>
+              </div>
               </div>
             </div>
 
       </div>	
-    </div>    
+       
 	</body>
 	
 

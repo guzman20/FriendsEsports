@@ -2,6 +2,7 @@ package com.example.demo.dao;
 
 import java.util.List;
 
+import com.example.demo.entidades.Pregunta;
 import com.example.demo.entidades.Producto;
 import javax.persistence.Query;
 
@@ -49,5 +50,8 @@ public class ProductoDaoImp extends DaoGenericoImp<Producto> implements Producto
 		}
 		return null;
 	}
+
+	
+	
 
 }

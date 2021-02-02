@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.ProductoDao;
+import com.example.demo.entidades.Pregunta;
 import com.example.demo.entidades.Producto;
 
 @Transactional
@@ -50,5 +51,6 @@ public class ProductoServicioImp implements ProductoServicio {
 	public List<Producto> listarProductoPorNombre(String nombre) {
 		return productoDao.buscarPorNombre(nombre);
 	}
+
 
 }
