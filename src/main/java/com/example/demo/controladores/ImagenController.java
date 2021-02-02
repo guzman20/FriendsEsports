@@ -1,5 +1,8 @@
 package com.example.demo.controladores;
 
+import java.io.File;
+import java.nio.file.Files;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +56,6 @@ public class ImagenController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity getImageAsResponseEntity(@PathVariable String id) {
-
 		try {
 			Imagen imagesObj = imgServicio.obtenerImagen(Long.parseLong(id));
 			byte[] media = imagesObj.getImagen();

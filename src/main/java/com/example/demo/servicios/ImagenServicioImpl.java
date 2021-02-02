@@ -1,5 +1,8 @@
 package com.example.demo.servicios;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -33,12 +36,23 @@ public class ImagenServicioImpl implements ImagenServicio {
 	}
 
 	public Imagen obtenerImagen(Long id) {
+		File fi = null;
+		byte[] convertir = null;
 		Imagen findById = imgDao.buscar(id);
 		if (findById != null) {
 			Imagen getImageDetails = findById;
 			return findById;
 		} else {
-			return null;
+			fi = new File("src/main/resources/static/images/producto.jpg");
+			try {
+				convertir  = Files.readAllBytes(fi.toPath());
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Imagen getImageDetails = new Imagen("",convertir);
+			return getImageDetails;
+			
 		}
 	}
 
