@@ -33,27 +33,6 @@ public class ImagenController {
 	@Autowired
 	ProductoServicio productoService;
 
-	@GetMapping("/cargar/{idProducto}")
-	public ModelAndView actualizarFotoPerfil(HttpServletRequest request, @PathVariable("idProducto") long idProducto) {
-
-		ModelAndView mav = new ModelAndView();
-
-		Producto producto = productoService.obtenerProducto(idProducto);
-		Imagen img = null;
-		if (!producto.getImagen().isEmpty()) {
-			for (Imagen i : producto.getImagen()) {
-				img = i;
-				break;
-			}
-
-		}
-		mav.addObject("imagen", img);
-		mav.addObject("profesor", producto);
-//		mav.setViewName("/imagen/imagen_subir");
-		return mav;
-
-	}
-
 	@PostMapping("/cargar/{idProducto}")
 	public String fileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request,
 			@PathVariable("idProducto") long idProducto) {
