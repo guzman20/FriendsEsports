@@ -24,8 +24,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entidades.Pregunta;
 import com.example.demo.entidades.Producto;
+import com.example.demo.entidades.Respuesta;
 import com.example.demo.servicios.PreguntasServicio;
 import com.example.demo.servicios.ProductoServicio;
+import com.example.demo.servicios.RespuestaServicio;
 
 @Controller
 @RequestMapping(value = "/producto")
@@ -36,6 +38,9 @@ public class ProductoController {
 	
 	@Autowired
 	PreguntasServicio preguntasServicio;
+	
+	@Autowired
+	RespuestaServicio respuestaServicio;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/idProducto/{id}")
 	public ModelAndView descripcionProducto(@PathVariable("id") long idProducto, HttpServletRequest request) {
@@ -43,6 +48,7 @@ public class ProductoController {
 		ModelAndView mav = new ModelAndView();
 		Producto producto = productoServicio.obtenerProducto(idProducto);
 		List<Pregunta> preguntas= preguntasServicio.listarPreguntas(producto);
+//		Esto no existe pero haciendo esto obtendrías las respuestas pasándole la pregunta
 		
 		mav.addObject("Preguntas", preguntas);
 		mav.addObject("logIn", request.getAttribute("logIn"));

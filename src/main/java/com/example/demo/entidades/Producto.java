@@ -127,6 +127,14 @@ public class Producto implements Serializable {
 	public void setLineasCompras(Set<LineaCompra> lineasCompras) {
 		this.lineasCompras = lineasCompras;
 	}
+
+	public Set<Pregunta> getPreguntas() {
+		return preguntas;
+	}
+
+	public void setPreguntas(Set<Pregunta> preguntas) {
+		this.preguntas = preguntas;
+	}
 	
 	
 

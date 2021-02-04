@@ -85,7 +85,8 @@
           </div>
                 </div>
               
-              
+              	<form>
+              	</form>
               	<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0" role="grid" aria-describedby="dataTable_info"
 									style="width: 100%;">
@@ -98,20 +99,30 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr th:each="Preguntas : ${Preguntas}">
+										<tr th:each="Pregunta : ${Preguntas}">
 											<td style="text-align: center"
-												th:text="${Preguntas.usuario.getNombre()}"></td>
+												th:text="${Pregunta.usuario.getNombre()}"></td>
 											<td style="text-align: center"
-												th:text="${Preguntas.Pregunta}"></td>
+												th:text="${Pregunta.Pregunta}"></td>
 											<td style="text-align: center"
-												th:text="${Preguntas.FechaDeCreacion}"></td>
-											<!--  <td style="text-align: center"
-												th:value="${listacarro.idProductoCarro}"><a
-												th:href="@{/compra/quitarcarro/{id}(id=${listacarro.idProductoCarro})}">
-													<i class="far fa-trash-alt"></i>
-
-											</a></td>-->
-											<!-- <td style="text-align:center" th:text="${listacarro.precioProductoCarro}+'€'">€</td>-->
+												th:text="${Pregunta.FechaDeCreacion}"></td>
+										<td>
+											
+											<span class="col-4" style="text-align: center">Usuarios</span>
+											<span class="col-4" style="text-align: center">Respuesta</span>
+											<span class="col-4" style="text-align: center">Fecha de publicacion</span>
+										<ul th:each="Respuesta : ${Pregunta.respuestas}">
+											
+											<li>
+											<span class="col-4" style="text-align: center"
+												th:text="${Respuesta.usuario.getNombre()}"></span>
+											<span class="col-4" style="text-align: center"
+												th:text="${Respuesta.Respuesta}"></span>
+											<span class="col-4" style="text-align: center"
+												th:text="${Respuesta.FechaDeCreacion}"></span>
+												</li>
+										</ul>
+										</td>
 										</tr>
 									</tbody>
 								</table>

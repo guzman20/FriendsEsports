@@ -13,7 +13,7 @@ import com.example.demo.entidades.Producto;
 
 @Repository
 @Component("Pregunta")
-public class PreguntasDaoImp extends DaoGenericoImp<LineaCompra> implements PreguntasDao {
+public class PreguntasDaoImp extends DaoGenericoImp<Pregunta> implements PreguntasDao {
 
 	@Override
 	public List<Pregunta> listarPreguntasPorProducto(Producto producto) {

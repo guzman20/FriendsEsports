@@ -98,6 +98,14 @@ public class Pregunta implements Serializable {
 		this.producto = producto;
 	}
 
+	public Set<Respuesta> getRespuestas() {
+		return respuestas;
+	}
+
+	public void setRespuestas(Set<Respuesta> respuestas) {
+		this.respuestas = respuestas;
+	}
+
 
 
 }
