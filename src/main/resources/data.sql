@@ -26,3 +26,4 @@ VALUES ('Espinacas',0,'','fresco',1);
 
 INSERT INTO alejandro.preguntas (pregunta,idproductos,id_usuarios) VALUES ('Esta bueno?','1','1');
 INSERT INTO alejandro.respuestas (respuesta,id_pregunta,id_usuarios) VALUES ('Si','1','2');
+
