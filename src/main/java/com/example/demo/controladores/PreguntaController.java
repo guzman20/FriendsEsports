@@ -18,7 +18,7 @@ public class PreguntaController {
 	
 	@RequestMapping(value = "/crear/{pregunta}",method = RequestMethod.POST)
 	@ResponseBody
-	public String checkUsernameAvailability(
+	public String publicarPregunta(
 	@PathVariable("pregunta") String pregunta)
 	{
 	
