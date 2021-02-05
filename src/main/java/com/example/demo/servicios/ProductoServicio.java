@@ -2,6 +2,7 @@ package com.example.demo.servicios;
 
 import java.util.List;
 
+
 import com.example.demo.entidades.Producto;
 
 public interface ProductoServicio {
@@ -17,5 +18,7 @@ public interface ProductoServicio {
 	public List<Producto> listarProductos(Integer maximo);
 	
 	public List<Producto> listarProductoPorNombre(String nombre);
-
+	
+	
+ 
 }

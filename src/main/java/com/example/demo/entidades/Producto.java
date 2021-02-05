@@ -47,8 +47,16 @@ public class Producto implements Serializable {
 			orphanRemoval = true)
 	private Set<LineaCompra> lineasCompras = new HashSet<>();
 	
+
+	@OneToMany(
+			mappedBy = "producto",
+			cascade = { CascadeType.PERSIST, CascadeType.MERGE },
+			orphanRemoval = true)
+	private Set<Pregunta> preguntas = new HashSet<>();
+
 	@OneToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL, mappedBy = "producto", orphanRemoval = true)
 	private Set<Imagen> imagen = new HashSet<>();
+
 
 	public Producto() {
 	}
@@ -111,6 +119,14 @@ public class Producto implements Serializable {
 
 	public void setLineasCompras(Set<LineaCompra> lineasCompras) {
 		this.lineasCompras = lineasCompras;
+	}
+
+	public Set<Pregunta> getPreguntas() {
+		return preguntas;
+	}
+
+	public void setPreguntas(Set<Pregunta> preguntas) {
+		this.preguntas = preguntas;
 	}
 	
 	public void addImagen(Imagen img) {

@@ -6,11 +6,12 @@
 	 <script th:src="@{/js/jquery-3.5.1.js}"></script>
 	 <script th:src="@{/js/jquery-ui.min.js}"></script>
 	 
+	 <script th:src="@{/js/publicarPregunta.js}"></script>
+	 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 	 <meta charset="utf-8" />
 	 <meta name="_csrf" th:content="${_csrf.token}" />
-		<meta name="_csrf_header"
-		th:content="${_csrf.headerName}" />
+		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 	 <style>
 		td {font-weight: bold;}
 		table{white-space: nowrap;}
@@ -108,11 +109,59 @@
 					</form>
           </div>
                 </div>
+              
+              	<form>
+					  <label class="col-form-label" for="pregunta">Escriba su pregunta</label>
+					  <textarea id="pregunta" name="preguntaFormulario"
+						class="form-control"></textarea>
+					<button type="button" onclick="publicarPregunta()" class="btn btn-primary" value="Publicar pregunta"></button>
+				</form>
+				<div id="preguntaError"></div>
+              	<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0" role="grid" aria-describedby="dataTable_info"
+									style="width: 100%;">
+									<thead>
+										<tr>
+											<!-- <th>Imagen del producto</th> -->
+											<th>Usuarios</th>
+											<th>Preguntas</th>
+											<th>Fecha de publicacion</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="Pregunta : ${Preguntas}">
+											<td style="text-align: center"
+												th:text="${Pregunta.usuario.getNombre()}"></td>
+											<td style="text-align: center"
+												th:text="${Pregunta.Pregunta}"></td>
+											<td style="text-align: center"
+												th:text="${Pregunta.FechaDeCreacion}"></td>
+										<td>
+											
+											<span class="col-4" style="text-align: center">Usuarios</span>
+											<span class="col-4" style="text-align: center">Respuesta</span>
+											<span class="col-4" style="text-align: center">Fecha de publicacion</span>
+										<ul th:each="Respuesta : ${Pregunta.respuestas}">
+											
+											<li>
+											<span class="col-4" style="text-align: center"
+												th:text="${Respuesta.usuario.getNombre()}"></span>
+											<span class="col-4" style="text-align: center"
+												th:text="${Respuesta.Respuesta}"></span>
+											<span class="col-4" style="text-align: center"
+												th:text="${Respuesta.FechaDeCreacion}"></span>
+												</li>
+										</ul>
+										</td>
+										</tr>
+									</tbody>
+								</table>
+              </div>
               </div>
             </div>
 
       </div>	
-    </div>    
+       
 	</body>
 	
 
