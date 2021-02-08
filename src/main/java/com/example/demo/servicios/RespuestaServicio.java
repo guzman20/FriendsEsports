@@ -8,5 +8,7 @@ import com.example.demo.entidades.Respuesta;
 public interface RespuestaServicio {
 
 	public List<Respuesta> listarRespuestas(Pregunta pregunta);
+	
+	
 
 }

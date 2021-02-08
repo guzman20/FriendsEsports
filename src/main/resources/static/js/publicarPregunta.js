@@ -1,4 +1,4 @@
-$("body").on('click', '#pregunta', publicarPregunta);
+$("body").on('click', '#pregunta','#producto', publicarPregunta);
 
 
 
@@ -9,6 +9,7 @@ function publicarPregunta() {
 
 
 	var pregunta = $('#pregunta').val();
+	var producto = $('#producto').val();
 
 
 
@@ -26,11 +27,12 @@ function publicarPregunta() {
 
 	$.ajax({
 
-		url: "/pregunta/crear/" + pregunta,
+		url: "/pregunta/crear/"+ producto + "/" + pregunta,
 
 		contentType: "application/json; charset=utf-8",
 
-		data: { "pregunta": pregunta },
+		data: { "pregunta": pregunta,
+				"producto" : producto},
 
 		type: "POST",
 
@@ -38,11 +40,11 @@ function publicarPregunta() {
 
             var alerta =
 
-				"<div>" +
+				"<td>" +
 
-				"Publicado con exito" +
+				pregunta +
 
-				"</div>";
+				"</td>";
 
 			$('#preguntaError').html(alerta);
 

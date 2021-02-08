@@ -90,9 +90,11 @@
 					  <label class="col-form-label" for="pregunta">Escriba su pregunta</label>
 					  <textarea id="pregunta" name="preguntaFormulario"
 						class="form-control"></textarea>
+					<textarea id="producto" name="preguntaFormulario"
+						class="form-control" style="visibility:hidden;" th:text="${producto.idProducto}"></textarea>
 					<button type="button" onclick="publicarPregunta()" class="btn btn-primary" value="Publicar pregunta"></button>
 				</form>
-				<div id="preguntaError"></div>
+				
               	<table class="table table-bordered" id="dataTable" width="100%"
 									cellspacing="0" role="grid" aria-describedby="dataTable_info"
 									style="width: 100%;">
@@ -130,6 +132,7 @@
 										</ul>
 										</td>
 										</tr>
+										<tr id="preguntaError"></tr>
 									</tbody>
 								</table>
               </div>
