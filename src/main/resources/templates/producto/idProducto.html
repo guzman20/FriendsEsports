@@ -92,7 +92,7 @@
 						class="form-control"></textarea>
 					<textarea id="producto" name="preguntaFormulario"
 						class="form-control" style="visibility:hidden;" th:text="${producto.idProducto}"></textarea>
-					<button type="button" onclick="publicarPregunta()" class="btn btn-primary" value="Publicar pregunta"></button>
+					<button type="button" onclick="publicarPregunta()" class="btn btn-primary">Publicar pregunta</button>
 				</form>
 				
               	<table class="table table-bordered" id="dataTable" width="100%"
@@ -106,7 +106,7 @@
 											<th>Fecha de publicacion</th>
 										</tr>
 									</thead>
-									<tbody>
+									<tbody id="cuerpoTabla">
 										<tr th:each="Pregunta : ${Preguntas}">
 											<td style="text-align: center"
 												th:text="${Pregunta.usuario.getNombre()}"></td>
@@ -132,7 +132,7 @@
 										</ul>
 										</td>
 										</tr>
-										<tr id="preguntaError"></tr>
+										<tr id="preguntaPublicada"></tr>
 									</tbody>
 								</table>
               </div>
