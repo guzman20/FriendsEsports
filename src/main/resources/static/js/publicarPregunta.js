@@ -23,20 +23,24 @@ function publicarPregunta() {
 		data:JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
+
+			
+			
+
             var fila = document.createElement("tr");
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
 
-			var apoyoU=document.createTextNode("Jose");
-			var apoyoF=document.createTextNode("21/03/2017");
+			var apoyoU=document.createTextNode(response.usuario.nombre);
+			var apoyoF=document.createTextNode(response.fechaDeCreacion);
 			var apoyoT = document.createTextNode(pregunta);
 
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
 			fecha.appendChild(apoyoF);
 
-			fila.appendChild(usuario);-
+			fila.appendChild(usuario);
 			fila.appendChild(texto);
 			fila.appendChild(fecha);
 

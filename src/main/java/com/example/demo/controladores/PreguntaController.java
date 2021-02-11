@@ -36,7 +36,7 @@ public class PreguntaController {
 	@RequestMapping(value = "/crear",method = RequestMethod.POST,
 			consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public String publicarPregunta(
+	public Pregunta publicarPregunta(
 	@RequestBody JsonNode values
 	, HttpServletRequest request)
 	{
@@ -50,11 +50,11 @@ public class PreguntaController {
 		User usuario = (User) userServicio.obtenerUsuario(idUsuario);
 		Producto producto = productoServicio.obtenerProducto(values.findValue("producto").asLong());
 		pregunta = preguntasServicio.crearPregunta(texto,usuario,producto);
-		return "true";
+		return pregunta;
 		
 	}else
 		
-		return "false";
+		return null;
 	
 	}
 

@@ -3,6 +3,7 @@ package com.example.demo.entidades;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -34,7 +35,7 @@ public class Pregunta implements Serializable {
 	private String pregunta;
 
 	@Column(name = "fechaDeCreacion")
-	private Date fechaDeCreacion;
+	private LocalDateTime fechaDeCreacion;
 
 	@ManyToOne
 	@JoinColumn(name = "idUsuarios")
@@ -51,7 +52,7 @@ public class Pregunta implements Serializable {
 		this.pregunta = pregunta;
 		this.usuario = usuario;
 		this.producto = producto;
-		Date date = new Date();
+		LocalDateTime date = LocalDateTime.now();
 		this.fechaDeCreacion = date;
 	}
 
@@ -75,11 +76,11 @@ public class Pregunta implements Serializable {
 		this.pregunta = pregunta;
 	}
 
-	public Date getFechaDeCreacion() {
+	public LocalDateTime getFechaDeCreacion() {
 		return fechaDeCreacion;
 	}
 
-	public void setFechaDeCreacion(Date fechaDeCreacion) {
+	public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
 		this.fechaDeCreacion = fechaDeCreacion;
 	}
 
