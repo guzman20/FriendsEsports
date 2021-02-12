@@ -1,169 +1,148 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-	
-	 <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-	 <link rel="stylesheet" type="text/css" th:href="@{/css/sb-admin-2.min.css}">
-	 <script th:src="@{/js/jquery-3.5.1.js}"></script>
-	 <script th:src="@{/js/jquery-ui.min.js}"></script>
-	 
-	 <script th:src="@{/js/publicarPregunta.js}"></script>
-	 
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-	 <meta charset="utf-8" />
-	 <meta name="_csrf" th:content="${_csrf.token}" />
-		<meta name="_csrf_header" th:content="${_csrf.headerName}" />
-	 <style>
-		td {font-weight: bold;}
-		table{white-space: nowrap;}
-		.image-upload>input {
-			  display: none;
-			}
-	 </style>
-	 <script type="text/javascript">
-	 	$(function(){
-		    $("#upload_link").on('click', function(e){
-		        e.preventDefault();
-		        $("#upload:hidden").trigger('click');
-		    });
-		    $("#upload:hidden").on('change', function(e){
-		        e.preventDefault();
-		        //submit form
-		        $('#inputForm').submit();
-		    });
-		});
-	 </script>
-	</head>
-	<body class="bg-gradient-primary">
-	
-<nav th:replace="fragments/header_public"></nav>
-	
-    <div class="row justify-content-center">
+<head>
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="p-5">
-                <div class="row">
-                <div class="col-sm-12">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                    <tr>
-                      <th>Imagen del producto</th>
-                      <th>Nombre del producto</th>
-                      <th>Descripci&oacute;n del producto</th>
-                      <th>Precio del producto</th>
-                      <th>Descuento del producto</th>
-                    </tr>	
-                  </thead>
-                  <tbody>
-				    	<tr style="text-align:center"> 
-				    	
-<!-- 				    	--------------------------------- -->
-<!-- 				    	Parte de admin -->
-<!-- 						-------------------------------- -->
+<style>
+td {
+	font-weight: bold;
+}
 
-				    	<td sec:authorize="hasAuthority('ROL_ADMIN')">
-				    	
-				    	<form th:action="@{/imagenes/cargar/{idProducto}(idProducto=${producto.idProducto})}"
-						method="POST" enctype="multipart/form-data">
-				    	<div class="image-upload">
-				    		<label for="file-input">
-						    	<img th:src="@{/imagenes/{idProducto}(idProducto=${producto.idProducto})}" alt="images/producto.jpg" width="100" height="100"/>
-						  </label>
-				    		<input name="file" id="file-input" type="file" onchange="this.form.submit();"/>
-				    		</div>
-				    	</form>
-<!-- 				    	--------------------------------- -->
-<!-- 				    	Parte de registrado -->
-<!-- 						-------------------------------- -->
-				    	<td sec:authorize="hasAuthority('ROL_REGISTRADO')">
-				    		<img th:src="@{/imagenes/{idProducto}(idProducto=${producto.idProducto})}"  width="100" height="100"/>
-				    	</td>
-				    	</td>
-				    				    	
-				        <td style="text-align:center" th:text="${producto.nombre}"></td>
-				        <td style="text-align:center" th:text="${producto.descripcion}"></td>
-				        <td style="text-align:center" th:text="${producto.precio}+'â‚¬'"></td>
-				        <td style="text-align:center" th:text="${producto.descuento}+'%'"></td>
-				     
-                    </tr>
-                  </tbody>
-                </table>
-                
-              </div>
-            </div>
-                
-			<div class="text-center" style="width:800px; margin:0 auto;" sec:authorize="hasAuthority('ROL_ADMIN')">
-                 	<a
-					th:href="@{/producto/borrar/{idProducto}(idProducto=${producto.idProducto})}"
-					class="btn btn-primary">Borrar este producto</a>
-                 </div>
-           <div class="text-center" style="width:800px; margin:0 auto;">
-                 	<a
-					th:href="@{/compra/add/{idProducto}(idProducto=${producto.idProducto})}"
-					class="btn btn-primary">A&ntilde;adir este producto</a>
-          </div>
-          <div class="text-center" style="width:800px; margin:0 auto;">
-          		<form action="#" th:action="@{/compra/{idProducto}(idProducto=${producto.idProducto})}" method="post">
-                 	<input type="submit" value="Comprar Producto"
-					class="btn btn-primary">
+table {
+	white-space: nowrap;
+}
+</style>
+
+</head>
+<body class="bg-gradient-primary">
+
+	<nav th:replace="fragments/header_loader"></nav>
+
+	<div class="row justify-content-center">
+
+		<div class="card o-hidden border-0 shadow-lg my-5">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="p-5">
+						<div class="row">
+							<div class="col-sm-12">
+								<form th:action="@{/compra/add}" method="post">
+									<table class="table table-bordered" id="dataTable" width="100%"
+										cellspacing="0" role="grid" aria-describedby="dataTable_info"
+										style="width: 100%;">
+										<thead>
+											<tr>
+												<th>Imagen del producto</th>
+												<th>Nombre del producto</th>
+												<th>Descripci&oacute;n del producto</th>
+												<th>Precio del producto</th>
+												<th>Descuento del producto</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr style="text-align: center">
+
+												<td th:if="${producto.imagen != null}"><a
+													th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">
+														<img
+														th:src="@{/images/{idProducto}(idProducto=${producto.imagen})}"
+														width="100" height="100">
+												</a></td>
+												<td th:if="${producto.imagen == null}"><a
+													th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">
+														<img th:src="@{/images/producto.jpg}" width="100"
+														height="100">
+												</a></td>
+
+												<td style="text-align: center" th:text="${producto.nombre}"></td>
+												<td style="text-align: center"
+													th:text="${producto.descripcion}"></td>
+												<td style="text-align: center"
+													th:text="${producto.precio}+'€'"></td>
+												<td style="text-align: center"
+													th:text="${producto.descuento}+'%'"></td>
+
+											</tr>
+										</tbody>
+									</table>
+								</form>
+
+							</div>
+						</div>
+
+						<div class="text-center" style="width: 800px; margin: 0 auto;"
+							sec:authorize="hasAuthority('ROL_ADMIN')">
+							<a
+								th:href="@{/producto/borrar/{idProducto}(idProducto=${producto.idProducto})}"
+								class="btn btn-primary">Borrar este producto</a>
+						</div>
+						<div class="text-center" style="width: 800px; margin: 0 auto;">
+							<a
+								th:href="@{/compra/add/{idProducto}(idProducto=${producto.idProducto})}"
+								class="btn btn-primary">A&ntilde;adir este producto</a>
+						</div>
+						<div class="text-center" style="width: 800px; margin: 0 auto;">
+							<form action="#"
+								th:action="@{/compra/{idProducto}(idProducto=${producto.idProducto})}"
+								method="post">
+								<input type="submit" value="Comprar Producto"
+									class="btn btn-primary">
+							</form>
+						</div>
+					</div>
+
+					<form>
+						<label class="col-form-label" for="pregunta">Escriba su
+							pregunta</label>
+						<textarea id="pregunta" name="preguntaFormulario"
+							class="form-control"></textarea>
+						<textarea id="producto" name="preguntaFormulario"
+							class="form-control" style="visibility: hidden;"
+							th:text="${producto.idProducto}"></textarea>
+						<button type="button" id="botonPregunta" class="btn btn-primary">Publicar
+							pregunta</button>
 					</form>
-          </div>
-                </div>
-              
-              	<form>
-					  <label class="col-form-label" for="pregunta">Escriba su pregunta</label>
-					  <textarea id="pregunta" name="preguntaFormulario"
-						class="form-control"></textarea>
-					<button type="button" onclick="publicarPregunta()" class="btn btn-primary" value="Publicar pregunta"></button>
-				</form>
-				<div id="preguntaError"></div>
-              	<table class="table table-bordered" id="dataTable" width="100%"
-									cellspacing="0" role="grid" aria-describedby="dataTable_info"
-									style="width: 100%;">
-									<thead>
-										<tr>
-											<!-- <th>Imagen del producto</th> -->
-											<th>Usuarios</th>
-											<th>Preguntas</th>
-											<th>Fecha de publicacion</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr th:each="Pregunta : ${Preguntas}">
-											<td style="text-align: center"
-												th:text="${Pregunta.usuario.getNombre()}"></td>
-											<td style="text-align: center"
-												th:text="${Pregunta.Pregunta}"></td>
-											<td style="text-align: center"
-												th:text="${Pregunta.FechaDeCreacion}"></td>
-										<td>
-											
-											<span class="col-4" style="text-align: center">Usuarios</span>
-											<span class="col-4" style="text-align: center">Respuesta</span>
-											<span class="col-4" style="text-align: center">Fecha de publicacion</span>
-										<ul th:each="Respuesta : ${Pregunta.respuestas}">
-											
-											<li>
-											<span class="col-4" style="text-align: center"
-												th:text="${Respuesta.usuario.getNombre()}"></span>
-											<span class="col-4" style="text-align: center"
-												th:text="${Respuesta.Respuesta}"></span>
-											<span class="col-4" style="text-align: center"
-												th:text="${Respuesta.FechaDeCreacion}"></span>
-												</li>
-										</ul>
-										</td>
-										</tr>
-									</tbody>
-								</table>
-              </div>
-              </div>
-            </div>
 
-      </div>	
-       
-	</body>
-	
+					<table class="table table-bordered" id="dataTable" width="100%"
+						cellspacing="0" role="grid" aria-describedby="dataTable_info"
+						style="width: 100%;">
+						<thead>
+							<tr>
+								<th>Usuarios</th>
+								<th>Preguntas</th>
+								<th>Fecha de publicacion</th>
+							</tr>
+						</thead>
+						<tbody id="cuerpoTabla">
+							<tr th:each="Pregunta : ${Preguntas}">
+								<td style="text-align: center"
+									th:text="${Pregunta.usuario.getNombre()}"></td>
+								<td style="text-align: center" th:text="${Pregunta.Pregunta}"></td>
+								<td style="text-align: center"
+									th:text="${Pregunta.FechaDeCreacion}"></td>
+								<td><span class="col-4" style="text-align: center">Usuarios</span>
+									<span class="col-4" style="text-align: center">Respuesta</span>
+									<span class="col-4" style="text-align: center">Fecha de
+										publicacion</span>
+									<ul th:each="Respuesta : ${Pregunta.respuestas}">
 
-	
+										<li><span class="col-4" style="text-align: center"
+											th:text="${Respuesta.usuario.getNombre()}"></span> <span
+											class="col-4" style="text-align: center"
+											th:text="${Respuesta.Respuesta}"></span> <span class="col-4"
+											style="text-align: center"
+											th:text="${Respuesta.FechaDeCreacion}"></span></li>
+									</ul></td>
+							</tr>
+							<tr id="preguntaPublicada"></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+
+
+
 </html>
