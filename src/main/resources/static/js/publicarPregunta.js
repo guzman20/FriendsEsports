@@ -1,5 +1,5 @@
 
-$("body").on('click', '#pregunta','#producto', publicarPregunta);
+$("body").on('click', '#botonPregunta', publicarPregunta);
 
 function publicarPregunta() {
 
@@ -13,27 +13,30 @@ function publicarPregunta() {
 		xhr.setRequestHeader(header, token);
 	});
 
-	var datos = { "pregunta": pregunta,
-				"producto" : producto};
+	var datos = {
+		"pregunta": pregunta,
+		"producto": producto
+	};
 
 	$.ajax({
 		url: "/pregunta/crear/",
 		contentType: "application/json; charset=utf-8",
-		dataType:"json",
-		data:JSON.stringify(datos),
+		dataType: "json",
+		data: JSON.stringify(datos),
 		type: "POST",
 		success: function(response) {
 
-			
-			
-
-            var fila = document.createElement("tr");
+			var fila = document.createElement("tr");
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
 
-			var apoyoU=document.createTextNode(response.usuario.nombre);
-			var apoyoF=document.createTextNode(response.fechaDeCreacion);
+			usuario.style.textAlign = "center";
+			texto.style.textAlign = "center";
+			fecha.style.textAlign = "center";
+
+			var apoyoU = document.createTextNode(response.usuario.nombre);
+			var apoyoF = document.createTextNode(response.fechaDeCreacion);
 			var apoyoT = document.createTextNode(pregunta);
 
 			texto.appendChild(apoyoT);
@@ -52,7 +55,8 @@ function publicarPregunta() {
 				"<div class='alert alert-danger' role='alert'>" +
 				"Error </div>";
 
-				$('#preguntaError').html(alerta);
+			$('#preguntaError').html(alerta);
 		}
 
-	});}
+	});
+}
