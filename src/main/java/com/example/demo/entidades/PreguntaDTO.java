@@ -1,6 +1,7 @@
 package com.example.demo.entidades;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ public class PreguntaDTO {
 
 	private String pregunta;
 
-	private LocalDateTime fechaDeCreacion;
+	private String fechaDeCreacion;
 
 	private Long idUsuario;
 	
@@ -22,7 +23,7 @@ public class PreguntaDTO {
 
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public PreguntaDTO(Long idPregunta, String pregunta, LocalDateTime fechaDeCreacion, Long idUsuario,
+	public PreguntaDTO(Long idPregunta, String pregunta, String fechaDeCreacion, Long idUsuario,
 			String nombreUsuario, Long idProducto, Set<Respuesta> respuestas) {
 		super();
 		this.idPregunta = idPregunta;
@@ -53,11 +54,11 @@ public class PreguntaDTO {
 		this.pregunta = pregunta;
 	}
 
-	public LocalDateTime getFechaDeCreacion() {
+	public String getFechaDeCreacion() {
 		return fechaDeCreacion;
 	}
 
-	public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
+	public void setFechaDeCreacion(String fechaDeCreacion) {
 		this.fechaDeCreacion = fechaDeCreacion;
 	}
 
