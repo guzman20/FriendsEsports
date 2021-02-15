@@ -1,10 +1,9 @@
-
-$("body").on('click', '#botonPregunta', publicarPregunta);
+$("body").on('click', '#crearBotonPregunta', publicarPregunta);
 
 function publicarPregunta() {
 
-	var pregunta = $('#pregunta').val();
-	var producto = $('#producto').val();
+	var preguntaTexto = $('#preguntaTexto').val();
+	var idProducto = $('#idProducto').val();
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -14,8 +13,8 @@ function publicarPregunta() {
 	});
 
 	var datos = {
-		"pregunta": pregunta,
-		"producto": producto
+		"preguntaTexto": preguntaTexto,
+		"idProducto": idProducto
 	};
 
 	$.ajax({
@@ -30,22 +29,42 @@ function publicarPregunta() {
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
+			var columnaFormulario = document.createElement("td");
+			var formulario = document.createElement("form");
+			var areaTexto = document.createElement("textarea");
+			var boton = document.createElement("button");
+			var i = document.createElement("i");
 
 			usuario.style.textAlign = "center";
 			texto.style.textAlign = "center";
 			fecha.style.textAlign = "center";
+			areaTexto.style.display = "none";
+			boton.type= "button";
+			boton.classList="btn btn-primary";
+			i.classList="far fa-trash-alt";
+			boton.id="botonPreguntaBorrar";
+			areaTexto.id="idPregunta";
 
 			var apoyoU = document.createTextNode(response.nombreUsuario);
 			var apoyoF = document.createTextNode(response.fechaDeCreacion);
-			var apoyoT = document.createTextNode(pregunta);
+			var apoyoT = document.createTextNode(preguntaTexto);
+			var apoyoA = document.createTextNode(response.idPregunta);
+			var apoyoB = document.createTextNode("borrar");
 
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
 			fecha.appendChild(apoyoF);
+			areaTexto.appendChild(apoyoA);
+			boton.appendChild(apoyoB);
 
+			boton.appendChild(i);
+			formulario.appendChild(areaTexto);
+			formulario.appendChild(boton);
+			columnaFormulario.appendChild(formulario);
 			fila.appendChild(usuario);
 			fila.appendChild(texto);
 			fila.appendChild(fecha);
+			fila.appendChild(columnaFormulario);
 
 			$('#cuerpoTabla').append(fila);
 		},

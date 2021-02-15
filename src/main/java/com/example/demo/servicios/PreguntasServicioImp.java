@@ -48,5 +48,10 @@ public class PreguntasServicioImp implements PreguntasServicio {
 		
 	}
 
+	@Override
+	public void borrarPregunta(Long idPregunta) {
+		preguntasDao.borrar(idPregunta);
+	}
+
 
 }

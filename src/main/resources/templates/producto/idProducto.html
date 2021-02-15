@@ -92,14 +92,16 @@ table {
 					<form>
 						<label class="col-form-label" for="pregunta">Escriba su
 							pregunta</label>
-						<textarea id="pregunta" name="preguntaFormulario"
+						<textarea id="preguntaTexto" name="preguntaFormulario"
 							class="form-control"></textarea>
-						<textarea id="producto" name="preguntaFormulario"
+						<textarea id="idProducto" name="preguntaFormulario"
 							class="form-control" style="visibility: hidden;"
 							th:text="${producto.idProducto}"></textarea>
-						<button type="button" id="botonPregunta" class="btn btn-primary">Publicar
+						<button type="button" id="crearBotonPregunta" class="btn btn-primary">Publicar
 							pregunta</button>
 					</form>
+					
+					<div id="preguntaError"></div>
 
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0" role="grid" aria-describedby="dataTable_info"
@@ -109,6 +111,7 @@ table {
 								<th>Usuarios</th>
 								<th>Preguntas</th>
 								<th>Fecha de publicacion</th>
+								<th>Opciones</th>
 							</tr>
 						</thead>
 						<tbody id="cuerpoTabla">
@@ -120,11 +123,19 @@ table {
 								<td style="text-align: center" th:text="${Pregunta.Pregunta}"></td>
 								<td style="text-align: center"
 									th:text="${Pregunta.fechaFormateada()}"></td>
+								<td th:id="${Pregunta.idPregunta}" style="display: none;"></td>
 								<td>
-									
+									<form>
+										<textarea id="idPregunta" name="borrarPreguntaFormulario" style="display: none;"
+										th:text="${Pregunta.idPregunta}"></textarea>
+										<button type="button" id="botonPreguntaBorrar"
+											class="btn btn-primary">
+											<i class="far fa-trash-alt"></i> borrar
+										</button>
+									</form>
 								</td>
 
-								<td >
+								<td>
 									<div class="row">
 										<span class="col-3" style="text-align: center">Usuarios</span>
 										<span class="col-3" style="text-align: center">Respuesta</span>
@@ -133,9 +144,10 @@ table {
 									<div class="row" th:each="Respuesta : ${Pregunta.respuestas}">
 
 										<span class="col-3" style="text-align: center"
-											th:text="${Respuesta.usuario.getNombre()}"></span> <span class="col-3"
-											style="text-align: center" th:text="${Respuesta.Respuesta}"></span>
-										<span class="col-6" style="text-align: center"
+											th:text="${Respuesta.usuario.getNombre()}"></span> <span
+											class="col-3" style="text-align: center"
+											th:text="${Respuesta.Respuesta}"></span> <span class="col-6"
+											style="text-align: center"
 											th:text="${Respuesta.FechaDeCreacion}"></span>
 
 									</div>
@@ -151,14 +163,4 @@ table {
 	</div>
 
 </body>
-
-
-
 </html>
-<!--  
-<div>
-										<span style="text-align: center; display: inline-block; margin-right:5%; width:17%;">Usuarios</span>
-										<span style="text-align: center; display: inline-block; margin-right:5%; width:17%;">Respuesta</span>
-										<span style="text-align: center; display: inline-block; margin-left:5%; margin-right:5%; width:17%;">Fecha
-											depublicacion</span>
-									</div>-->

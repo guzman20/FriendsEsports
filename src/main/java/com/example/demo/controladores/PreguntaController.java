@@ -37,14 +37,14 @@ public class PreguntaController {
 	@ResponseBody
 	public PreguntaDTO publicarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
 
-		String texto = values.findValue("pregunta").asText();
+		String texto = values.findValue("preguntaTexto").asText();
 
 		if (texto != "") {
 
 			Pregunta pregunta = new Pregunta();
 			Long idUsuario = (long) request.getSession().getAttribute("idUsuario");
 			User usuario = (User) userServicio.obtenerUsuario(idUsuario);
-			Producto producto = productoServicio.obtenerProducto(values.findValue("producto").asLong());
+			Producto producto = productoServicio.obtenerProducto(values.findValue("idProducto").asLong());
 			pregunta = preguntasServicio.crearPregunta(texto, usuario, producto);
 			
 			PreguntaDTO preguntaDTO = preguntasServicio.conversionDTO(pregunta);
@@ -53,6 +53,17 @@ public class PreguntaController {
 		} else
 
 			return null;
+
+	}
+	
+	@RequestMapping(value = "/borrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Long borrarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+
+		Long idPregunta = values.findValue("idPregunta").asLong();
+
+		preguntasServicio.borrarPregunta(idPregunta);
+		return idPregunta;
 
 	}
 
