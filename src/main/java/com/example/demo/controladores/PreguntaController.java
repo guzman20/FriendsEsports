@@ -46,7 +46,9 @@ public class PreguntaController {
 			User usuario = (User) userServicio.obtenerUsuario(idUsuario);
 			Producto producto = productoServicio.obtenerProducto(values.findValue("producto").asLong());
 			pregunta = preguntasServicio.crearPregunta(texto, usuario, producto);
-			return pregunta;
+			
+			PreguntaDTO preguntaDTO = preguntasServicio.conversionDTO(pregunta);
+			return preguntaDTO;
 
 		} else
 

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
@@ -108,6 +109,13 @@ public class Pregunta implements Serializable {
 		this.respuestas = respuestas;
 	}
 
-
+	public String fechaFormateada() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
+		
+		return formattedDateTime;
+		
+	}
 
 }

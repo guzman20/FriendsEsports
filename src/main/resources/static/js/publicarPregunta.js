@@ -35,7 +35,7 @@ function publicarPregunta() {
 			texto.style.textAlign = "center";
 			fecha.style.textAlign = "center";
 
-			var apoyoU = document.createTextNode(response.usuario.nombre);
+			var apoyoU = document.createTextNode(response.nombreUsuario);
 			var apoyoF = document.createTextNode(response.fechaDeCreacion);
 			var apoyoT = document.createTextNode(pregunta);
 
