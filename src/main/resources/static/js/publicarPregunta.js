@@ -30,7 +30,14 @@ function publicarPregunta() {
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
-
+			var tdAsistente = document.createElement("td");
+			var boton = document.createElement("input");
+			
+			boton.setAttribute("type", "button");
+  			boton.setAttribute("value", "Responder");
+			boton.style.textAlign = "center";
+			boton.style.margin = "auto";
+			
 			usuario.style.textAlign = "center";
 			texto.style.textAlign = "center";
 			fecha.style.textAlign = "center";
@@ -38,11 +45,13 @@ function publicarPregunta() {
 			var apoyoU = document.createTextNode(response.nombreUsuario);
 			var apoyoF = document.createTextNode(response.fechaDeCreacion);
 			var apoyoT = document.createTextNode(pregunta);
-
+			
+			tdAsistente.appendChild(boton);
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
 			fecha.appendChild(apoyoF);
-
+			
+			fila.appendChild(tdAsistente);
 			fila.appendChild(usuario);
 			fila.appendChild(texto);
 			fila.appendChild(fecha);
