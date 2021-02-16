@@ -66,5 +66,20 @@ public class PreguntaController {
 		return idPregunta;
 
 	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public PreguntaDTO editarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+
+		Long idPregunta = values.findValue("idPregunta").asLong();
+		String pregunta = values.findValue("pregunta").asText();
+		
+
+		PreguntaDTO preguntaDTO = preguntasServicio.conversionDTO(preguntasServicio.editarPregunta(idPregunta, pregunta));
+		
+		
+		return preguntaDTO;
+
+	}
 
 }

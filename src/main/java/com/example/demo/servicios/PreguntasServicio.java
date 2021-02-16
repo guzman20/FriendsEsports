@@ -17,4 +17,5 @@ public interface PreguntasServicio {
 	
 	public void borrarPregunta(Long idPregunta);
 
+	public Pregunta editarPregunta(Long idPregunta, String pregunta);
 }

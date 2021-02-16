@@ -1,7 +1,8 @@
-$("body").on('click', '#botonPreguntaBorrar', borrarPregunta);
+$("body").on('click', '#botonPreguntaEditar', editarPregunta);
 
-function borrarPregunta() {
+function editarPregunta() {
 
+	var pregunta = $(this).prev().val();
 	var idPregunta = $(this).val();
 
 	var token = $("meta[name='_csrf']").attr("content");
@@ -12,11 +13,12 @@ function borrarPregunta() {
 	});
 
 	var datos = {
-		"idPregunta": idPregunta
+		"idPregunta": idPregunta,
+		"pregunta" : pregunta
 	};
 
 	$.ajax({
-		url: "/pregunta/borrar/",
+		url: "/pregunta/editar/",
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
 		data: JSON.stringify(datos),
@@ -29,7 +31,7 @@ function borrarPregunta() {
 			
 			
 			
-			$('#'+response).parent().remove();
+			$('#'+response.idPregunta).val(pregunta);
 				
 				
 			$('#preguntaError').html(alerta);

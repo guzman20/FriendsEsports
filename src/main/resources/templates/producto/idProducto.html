@@ -97,10 +97,10 @@ table {
 						<textarea id="idProducto" name="preguntaFormulario"
 							class="form-control" style="visibility: hidden;"
 							th:text="${producto.idProducto}"></textarea>
-						<button type="button" id="crearBotonPregunta" class="btn btn-primary">Publicar
-							pregunta</button>
+						<button type="button" id="crearBotonPregunta"
+							class="btn btn-primary">Publicar pregunta</button>
 					</form>
-					
+
 					<div id="preguntaError"></div>
 
 					<table class="table table-bordered" id="dataTable" width="100%"
@@ -121,17 +121,26 @@ table {
 								<td style="text-align: center"
 									th:text="${Pregunta.usuario.getNombre()}"></td>
 								<td style="text-align: center" th:text="${Pregunta.Pregunta}"></td>
+								<td th:id="${Pregunta.idPregunta}" style="display: none;"></td>
 								<td style="text-align: center"
 									th:text="${Pregunta.fechaFormateada()}"></td>
-								<td th:id="${Pregunta.idPregunta}" style="display: none;"></td>
 								<td>
 									<form>
-										<textarea id="idPregunta" name="borrarPreguntaFormulario" style="display: none;"
-										th:text="${Pregunta.idPregunta}"></textarea>
 										<button type="button" id="botonPreguntaBorrar"
-											class="btn btn-primary">
+											class="btn btn-primary" th:value="${Pregunta.idPregunta}">
 											<i class="far fa-trash-alt"></i> borrar
 										</button>
+										<button type="button" id="mostrarEditarPregunta"
+											class="btn btn-primary">
+											<i class="far fa-edit"></i> editar
+										</button>
+										<div style="display: none;">
+											<textarea id="preguntaTextoEditar"
+												name="preguntaEditarFormulario" class="form-control"></textarea>
+											<button type="button" id="botonPreguntaEditar"
+												class="btn btn-primary" th:value="${Pregunta.idPregunta}">
+												aceptar</button>
+										</div>
 									</form>
 								</td>
 

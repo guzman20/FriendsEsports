@@ -31,39 +31,39 @@ function publicarPregunta() {
 			var fecha = document.createElement("td");
 			var columnaFormulario = document.createElement("td");
 			var formulario = document.createElement("form");
-			var areaTexto = document.createElement("textarea");
 			var boton = document.createElement("button");
 			var i = document.createElement("i");
+			var idPregunta = document.createElement("td");
 
 			usuario.style.textAlign = "center";
 			texto.style.textAlign = "center";
 			fecha.style.textAlign = "center";
-			areaTexto.style.display = "none";
 			boton.type= "button";
+			boton.value= response.idPregunta;
 			boton.classList="btn btn-primary";
 			i.classList="far fa-trash-alt";
 			boton.id="botonPreguntaBorrar";
-			areaTexto.id="idPregunta";
+			idPregunta.style.display="none";
+			idPregunta.id=response.idPregunta;
+
 
 			var apoyoU = document.createTextNode(response.nombreUsuario);
 			var apoyoF = document.createTextNode(response.fechaDeCreacion);
 			var apoyoT = document.createTextNode(preguntaTexto);
-			var apoyoA = document.createTextNode(response.idPregunta);
 			var apoyoB = document.createTextNode("borrar");
 
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
 			fecha.appendChild(apoyoF);
-			areaTexto.appendChild(apoyoA);
-			boton.appendChild(apoyoB);
-
 			boton.appendChild(i);
-			formulario.appendChild(areaTexto);
+			boton.appendChild(apoyoB);
+			
 			formulario.appendChild(boton);
 			columnaFormulario.appendChild(formulario);
 			fila.appendChild(usuario);
 			fila.appendChild(texto);
 			fila.appendChild(fecha);
+			fila.appendChild(idPregunta);
 			fila.appendChild(columnaFormulario);
 
 			$('#cuerpoTabla').append(fila);

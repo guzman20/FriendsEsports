@@ -8,5 +8,7 @@ import com.example.demo.entidades.Producto;
 public interface PreguntasDao extends DaoGenerico<Pregunta>{
 	
 	public List<Pregunta> listarPreguntasPorProducto(Producto producto);
+	
+
 
 }
