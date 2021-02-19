@@ -48,5 +48,20 @@ public class PreguntasServicioImp implements PreguntasServicio {
 		
 	}
 
+	@Override
+	public void borrarPregunta(Long idPregunta) {
+		preguntasDao.borrar(idPregunta);
+	}
+
+	@Override
+	public Pregunta editarPregunta(Long idPregunta, String pregunta) {
+		Pregunta objPregunta = preguntasDao.buscar(idPregunta);
+		preguntasDao.borrar(idPregunta);
+		objPregunta.setPregunta(pregunta);
+		preguntasDao.crear(objPregunta);
+		return objPregunta;
+		
+	}
+
 
 }

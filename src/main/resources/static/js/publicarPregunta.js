@@ -1,10 +1,9 @@
-
-$("body").on('click', '#botonPregunta', publicarPregunta);
+$("body").on('click', '#crearBotonPregunta', publicarPregunta);
 
 function publicarPregunta() {
 
-	var pregunta = $('#pregunta').val();
-	var producto = $('#producto').val();
+	var preguntaTexto = $('#preguntaTexto').val();
+	var idProducto = $('#idProducto').val();
 
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -14,8 +13,8 @@ function publicarPregunta() {
 	});
 
 	var datos = {
-		"pregunta": pregunta,
-		"producto": producto
+		"preguntaTexto": preguntaTexto,
+		"idProducto": idProducto
 	};
 
 	$.ajax({
@@ -30,6 +29,13 @@ function publicarPregunta() {
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
+			
+			var columnaFormulario = document.createElement("td");
+			var formulario = document.createElement("form");
+			var boton = document.createElement("button");
+			var i = document.createElement("i");
+			var idPregunta = document.createElement("td");
+			
 			var tdAsistente = document.createElement("td");
 			var boton = document.createElement("input");
 			
@@ -41,10 +47,19 @@ function publicarPregunta() {
 			usuario.style.textAlign = "center";
 			texto.style.textAlign = "center";
 			fecha.style.textAlign = "center";
+			boton.type= "button";
+			boton.value= response.idPregunta;
+			boton.classList="btn btn-primary";
+			i.classList="far fa-trash-alt";
+			boton.id="botonPreguntaBorrar";
+			idPregunta.style.display="none";
+			idPregunta.id=response.idPregunta;
+
 
 			var apoyoU = document.createTextNode(response.nombreUsuario);
 			var apoyoF = document.createTextNode(response.fechaDeCreacion);
-			var apoyoT = document.createTextNode(pregunta);
+			var apoyoT = document.createTextNode(preguntaTexto);
+			var apoyoB = document.createTextNode("borrar");
 			
 			tdAsistente.appendChild(boton);
 			texto.appendChild(apoyoT);
@@ -52,9 +67,20 @@ function publicarPregunta() {
 			fecha.appendChild(apoyoF);
 			
 			fila.appendChild(tdAsistente);
+
+			texto.appendChild(apoyoT);
+			usuario.appendChild(apoyoU);
+			fecha.appendChild(apoyoF);
+			boton.appendChild(i);
+			boton.appendChild(apoyoB);
+			
+			formulario.appendChild(boton);
+			columnaFormulario.appendChild(formulario);
 			fila.appendChild(usuario);
 			fila.appendChild(texto);
 			fila.appendChild(fecha);
+			fila.appendChild(idPregunta);
+			fila.appendChild(columnaFormulario);
 
 			$('#cuerpoTabla').append(fila);
 		},

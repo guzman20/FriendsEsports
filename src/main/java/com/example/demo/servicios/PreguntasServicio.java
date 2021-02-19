@@ -14,5 +14,8 @@ public interface PreguntasServicio {
 	public Pregunta crearPregunta(String texto,User usuario, Producto producto);
 	
 	public PreguntaDTO conversionDTO(Pregunta pregunta);
+	
+	public void borrarPregunta(Long idPregunta);
 
+	public Pregunta editarPregunta(Long idPregunta, String pregunta);
 }
