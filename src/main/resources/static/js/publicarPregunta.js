@@ -33,16 +33,9 @@ function publicarPregunta() {
 			var columnaFormulario = document.createElement("td");
 			var formulario = document.createElement("form");
 			var boton = document.createElement("button");
+			var botonResponder = document.createElement("button");
 			var i = document.createElement("i");
 			var idPregunta = document.createElement("td");
-			
-			var tdAsistente = document.createElement("td");
-			var boton = document.createElement("input");
-			
-			boton.setAttribute("type", "button");
-  			boton.setAttribute("value", "Responder");
-			boton.style.textAlign = "center";
-			boton.style.margin = "auto";
 			
 			usuario.style.textAlign = "center";
 			texto.style.textAlign = "center";
@@ -50,6 +43,12 @@ function publicarPregunta() {
 			boton.type= "button";
 			boton.value= response.idPregunta;
 			boton.classList="btn btn-primary";
+			
+			botonResponder.type= "button";
+			botonResponder.value= response.idPregunta;
+			botonResponder.classList="btn btn-primary";
+			botonResponder.id = 'mostrarResponderPregunta';
+			
 			i.classList="far fa-trash-alt";
 			boton.id="botonPreguntaBorrar";
 			idPregunta.style.display="none";
@@ -59,23 +58,27 @@ function publicarPregunta() {
 			var apoyoU = document.createTextNode(response.nombreUsuario);
 			var apoyoF = document.createTextNode(response.fechaDeCreacion);
 			var apoyoT = document.createTextNode(preguntaTexto);
-			var apoyoB = document.createTextNode("borrar");
+			var apoyoB = document.createTextNode("Borrar");
+			var apoyoBR = document.createTextNode("Responder");
 			
-			tdAsistente.appendChild(boton);
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
 			fecha.appendChild(apoyoF);
-			
-			fila.appendChild(tdAsistente);
+	
+	
 
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
 			fecha.appendChild(apoyoF);
 			boton.appendChild(i);
 			boton.appendChild(apoyoB);
+			//botonResponder.appendChild(i);
+			botonResponder.appendChild(apoyoBR);
 			
+			formulario.appendChild(botonResponder);
 			formulario.appendChild(boton);
 			columnaFormulario.appendChild(formulario);
+			
 			fila.appendChild(usuario);
 			fila.appendChild(texto);
 			fila.appendChild(fecha);

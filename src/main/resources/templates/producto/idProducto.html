@@ -87,84 +87,92 @@ table {
 									class="btn btn-primary">
 							</form>
 						</div>
-					
 
-					<form>
-						<label class="col-form-label" for="pregunta">Escriba su
-							pregunta</label>
-						<textarea id="preguntaTexto" name="preguntaFormulario"
-							class="form-control"></textarea>
-						<textarea id="idProducto" name="preguntaFormulario"
-							class="form-control" style="visibility: hidden;"
-							th:text="${producto.idProducto}"></textarea>
-						<button type="button" id="crearBotonPregunta"
-							class="btn btn-primary">Publicar pregunta</button>
-					</form>
 
-					<div id="preguntaError"></div>
+						<form>
+							<label class="col-form-label" for="pregunta">Escriba su
+								pregunta</label>
+							<textarea id="preguntaTexto" name="preguntaFormulario"
+								class="form-control"></textarea>
+							<textarea id="idProducto" name="preguntaFormulario"
+								class="form-control" style="visibility: hidden;"
+								th:text="${producto.idProducto}"></textarea>
+							<button type="button" id="crearBotonPregunta"
+								class="btn btn-primary">Publicar pregunta</button>
+						</form>
 
-					<table class="table table-bordered" id="dataTable" width="100%"
-						cellspacing="0" role="grid" aria-describedby="dataTable_info"
-						style="width: 100%;">
-						<thead>
-							<tr>
-								<th style="border-collapse: collapse;"></th>
-								<th>Usuarios</th>
-								<th>Preguntas</th>
-								<th>Fecha de publicacion</th>
-								<th>Opciones</th>
-							</tr>
-						</thead>
-						<tbody id="cuerpoTabla">
+						<div id="preguntaError"></div>
 
-							<tr th:each="Pregunta : ${Preguntas}">
-								<td> <input type="button" value="Responder"></td>
-								<td style="text-align: center"
-									th:text="${Pregunta.usuario.getNombre()}"></td>
-								<td style="text-align: center" th:text="${Pregunta.Pregunta}"></td>
-								<td th:id="${Pregunta.idPregunta}" style="display: none;"></td>
-								<td style="text-align: center"
-									th:text="${Pregunta.fechaFormateada()}"></td>
-								<td>
-									<form>
-										<button type="button" id="botonPreguntaBorrar"
-											class="btn btn-primary" th:value="${Pregunta.idPregunta}">
-											<i class="far fa-trash-alt"></i> borrar
-										</button>
-										<button type="button" id="mostrarEditarPregunta"
-											class="btn btn-primary">
-											<i class="far fa-edit"></i> editar
-										</button>
-										<div style="display: none;">
-											<textarea id="preguntaTextoEditar"
-												name="preguntaEditarFormulario" class="form-control"></textarea>
-											<button type="button" id="botonPreguntaEditar"
+						<table class="table table-bordered" id="dataTable" width="100%"
+							cellspacing="0" role="grid" aria-describedby="dataTable_info"
+							style="width: 100%;">
+							<thead>
+								<tr>
+									<th>Usuarios</th>
+									<th>Preguntas</th>
+									<th>Fecha de publicacion</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="cuerpoTabla">
+
+								<tr th:each="Pregunta : ${Preguntas}">
+									<td style="text-align: center"
+										th:text="${Pregunta.usuario.getNombre()}"></td>
+									<td style="text-align: center" th:text="${Pregunta.Pregunta}"></td>
+									<td th:id="${Pregunta.idPregunta}" style="display: none;"></td>
+									<td style="text-align: center"
+										th:text="${Pregunta.fechaFormateada()}"></td>
+									<td>
+										<form>
+											<button type="button" id="mostrarResponderPregunta"
+												class="btn btn-primary">Responder</button>
+											<div style="display: none;">
+												<textarea id="textoRespuesta" name="textoRespuesta"
+													class="form-control"></textarea>
+												<button type="button" id="botonRespuesta"
+													class="btn btn-primary" th:value="${Pregunta.idPregunta}">
+													Aceptar</button>
+											</div>
+											<button type="button" id="botonPreguntaBorrar"
 												class="btn btn-primary" th:value="${Pregunta.idPregunta}">
-												aceptar</button>
+												<i class="far fa-trash-alt"></i> borrar
+											</button>
+											<!-- 										<button type="button" id="mostrarEditarPregunta" -->
+											<!-- 											class="btn btn-primary"> -->
+											<!-- 											<i class="far fa-edit"></i> editar -->
+											<!-- 										</button> -->
+											<!-- 										<div style="display: none;"> -->
+											<!-- 											<textarea id="preguntaTextoEditar" -->
+											<!-- 												name="preguntaEditarFormulario" class="form-control"></textarea> -->
+											<!-- 											<button type="button" id="botonPreguntaEditar" -->
+											<!-- 												class="btn btn-primary" th:value="${Pregunta.idPregunta}"> -->
+											<!-- 												aceptar</button> -->
+											<!-- 										</div> -->
+										</form>
+									</td>
+
+									<td th:id="'Respuesta' + ${Pregunta.idPregunta}">
+										<div class="row">
+											<span class="col-3" style="text-align: center">Usuarios</span>
+											<span class="col-3" style="text-align: center">Respuesta</span>
+											<span class="col-6" style="text-align: center">FechaPublicacion</span>
 										</div>
-									</form>
-								</td>
+										<div class="row" th:each="Respuesta : ${Pregunta.respuestas}">
+											<span class="col-2"
+												th:text="${Respuesta.usuario.getNombre()}"></span> <span
+												class="col-4" style="text-align: center"
+												th:text="${Respuesta.Respuesta}"></span>
+											<span th:id="${Respuesta.idRespuesta}" style="display: none;"></span>
+											<span class="col-6" style="text-align: center"
+												th:text="${Respuesta.FechaDeCreacion}"></span>
 
-								<td>
-									<div class="row">
-										<span class="col-3" style="text-align: center">Usuarios</span>
-										<span class="col-3" style="text-align: center">Respuesta</span>
-										<span class="col-6" style="text-align: center">FechaPublicacion</span>
-									</div>
-									<div class="row" th:each="Respuesta : ${Pregunta.respuestas}">
-										<span class="col-3" style="text-align: center"
-											th:text="${Respuesta.usuario.getNombre()}"></span> <span
-											class="col-3" style="text-align: center"
-											th:text="${Respuesta.Respuesta}"></span> <span class="col-6"
-											style="text-align: center"
-											th:text="${Respuesta.FechaDeCreacion}"></span>
-
-									</div>
-								</td>
-							</tr>
-							<tr id="preguntaPublicada"></tr>
-						</tbody>
-					</table>
+										</div>
+									</td>
+								</tr>
+								<tr id="preguntaPublicada"></tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

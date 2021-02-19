@@ -83,7 +83,7 @@ public class Respuesta implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Pregunta getIdPregunta() {
+	public Pregunta getPregunta() {
 		return pregunta;
 	}
 

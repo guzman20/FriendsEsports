@@ -11,17 +11,17 @@ public class RespuestaDTO {
 
 	private String fechaDeCreacion;
 
-	private User usuario;
+	private String nombreUsuario;
 
-	private Pregunta pregunta;
+	private Long idPregunta;
 	
-	public RespuestaDTO(Long idRespuesta, String respuesta, User usuario, Pregunta idPregunta) {
+	public RespuestaDTO(Long idRespuesta, String respuesta, String nombreUsuario, Long idPregunta) {
 		this.idRespuesta = idRespuesta;
 		this.respuesta = respuesta;
 		String timeStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
 		this.fechaDeCreacion = timeStamp;
-		this.usuario = usuario;
-		this.pregunta = idPregunta;
+		this.nombreUsuario = nombreUsuario;
+		this.idPregunta = idPregunta;
 	}
 
 	public RespuestaDTO() {
@@ -52,20 +52,20 @@ public class RespuestaDTO {
 		this.fechaDeCreacion = fechaDeCreacion;
 	}
 
-	public User getUsuario() {
-		return usuario;
+	public String getUsuario() {
+		return nombreUsuario;
 	}
 
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
+	public void setUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 
-	public Pregunta getIdPregunta() {
-		return pregunta;
+	public Long getIdPregunta() {
+		return idPregunta;
 	}
 
-	public void setIdPregunta(Pregunta pregunta) {
-		this.pregunta = pregunta;
+	public void setIdPregunta(Long idPregunta) {
+		this.idPregunta = idPregunta;
 	}
 
 }

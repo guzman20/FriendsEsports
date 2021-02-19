@@ -63,5 +63,10 @@ public class PreguntasServicioImp implements PreguntasServicio {
 		
 	}
 
+	@Override
+	public Pregunta obtenerPregunta(long idPregunta) {
+		return preguntasDao.buscar(idPregunta);
+	}
+
 
 }
