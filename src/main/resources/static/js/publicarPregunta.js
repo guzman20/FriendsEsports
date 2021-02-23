@@ -33,9 +33,13 @@ function publicarPregunta() {
 			var columnaFormulario = document.createElement("td");
 			var formulario = document.createElement("form");
 			var boton = document.createElement("button");
-			var botonResponder = document.createElement("button");
 			var i = document.createElement("i");
 			var idPregunta = document.createElement("td");
+			
+			var botonResponder = document.createElement("button");
+			var divResponder = document.createElement("div");
+			var textResponder = document.createElement("textarea");
+			var botonAceptar = document.createElement("button");
 			
 			usuario.style.textAlign = "center";
 			texto.style.textAlign = "center";
@@ -47,6 +51,15 @@ function publicarPregunta() {
 			botonResponder.type= "button";
 			botonResponder.id = "mostrarResponderPregunta";
 			botonResponder.classList="btn btn-primary";
+			divResponder.style.display = "none";
+			textResponder.id = "textoRespuesta";
+			textResponder.name = "textoRespuesta";
+			textResponder.classList = "form-control";
+			
+			botonAceptar.type= "button";
+			botonAceptar.id = "botonRespuesta";
+			botonAceptar.classList="btn btn-primary";
+			botonAceptar.value = response.idPregunta;
 			
 			i.classList="far fa-trash-alt";
 			boton.id="botonPreguntaBorrar";
@@ -59,6 +72,7 @@ function publicarPregunta() {
 			var apoyoT = document.createTextNode(preguntaTexto);
 			var apoyoB = document.createTextNode("Borrar");
 			var apoyoBR = document.createTextNode("Responder");
+			var apoyoAceptar = document.createTextNode("Aceptar");
 			
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
@@ -73,9 +87,14 @@ function publicarPregunta() {
 			boton.appendChild(apoyoB);
 			//botonResponder.appendChild(i);
 			botonResponder.appendChild(apoyoBR);
+			botonAceptar.appendChild(apoyoAceptar);
 			
 			formulario.appendChild(botonResponder);
 			formulario.appendChild(boton);
+			divResponder.appendChild(textResponder);
+			divResponder.appendChild(botonAceptar)
+			formulario.appendChild(divResponder);			
+	
 			columnaFormulario.appendChild(formulario);
 			
 			fila.appendChild(usuario);
@@ -83,7 +102,7 @@ function publicarPregunta() {
 			fila.appendChild(fecha);
 			fila.appendChild(idPregunta);
 			fila.appendChild(columnaFormulario);
-
+			
 			$('#cuerpoTabla').append(fila);
 		},
 		error: function(xhr, status, error) {
