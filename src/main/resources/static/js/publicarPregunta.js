@@ -29,7 +29,7 @@ function publicarPregunta() {
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
-			
+			var textAr
 			var columnaFormulario = document.createElement("td");
 			var formulario = document.createElement("form");
 			var boton = document.createElement("button");
@@ -45,9 +45,8 @@ function publicarPregunta() {
 			boton.classList="btn btn-primary";
 			
 			botonResponder.type= "button";
-			botonResponder.value= response.idPregunta;
+			botonResponder.id = "mostrarResponderPregunta";
 			botonResponder.classList="btn btn-primary";
-			botonResponder.id = 'mostrarResponderPregunta';
 			
 			i.classList="far fa-trash-alt";
 			boton.id="botonPreguntaBorrar";
