@@ -104,7 +104,7 @@ public class ProductoController {
 			fileName = null;
 		}
 
-		Producto p = new Producto(nombre, descripcion, fileName, precio, descuento);
+		Producto p = new Producto(nombre, descripcion, precio, descuento);
 
 		Producto product = productoServicio.crearProducto(p);
 

@@ -29,18 +29,25 @@ function publicarPregunta() {
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
+			var textAr
 			var columnaFormulario = document.createElement("td");
 			var formulario = document.createElement("form");
 			var boton = document.createElement("button");
+			var botonResponder = document.createElement("button");
 			var i = document.createElement("i");
 			var idPregunta = document.createElement("td");
-
+			
 			usuario.style.textAlign = "center";
 			texto.style.textAlign = "center";
 			fecha.style.textAlign = "center";
 			boton.type= "button";
 			boton.value= response.idPregunta;
 			boton.classList="btn btn-primary";
+			
+			botonResponder.type= "button";
+			botonResponder.id = "mostrarResponderPregunta";
+			botonResponder.classList="btn btn-primary";
+			
 			i.classList="far fa-trash-alt";
 			boton.id="botonPreguntaBorrar";
 			idPregunta.style.display="none";
@@ -50,16 +57,27 @@ function publicarPregunta() {
 			var apoyoU = document.createTextNode(response.nombreUsuario);
 			var apoyoF = document.createTextNode(response.fechaDeCreacion);
 			var apoyoT = document.createTextNode(preguntaTexto);
-			var apoyoB = document.createTextNode("borrar");
+			var apoyoB = document.createTextNode("Borrar");
+			var apoyoBR = document.createTextNode("Responder");
+			
+			texto.appendChild(apoyoT);
+			usuario.appendChild(apoyoU);
+			fecha.appendChild(apoyoF);
+	
+	
 
 			texto.appendChild(apoyoT);
 			usuario.appendChild(apoyoU);
 			fecha.appendChild(apoyoF);
 			boton.appendChild(i);
 			boton.appendChild(apoyoB);
+			//botonResponder.appendChild(i);
+			botonResponder.appendChild(apoyoBR);
 			
+			formulario.appendChild(botonResponder);
 			formulario.appendChild(boton);
 			columnaFormulario.appendChild(formulario);
+			
 			fila.appendChild(usuario);
 			fila.appendChild(texto);
 			fila.appendChild(fecha);

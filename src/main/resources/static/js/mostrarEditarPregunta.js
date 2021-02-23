@@ -1,6 +1,7 @@
-$("body").on('click', '#mostrarEditarPregunta', mostrarEditarPregunta);
+$("body").on('click', '#mostrarEditarPregunta', mostrar);
+$("body").on('click', '#mostrarResponderPregunta', mostrar);
 
-function mostrarEditarPregunta() {
+function mostrar() {
 	
 	$(this).siblings().css( "display", "initial" );
 }
