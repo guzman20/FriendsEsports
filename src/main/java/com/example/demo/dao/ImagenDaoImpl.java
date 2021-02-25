@@ -26,8 +26,8 @@ public class ImagenDaoImpl  extends DaoGenericoImp<Imagen> implements ImagenDao{
 				for (Imagen a : limg) {
 					a.setImagen(image);
 					this.em.merge(a);
-					this.em.refresh(a);
-					return a;
+					//this.em.refresh(a);
+					
 				}
 				return null;
 				

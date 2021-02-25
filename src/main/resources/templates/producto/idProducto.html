@@ -2,13 +2,19 @@
 <head>
 
 <style>
-		td {font-weight: bold;}
-		table{white-space: nowrap;}
-		.image-upload>input {
-			  display: none;
-			}
+td {
+	font-weight: bold;
+}
+
+table {
+	white-space: nowrap;
+}
+
+.image-upload>input {
+	display: none;
+}
 </style>
-	 <script type="text/javascript">
+<script type="text/javascript">
 	 	$(function(){
 		    $("#upload_link").on('click', function(e){
 		        e.preventDefault();
@@ -34,51 +40,46 @@
 					<div class="p-5">
 						<div class="row">
 							<div class="col-sm-12">
-	 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
-                    <tr>
-                      <th>Imagen del producto</th>
-                      <th>Nombre del producto</th>
-                      <th>Descripci&oacute;n del producto</th>
-                      <th>Precio del producto</th>
-                      <th>Descuento del producto</th>
-                    </tr>	
-                  </thead>
-                  <tbody>
-				    	<tr style="text-align:center"> 
-				    	<td sec:authorize="hasAuthority('ROL_ADMIN')">
-				    	<form th:action="@{/imagenes/cargar/{idProducto}(idProducto=${producto.idProducto})}"
-						method="POST" enctype="multipart/form-data">
-				    	<div class="image-upload">
-				    		<label for="file-input">
-						    	<img th:src="@{/imagenes/{idProducto}(idProducto=${producto.idProducto})}" width="100" height="100"/>
-						  </label>
-				    		<input name="file" id="file-input" type="file" onchange="this.form.submit();"/>
-				    		</div>
-				    	</form>
-				    	<td sec:authorize="hasAuthority('ROL_REGISTRADO')">
-				    		<img th:src="@{/imagenes/{idProducto}(idProducto=${producto.idProducto})}" width="100" height="100"/>
-				    	</td>
-				    	</td>
-<!-- 				    	<td><input type="file" name="botondeenvio" th:src="@{/images/{idProducto}(idProducto=${producto.imagen})}" th:alt="@{/images/producto.jpg}"></td> -->
-<!-- 						<td th:if="${producto.imagen != ''}"> -->
-<!-- 						<a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">  -->
-<!-- 				    		<img th:src="@{/images/{idProducto}(idProducto=${producto.imagen})}" width="100" height="100"> -->
-<!-- 				    		</a>  -->
-<!-- 				    	</td> -->
-<!-- 				    	<td th:if="${producto.imagen == ''}"> -->
-<!-- 				    	<a th:href="@{/producto/idProducto/{id}(id=${producto.idProducto})}">  -->
-<!-- 				    		<img th:src="@{/images/producto.jpg}" width="100" height="100"> -->
-<!-- 				    		</a>  -->
-<!-- 				    	</td>     -->
-				    	
-				        <td style="text-align:center" th:text="${producto.nombre}"></td>
-				        <td style="text-align:center" th:text="${producto.descripcion}"></td>
-				        <td style="text-align:center" th:text="${producto.precio}+'€'"></td>
-				        <td style="text-align:center" th:text="${producto.descuento}+'%'"></td>
-				     
-                    </tr>
-                  </tbody>
-                </table>
+								<table class="table table-bordered" id="dataTable" width="100%"
+									cellspacing="0" role="grid" aria-describedby="dataTable_info"
+									style="width: 100%;">
+									<tr>
+										<th>Imagen del producto</th>
+										<th>Nombre del producto</th>
+										<th>Descripci&oacute;n del producto</th>
+										<th>Precio del producto</th>
+										<th>Descuento del producto</th>
+									</tr>
+									</thead>
+									<tbody>
+										<tr style="text-align: center">
+											<td sec:authorize="hasAuthority('ROL_ADMIN')">
+												<form
+													th:action="@{/imagenes/cargar/{idProducto}(idProducto=${producto.idProducto})}"
+													method="POST" enctype="multipart/form-data">
+													<div class="image-upload">
+														<label for="file-input"> <img
+															th:src="@{/imagenes/{idProducto}(idProducto=${producto.idProducto})}"
+															width="100" height="100" />
+														</label> <input name="file" id="file-input" type="file"
+															onchange="this.form.submit();" />
+													</div>
+												</form>
+											<td sec:authorize="hasAuthority('ROL_REGISTRADO')"><img
+												th:src="@{/imagenes/{idProducto}(idProducto=${producto.idProducto})}"
+												width="100" height="100" /></td>
+											</td>
+											<td style="text-align: center" th:text="${producto.nombre}"></td>
+											<td style="text-align: center"
+												th:text="${producto.descripcion}"></td>
+											<td style="text-align: center"
+												th:text="${producto.precio}+'€'"></td>
+											<td style="text-align: center"
+												th:text="${producto.descuento}+'%'"></td>
+
+										</tr>
+									</tbody>
+								</table>
 
 							</div>
 						</div>
@@ -153,17 +154,6 @@
 												class="btn btn-primary" th:value="${Pregunta.idPregunta}">
 												<i class="far fa-trash-alt"></i> borrar
 											</button>
-											<!-- 										<button type="button" id="mostrarEditarPregunta" -->
-											<!-- 											class="btn btn-primary"> -->
-											<!-- 											<i class="far fa-edit"></i> editar -->
-											<!-- 										</button> -->
-											<!-- 										<div style="display: none;"> -->
-											<!-- 											<textarea id="preguntaTextoEditar" -->
-											<!-- 												name="preguntaEditarFormulario" class="form-control"></textarea> -->
-											<!-- 											<button type="button" id="botonPreguntaEditar" -->
-											<!-- 												class="btn btn-primary" th:value="${Pregunta.idPregunta}"> -->
-											<!-- 												aceptar</button> -->
-											<!-- 										</div> -->
 										</form>
 									</td>
 
@@ -177,8 +167,8 @@
 											<span class="col-2"
 												th:text="${Respuesta.usuario.getNombre()}"></span> <span
 												class="col-4" style="text-align: center"
-												th:text="${Respuesta.Respuesta}"></span>
-											<span th:id="${Respuesta.idRespuesta}" style="display: none;"></span>
+												th:text="${Respuesta.Respuesta}"></span> <span
+												th:id="${Respuesta.idRespuesta}" style="display: none;"></span>
 											<span class="col-6" style="text-align: center"
 												th:text="${Respuesta.FechaDeCreacion}"></span>
 
