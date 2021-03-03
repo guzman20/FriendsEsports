@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,42 +12,43 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entidades.Pregunta;
 import com.example.demo.entidades.PreguntaDTO;
-import com.example.demo.entidades.Producto;
+import com.example.demo.entidades.Respuesta;
+import com.example.demo.entidades.RespuestaDTO;
 import com.example.demo.entidades.User;
 import com.example.demo.servicios.PreguntasServicio;
-import com.example.demo.servicios.ProductoServicio;
+import com.example.demo.servicios.RespuestaServicio;
 import com.example.demo.servicios.UserServicio;
 import com.fasterxml.jackson.databind.JsonNode;
 
 @Controller
-@RequestMapping(value = "/pregunta")
-public class PreguntaController {
-
+@RequestMapping(value = "/respuesta")
+public class RespuestaController {
+	
 	@Autowired
-	PreguntasServicio preguntasServicio;
+	RespuestaServicio respuestaServicio;
 
 	@Autowired
 	UserServicio userServicio;
 
 	@Autowired
-	ProductoServicio productoServicio;
+	PreguntasServicio preguntaServicio;
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public PreguntaDTO publicarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+	public RespuestaDTO publicarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
 
-		String texto = values.findValue("preguntaTexto").asText();
+		String texto = values.findValue("textoRespuesta").asText();
 
 		if (texto != "") {
 
-			Pregunta pregunta = new Pregunta();
+			Respuesta respuesta = new Respuesta();
 			Long idUsuario = (long) request.getSession().getAttribute("idUsuario");
 			User usuario = (User) userServicio.obtenerUsuario(idUsuario);
-			Producto producto = productoServicio.obtenerProducto(values.findValue("idProducto").asLong());
-			pregunta = preguntasServicio.crearPregunta(texto, usuario, producto);
+			Pregunta idpregunta = preguntaServicio.obtenerPregunta(values.findValue("idPregunta").asLong());
+			respuesta = respuestaServicio.crearRespuesta(texto, usuario, idpregunta);
 			
-			PreguntaDTO preguntaDTO = preguntasServicio.conversionDTO(pregunta);
-			return preguntaDTO;
+			RespuestaDTO respuestaDTO = respuestaServicio.conversionDTO(respuesta);
+			return respuestaDTO;
 
 		} else
 
@@ -58,27 +58,27 @@ public class PreguntaController {
 	
 	@RequestMapping(value = "/borrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public Long borrarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+	public Long borrarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
 
-		Long idPregunta = values.findValue("idPregunta").asLong();
+		Long idRespuesta = values.findValue("idRespuesta").asLong();
 
-		preguntasServicio.borrarPregunta(idPregunta);
-		return idPregunta;
+		respuestaServicio.borrarRespuesta(idRespuesta);
+		return idRespuesta;
 
 	}
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public PreguntaDTO editarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+	public RespuestaDTO editarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
 
-		Long idPregunta = values.findValue("idPregunta").asLong();
-		String pregunta = values.findValue("pregunta").asText();
+		Long idRespuesta = values.findValue("idRespuesta").asLong();
+		String respuesta = values.findValue("Respuesta").asText();
 		
 
-		PreguntaDTO preguntaDTO = preguntasServicio.conversionDTO(preguntasServicio.editarPregunta(idPregunta, pregunta));
+		RespuestaDTO respuestaDTO = respuestaServicio.conversionDTO(respuestaServicio.editarRespuesta(idRespuesta, respuesta));
 		
 		
-		return preguntaDTO;
+		return respuestaDTO;
 
 	}
 

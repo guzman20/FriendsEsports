@@ -196,4 +196,5 @@ public class User implements Serializable {
 		rol.getUsuarios().remove(this);
 	}
 
+	
 }

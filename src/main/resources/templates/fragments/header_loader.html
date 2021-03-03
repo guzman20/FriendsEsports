@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+
+
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/sb-admin-2.min.css}">
+	
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/sb-admin-2.css}">
+
+<link rel="shortcut icon" type="image/ico" th:href="@{/favicon.ico}" />
+
+<script th:src="@{/js/jquery-3.5.1.js}"></script>
+
+<script th:src="@{/js/jquery-ui.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/publicarPregunta.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/publicarRespuesta.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/borrarPregunta.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/borrarRespuesta.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/mostrar.js}"></script>
+
+<script th:src="@{/vendor/bootstrap/js/bootstrap.min.js}"></script>
+
+<script type="text/javascript" th:src="@{/js/editarRespuesta.js}"></script>
+
+<meta charset="utf-8" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+
+
+</head>
+<body>
+
+	<nav sec:authorize="isAnonymous()" th:replace="fragments/header_public"></nav>
+	<nav
+		sec:authorize="hasAuthority('ROL_REGISTRADO') && !hasAuthority('ROL_ADMIN')"
+		th:replace="fragments/header_registrado"></nav>
+	<nav sec:authorize="hasAuthority('ROL_ADMIN')"
+		th:replace="fragments/header_admin"></nav>
+
+
+</body>
+
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+	crossorigin="anonymous">
+
+</html>

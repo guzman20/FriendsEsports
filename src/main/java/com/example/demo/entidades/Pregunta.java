@@ -2,7 +2,11 @@ package com.example.demo.entidades;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +36,7 @@ public class Pregunta implements Serializable {
 	private String pregunta;
 
 	@Column(name = "fechaDeCreacion")
-	private String fechaDeCreacion;
+	private LocalDateTime fechaDeCreacion;
 
 	@ManyToOne
 	@JoinColumn(name = "idUsuarios")
@@ -45,13 +49,12 @@ public class Pregunta implements Serializable {
 	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public Pregunta(Long idPregunta, String pregunta, User usuario, Producto producto) {
-		this.idPregunta = idPregunta;
+	public Pregunta(String pregunta, User usuario, Producto producto) {
 		this.pregunta = pregunta;
 		this.usuario = usuario;
 		this.producto = producto;
-		String timeStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
-		this.fechaDeCreacion = timeStamp;
+		LocalDateTime date = LocalDateTime.now();
+		this.fechaDeCreacion = date;
 	}
 
 	public Pregunta() {
@@ -74,11 +77,11 @@ public class Pregunta implements Serializable {
 		this.pregunta = pregunta;
 	}
 
-	public String getFechaDeCreacion() {
+	public LocalDateTime getFechaDeCreacion() {
 		return fechaDeCreacion;
 	}
 
-	public void setFechaDeCreacion(String fechaDeCreacion) {
+	public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
 		this.fechaDeCreacion = fechaDeCreacion;
 	}
 
@@ -106,6 +109,13 @@ public class Pregunta implements Serializable {
 		this.respuestas = respuestas;
 	}
 
-
+	public String fechaFormateada() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
+		
+		return formattedDateTime;
+		
+	}
 
 }

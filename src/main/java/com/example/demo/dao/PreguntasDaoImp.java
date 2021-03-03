@@ -27,5 +27,6 @@ public class PreguntasDaoImp extends DaoGenericoImp<Pregunta> implements Pregunt
 		}
 		return null;
 	}
+
 	
 }
