@@ -22,6 +22,7 @@ table {
 		    });
 		    $("#upload:hidden").on('change', function(e){
 		        e.preventDefault();
+		        //submit form
 		        $('#inputForm').submit();
 		    });
 		});
@@ -72,7 +73,7 @@ table {
 											<td style="text-align: center"
 												th:text="${producto.descripcion}"></td>
 											<td style="text-align: center"
-												th:text="${producto.precio}+'ï¿½'"></td>
+												th:text="${producto.precio}+'€'"></td>
 											<td style="text-align: center"
 												th:text="${producto.descuento}+'%'"></td>
 
@@ -102,50 +103,44 @@ table {
 									class="btn btn-primary">
 							</form>
 						</div>
-					<form>
-						<label class="col-form-label" for="pregunta">Escriba su
-							pregunta</label>
-						<textarea id="preguntaTexto" name="preguntaFormulario"
-							class="form-control"></textarea>
-						<textarea id="idProducto" name="preguntaFormulario"
-							class="form-control" style="visibility: hidden;"
-							th:text="${producto.idProducto}"></textarea>
-						<button type="button" id="crearBotonPregunta"
-							class="btn btn-primary">Publicar pregunta</button>
-					</form>
 
-					<div id="preguntaError"></div>
 
-					<table class="table table-bordered" id="dataTable" width="100%"
-						cellspacing="0" role="grid" aria-describedby="dataTable_info"
-						style="width: 100%;">
-						<thead>
-							<tr>
-								<th>Usuarios</th>
-								<th>Preguntas</th>
-								<th>Fecha de publicacion</th>
-								<th>Opciones</th>
-							</tr>
-						</thead>
-						<tbody id="cuerpoTabla">
+						<form>
+							<label class="col-form-label" for="pregunta">Escriba su
+								pregunta</label>
+							<textarea id="preguntaTexto" name="preguntaFormulario"
+								class="form-control"></textarea>
+							<textarea id="idProducto" name="preguntaFormulario"
+								class="form-control" style="visibility: hidden;"
+								th:text="${producto.idProducto}"></textarea>
+							<button type="button" id="crearBotonPregunta"
+								class="btn btn-primary">Publicar pregunta</button>
+						</form>
 
-							<tr th:each="Pregunta : ${Preguntas}">
+						<div id="preguntaError"></div>
 
-								<td style="text-align: center"
-									th:text="${Pregunta.usuario.getNombre()}"></td>
-								<td style="text-align: center" th:text="${Pregunta.Pregunta}"></td>
-								<td th:id="${Pregunta.idPregunta}" style="display: none;"></td>
-								<td style="text-align: center"
-									th:text="${Pregunta.fechaFormateada()}"></td>
-								<td>
-									<form>
-										<div
-											th:if="${session.idUsuario == Pregunta.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}">
-											<button type="button" id="botonPreguntaBorrar"
-												class="btn btn-primary" th:value="${Pregunta.idPregunta}">
-												<i class="far fa-trash-alt"></i> borrar
-											</button>
-										</div>
+						<table class="table table-bordered" id="dataTable" width="100%"
+							cellspacing="0" role="grid" aria-describedby="dataTable_info"
+							style="width: 100%;">
+							<thead>
+								<tr>
+									<th>Usuarios</th>
+									<th>Preguntas</th>
+									<th>Fecha de publicacion</th>
+									<th>Opciones</th>
+								</tr>
+							</thead>
+							<tbody id="cuerpoTabla">
+
+								<tr th:each="Pregunta : ${Preguntas}">
+									<td style="text-align: center"
+										th:text="${Pregunta.usuario.getNombre()}"></td>
+									<td style="text-align: center" th:text="${Pregunta.Pregunta}"></td>
+									<td th:id="${Pregunta.idPregunta}" style="display: none;"></td>
+									<td style="text-align: center"
+										th:text="${Pregunta.fechaFormateada()}"></td>
+									<td>
+										<form>
 											<button type="button" id="mostrarResponderPregunta"
 												class="btn btn-primary">Responder</button>
 											<div style="display: none;">
@@ -155,6 +150,10 @@ table {
 													class="btn btn-primary" th:value="${Pregunta.idPregunta}">
 													Aceptar</button>
 											</div>
+											<button type="button" id="botonPreguntaBorrar"
+												class="btn btn-primary" th:value="${Pregunta.idPregunta}">
+												<i class="far fa-trash-alt"></i> borrar
+											</button>
 										</form>
 									</td>
 
@@ -166,20 +165,19 @@ table {
 										</div>
 										<div class="row" th:each="Respuesta : ${Pregunta.respuestas}">
 											<span class="col-2"
-												th:text="${Respuesta.usuario.getNombre()}"></span> 
-												<span
+												th:text="${Respuesta.usuario.getNombre()}"></span> <span
 												class="col-4" style="text-align: center"
-												th:text="${Respuesta.Respuesta}"></span>
-												 <span
+												th:text="${Respuesta.Respuesta}"></span> <span
 												th:id="${Respuesta.idRespuesta}" style="display: none;"></span>
 											<span class="col-6" style="text-align: center"
 												th:text="${Respuesta.FechaDeCreacion}"></span>
-										</div>							
-								</td>
-							</tr>
-							<tr id="preguntaPublicada"></tr>
-						</tbody>
-					</table>
+
+										</div>
+									</td>
+								</tr>
+								<tr id="preguntaPublicada"></tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
