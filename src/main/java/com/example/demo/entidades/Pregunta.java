@@ -111,7 +111,7 @@ public class Pregunta implements Serializable {
 
 	public String fechaFormateada() {
 		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
 		
 		return formattedDateTime;

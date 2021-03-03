@@ -34,7 +34,7 @@ table {
 
 	<div class="row justify-content-center">
 
-		<div class="card o-hidden border-0 shadow-lg my-5">
+		<div class="card o-hidden border-0 shadow-lg my-5 col-10">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="p-5">
@@ -141,8 +141,7 @@ table {
 										th:text="${Pregunta.fechaFormateada()}"></td>
 									<td>
 										<form>
-											<button type="button" id="mostrarResponderPregunta"
-												class="btn btn-primary">Responder</button>
+											<button type="button" id="mostrar" class="btn btn-primary">Responder</button>
 											<div style="display: none;">
 												<textarea id="textoRespuesta" name="textoRespuesta"
 													class="form-control"></textarea>
@@ -150,10 +149,12 @@ table {
 													class="btn btn-primary" th:value="${Pregunta.idPregunta}">
 													Aceptar</button>
 											</div>
-											<button type="button" id="botonPreguntaBorrar"
-												class="btn btn-primary" th:value="${Pregunta.idPregunta}">
-												<i class="far fa-trash-alt"></i> borrar
-											</button>
+											<div th:if="${session.idUsuario == Pregunta.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}">
+												<button type="button" id="botonPreguntaBorrar"
+													class="btn btn-primary" th:value="${Pregunta.idPregunta}">
+													<i class="far fa-trash-alt"></i> borrar
+												</button>
+											</div>
 										</form>
 									</td>
 
@@ -161,17 +162,36 @@ table {
 										<div class="row">
 											<span class="col-3" style="text-align: center">Usuarios</span>
 											<span class="col-3" style="text-align: center">Respuesta</span>
-											<span class="col-6" style="text-align: center">FechaPublicacion</span>
+											<span class="col-3" style="text-align: center">FechaPublicacion</span>
+											<span class="col-3" style="text-align: center">Opciones</span>
 										</div>
 										<div class="row" th:each="Respuesta : ${Pregunta.respuestas}">
-											<span class="col-2"
-												th:text="${Respuesta.usuario.getNombre()}"></span> <span
-												class="col-4" style="text-align: center"
-												th:text="${Respuesta.Respuesta}"></span> <span
-												th:id="${Respuesta.idRespuesta}" style="display: none;"></span>
-											<span class="col-6" style="text-align: center"
-												th:text="${Respuesta.FechaDeCreacion}"></span>
-
+											<span th:id="'Respuesta' + ${Respuesta.idRespuesta}" style="display:none"></span>
+											<span class="col-3" style="text-align: center"
+												th:text="${Respuesta.usuario.getNombre()}"></span> 
+											<span
+												th:id="'RespuestaTexto' + ${Respuesta.idRespuesta}"
+												class="col-3" style="text-align: center"
+												th:text="${Respuesta.Respuesta}">
+											</span> 
+											<span class="col-3" style="text-align: center"
+												th:text="${Respuesta.fechaFormateada()}"></span> 
+											<span
+												class="col-3" style="text-align: center"
+												th:if="${session.idUsuario == Respuesta.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}">
+												<button type="button" id="botonRespuestaBorrar"
+													class="btn btn-primary" th:value="${Respuesta.idRespuesta}">
+													<i class="far fa-trash-alt"></i> borrar
+												</button> <br>
+												<button type="button" id="mostrar" class="btn btn-primary">Editar</button>
+												<span style="display: none;"> <textarea
+														id="textoEditarRespuesta" name="textoEditarRespuesta"
+														class="form-control"></textarea>
+													<button type="button" id="botonEditarRespuesta"
+														class="btn btn-primary"
+														th:value="${Respuesta.idRespuesta}">Aceptar</button>
+											</span>
+											</span>
 										</div>
 									</td>
 								</tr>

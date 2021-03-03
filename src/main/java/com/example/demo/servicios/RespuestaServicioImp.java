@@ -28,10 +28,7 @@ public class RespuestaServicioImp implements RespuestaServicio {
 
 	@Override
 	public Respuesta crearRespuesta(String texto, User usuario, Pregunta idPregunta) {
-		Respuesta respuesta= new Respuesta();
-		respuesta.setRespuesta(texto);
-		respuesta.setUsuario(usuario);
-		respuesta.setIdPregunta(idPregunta);
+		Respuesta respuesta= new Respuesta(texto, usuario, idPregunta);
 		respuestaDao.crear(respuesta);
 		return respuesta;
 	}
@@ -39,10 +36,22 @@ public class RespuestaServicioImp implements RespuestaServicio {
 	@Override
 	public RespuestaDTO conversionDTO(Respuesta respuesta) {
 
-		RespuestaDTO preguntaDTO = new RespuestaDTO(respuesta.getIdRespuesta(), respuesta.getRespuesta(), respuesta.getUsuario().getNombre(), respuesta.getPregunta().getIdPregunta());
+		RespuestaDTO preguntaDTO = new RespuestaDTO(respuesta.getIdRespuesta(), respuesta.getRespuesta(), respuesta.getUsuario().getNombre(), respuesta.getPregunta().getIdPregunta(), respuesta.fechaFormateada());
 		return preguntaDTO;
 	}
 
+	@Override
+	public void borrarRespuesta(Long idRespuesta) {
+		respuestaDao.borrar(idRespuesta);
+	}
 	
-
+	@Override
+	public Respuesta editarRespuesta(Long idRespuesta, String respuesta) {
+		Respuesta objRespuesta = respuestaDao.buscar(idRespuesta);
+		respuestaDao.borrar(idRespuesta);
+		objRespuesta.setRespuesta(respuesta);
+		respuestaDao.crear(objRespuesta);
+		return objRespuesta;
+		
+	}
 }

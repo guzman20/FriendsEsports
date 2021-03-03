@@ -2,6 +2,8 @@ package com.example.demo.entidades;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -28,7 +30,7 @@ public class Respuesta implements Serializable {
 	private String respuesta;
 
 	@Column(name = "fechaDeCreacion")
-	private String fechaDeCreacion;
+	private LocalDateTime fechaDeCreacion;
 
 	@ManyToOne
 	@JoinColumn(name = "idUsuarios")
@@ -38,11 +40,10 @@ public class Respuesta implements Serializable {
 	@JoinColumn(name = "idPregunta")
 	private Pregunta pregunta;
 
-	public Respuesta(Long idRespuesta, String respuesta, User usuario, Pregunta idPregunta) {
-		this.idRespuesta = idRespuesta;
+	public Respuesta(String respuesta, User usuario, Pregunta idPregunta) {
 		this.respuesta = respuesta;
-		String timeStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
-		this.fechaDeCreacion = timeStamp;
+		LocalDateTime date = LocalDateTime.now();
+		this.fechaDeCreacion = date;
 		this.usuario = usuario;
 		this.pregunta = idPregunta;
 	}
@@ -67,11 +68,11 @@ public class Respuesta implements Serializable {
 		this.respuesta = respuesta;
 	}
 
-	public String getFechaDeCreacion() {
+	public LocalDateTime getFechaDeCreacion() {
 		return fechaDeCreacion;
 	}
 
-	public void setFechaDeCreacion(String fechaDeCreacion) {
+	public void setFechaDeCreacion(LocalDateTime fechaDeCreacion) {
 		this.fechaDeCreacion = fechaDeCreacion;
 	}
 
@@ -91,5 +92,13 @@ public class Respuesta implements Serializable {
 		this.pregunta = pregunta;
 	}
 
+	public String fechaFormateada() {
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
+		
+		return formattedDateTime;
+		
+	}
 	
 }

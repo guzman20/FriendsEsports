@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entidades.Pregunta;
+import com.example.demo.entidades.PreguntaDTO;
 import com.example.demo.entidades.Respuesta;
 import com.example.demo.entidades.RespuestaDTO;
 import com.example.demo.entidades.User;
@@ -52,6 +53,32 @@ public class RespuestaController {
 		} else
 
 			return null;
+
+	}
+	
+	@RequestMapping(value = "/borrar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Long borrarRespuesta(@RequestBody JsonNode values, HttpServletRequest request) {
+
+		Long idRespuesta = values.findValue("idRespuesta").asLong();
+
+		respuestaServicio.borrarRespuesta(idRespuesta);
+		return idRespuesta;
+
+	}
+	
+	@RequestMapping(value = "/editar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public RespuestaDTO editarPregunta(@RequestBody JsonNode values, HttpServletRequest request) {
+
+		Long idRespuesta = values.findValue("idRespuesta").asLong();
+		String respuesta = values.findValue("Respuesta").asText();
+		
+
+		RespuestaDTO respuestaDTO = respuestaServicio.conversionDTO(respuestaServicio.editarRespuesta(idRespuesta, respuesta));
+		
+		
+		return respuestaDTO;
 
 	}
 

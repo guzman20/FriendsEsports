@@ -1,6 +1,7 @@
 package com.example.demo.entidades;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class RespuestaDTO {
@@ -15,11 +16,10 @@ public class RespuestaDTO {
 
 	private Long idPregunta;
 	
-	public RespuestaDTO(Long idRespuesta, String respuesta, String nombreUsuario, Long idPregunta) {
+	public RespuestaDTO(Long idRespuesta, String respuesta, String nombreUsuario, Long idPregunta, String fecha) {
 		this.idRespuesta = idRespuesta;
 		this.respuesta = respuesta;
-		String timeStamp = new SimpleDateFormat("ddMMyyyy").format(Calendar.getInstance().getTime());
-		this.fechaDeCreacion = timeStamp;
+		this.fechaDeCreacion = fecha;
 		this.nombreUsuario = nombreUsuario;
 		this.idPregunta = idPregunta;
 	}

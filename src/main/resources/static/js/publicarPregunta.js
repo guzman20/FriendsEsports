@@ -29,7 +29,6 @@ function publicarPregunta() {
 			var usuario = document.createElement("td");
 			var texto = document.createElement("td");
 			var fecha = document.createElement("td");
-			var textAr
 			var columnaFormulario = document.createElement("td");
 			var formulario = document.createElement("form");
 			var boton = document.createElement("button");

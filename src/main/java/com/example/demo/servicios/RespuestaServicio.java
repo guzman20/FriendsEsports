@@ -16,5 +16,9 @@ public interface RespuestaServicio {
 	public Respuesta crearRespuesta(String respuesta, User usuario, Pregunta idPregunta);
 	
 	public RespuestaDTO conversionDTO(Respuesta respuesta);
+	
+	public void borrarRespuesta(Long idRespuesta);
+	
+	public Respuesta editarRespuesta(Long idRespuesta, String respuesta);
 
 }
