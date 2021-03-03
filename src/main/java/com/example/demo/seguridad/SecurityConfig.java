@@ -39,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/login",
                     "/signup",
                     "/filtrado",
+                    "/imagenes/{id}",
                     "/fragments/**",
                     "/webjars/**").permitAll()
 //	        //Permisos registrados
