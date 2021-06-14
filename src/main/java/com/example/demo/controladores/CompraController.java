@@ -137,12 +137,10 @@ public class CompraController {
 		List<Compra> listaDeCompras;
 		if(request.getSession().getAttribute("idUsuario")!=null) {
 			usario=userServicio.obtenerUsuario((long) request.getSession().getAttribute("idUsuario"));
-			listaDeCompras=compraServicio.comprasDeUsuario(usario);
 		}
 		else
 			return null;
 		
-		mav.addObject("listaDeCompras", listaDeCompras);
 		mav.setViewName("Compra/miscompras");
 		return mav;
 	}
@@ -183,7 +181,6 @@ public class CompraController {
 	public ModelAndView perfil(@PathVariable("id") long idCompra, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		Compra compra=new Compra();
-		compra= compraServicio.buscarCompra(idCompra);
 		List<LineaCompra> listaDeLineaDeCompras;
 		
 		listaDeLineaDeCompras = compraServicio.listarCompra(compra);

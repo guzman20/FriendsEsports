@@ -28,12 +28,8 @@ public class IndexController {
 	@GetMapping({ "/", "index" })
 	public ModelAndView index(HttpServletRequest request) {
 		
-		
 		ModelAndView mav = new ModelAndView();
 		
-		List<Producto> lProducto = productoService.listarProductos(8);
-		
-		mav.addObject("productos", lProducto);
 		mav.setViewName("index");
 		return mav;
 

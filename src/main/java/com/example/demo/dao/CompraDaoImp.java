@@ -27,17 +27,6 @@ public class CompraDaoImp extends DaoGenericoImp<Compra> implements CompraDao {
 		return compra;
 	}
 
-	public List<Compra> comprasUsuarios(User usuario){
-		List<Compra> listaCompra = new ArrayList<>();
-		
-		Iterator<?> value = usuario.getProductos().iterator(); 
-		  
-        while (value.hasNext()) { 
-            listaCompra.add((Compra) value.next());
-        }
-		return listaCompra;
-	}
-
 	@Override
 	public List<LineaCompra> listarCompra(Compra compra) {
 		List<LineaCompra> listaLineaCompra = new ArrayList<>();

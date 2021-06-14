@@ -64,14 +64,9 @@ public class LoginController {
 		
 		User u = new User();
 		u.setNombre(nombre);
-		u.setApellidos(apellidos);;
 		u.setPassword(password);
 		u.setEmail(direccionemail);
-		u.setCodigoSeguridad(csv);
-		u.setDireccion_facturacion(direccion);
 		u.setFecha_Nacimiento(fecha);
-		u.setNumeroTarjeta(tarjeta);
-		u.setTitularTarjeta(titularTarjeta);
 		userServicio.crearUsuario(u);
 		
 

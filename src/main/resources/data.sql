@@ -1,7 +1,7 @@
-INSERT INTO alejandro.usuarios ( apellidos, codigoseguridad, direccion_facturacion, email, fecha_nacimiento, nombre, numerotarjeta, passwordusuario, titulartarjeta) 
-VALUES ('a', '1', 'a', 'a@a.com', '202-25-9', 'a', '1', '$2a$10$C7bYDLtja1vQARJuz798luHjiOoCaDTpgMxUFYdL/lHq2onyaL7gu', 'a');
-INSERT INTO alejandro.usuarios ( apellidos, codigoseguridad, direccion_facturacion, email, fecha_nacimiento, nombre, numerotarjeta, passwordusuario, titulartarjeta) 
-VALUES ('b', '1', 'b', 'b@b.com', '202-25-9', 'b', '1', '$2a$10$C7bYDLtja1vQARJuz798luHjiOoCaDTpgMxUFYdL/lHq2onyaL7gu', 'b');
+INSERT INTO alejandro.usuarios (  email, fecha_nacimiento, nombre, passwordusuario) 
+VALUES ( 'a@a.com', '202-25-9', 'a', '$2a$10$C7bYDLtja1vQARJuz798luHjiOoCaDTpgMxUFYdL/lHq2onyaL7gu');
+INSERT INTO alejandro.usuarios (  email, fecha_nacimiento, nombre, passwordusuario) 
+VALUES ( 'b@b.com', '202-25-9', 'b', '$2a$10$C7bYDLtja1vQARJuz798luHjiOoCaDTpgMxUFYdL/lHq2onyaL7gu');
 
 INSERT INTO alejandro.rol (id_rol, nombre_rol) VALUES ('1', 'ROL_REGISTRADO');
 INSERT INTO alejandro.rol (id_rol, nombre_rol) VALUES ('2','ROL_ADMIN');
