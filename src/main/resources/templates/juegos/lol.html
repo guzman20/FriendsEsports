@@ -1,0 +1,43 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+	<nav th:replace="fragments/header_loader"></nav>
+	<div class="row m-2">
+		<div class="list-group col-2">
+			<a href="#" class="list-group-item list-group-item-action">League
+				Of Legends(LoL)</a> <a href="#"
+				class="list-group-item list-group-item-action">Counter Strike:
+				Global Ofensive(CSGO)</a> <a href="#"
+				class="list-group-item list-group-item-action">Valorant</a>
+		</div>
+
+		<div class="container col-10">
+			<h1>League of legends</h1>
+			<p>Bienvenido a la seccion de League of legends en esta podras
+				hablar con otros amantes de League of legends.</p>
+			<p>Abajo veras diversas conversaciones empezadas por otros
+				usuarios.</p>
+			<div class="Card p-2 m-1">
+				<div class="card-body">
+					<h5 class="card-title">League Of Legends(LOL)</h5>
+					<a th:href="@{/registro}" class="btn btn-primary">Entrar</a>
+				</div>
+			</div>
+			<div class="Card p-2 m-1">
+				<div class="card-body">
+					<h5 class="card-title">Valorant</h5>
+					<a th:href="@{/registro}" class="btn btn-primary">Entrar</a>
+				</div>
+			</div>
+			<div class="Card p-2 m-1">
+				<div class="card-body">
+					<h5 class="card-title">Counter Strike : Global Ofensive(CSGO)</h5>
+					<a th:href="@{/registro}" class="btn btn-primary">Entrar</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+</body>

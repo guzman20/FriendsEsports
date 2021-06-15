@@ -19,7 +19,6 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.example.demo.entidades.Carro;
 import com.example.demo.entidades.User;
 import com.example.demo.servicios.UserServicio;
 
@@ -32,14 +31,12 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {
-		List<Carro> listacarro = new ArrayList<Carro>();
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		HttpSession session = request.getSession();
 		User authUser = userServicio.findByUsername(userDetails.getUsername());
 		session.setAttribute("nombre", authUser.getNombre());
 		session.setAttribute("idUsuario", authUser.getIdUsuarios());
-		session.setAttribute("listacarro", listacarro);
 //		handle(request, response, authentication);
 
 

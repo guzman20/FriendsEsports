@@ -16,14 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.entidades.Producto;
-import com.example.demo.servicios.ProductoServicio;
-
 @Controller
 public class IndexController {
-	
-	@Autowired
-	ProductoServicio productoService;
+
 
 	@GetMapping({ "/", "index" })
 	public ModelAndView index(HttpServletRequest request) {
@@ -35,17 +30,6 @@ public class IndexController {
 
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, value = "/filtrado")
-	public ModelAndView BuscarProducto(@RequestParam(name = "nombre") String nombre,
-										HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		List<Producto> lProducto = productoService.listarProductoPorNombre(nombre);
-
-		mav.addObject("logIn",request.getAttribute("logIn"));
-		mav.addObject("productos", lProducto);
-		mav.setViewName("index");
-
-		return mav;
-	}
+	
 
 }

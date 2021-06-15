@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.entidades.Carro;
-import com.example.demo.entidades.Producto;
 import com.example.demo.entidades.User;
 import com.example.demo.servicios.UserServicio;
 
@@ -54,8 +52,6 @@ public class UserController {
 								HttpServletRequest request, HttpSession session) throws IOException {
 		
 		if(userServicio.logIn(nombre, password)) {
-			List<Carro> listacarro = new ArrayList<Carro>();
-			session.setAttribute("listacarro", listacarro);
 			session.setAttribute("nombre", nombre);
 			User usuario= new User();
 			usuario=userServicio.buscarUsuario(nombre);

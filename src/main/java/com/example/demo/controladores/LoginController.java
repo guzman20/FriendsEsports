@@ -53,14 +53,9 @@ public class LoginController {
 	public String crearUsuario(HttpServletRequest request) {
 
 		String nombre = request.getParameter("nombre");
-		String apellidos = request.getParameter("apellidos");
 		String direccionemail = request.getParameter("email");
 		String password = request.getParameter("password");
-		String direccion = request.getParameter("direccionFacturacion");
 		String fecha = request.getParameter("fechaNacimiento");
-		String titularTarjeta = request.getParameter("titularTarjeta");
-		Integer tarjeta = Integer.parseInt(request.getParameter("numeroTarjeta"));
-		Integer csv = Integer.parseInt(request.getParameter("codigoSeguridad"));
 		
 		User u = new User();
 		u.setNombre(nombre);

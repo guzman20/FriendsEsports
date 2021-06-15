@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.RespuestasDao;
-import com.example.demo.entidades.Pregunta;
-import com.example.demo.entidades.PreguntaDTO;
+import com.example.demo.entidades.Tema;
+import com.example.demo.entidades.TemaDTO;
 import com.example.demo.entidades.Respuesta;
 import com.example.demo.entidades.RespuestaDTO;
 import com.example.demo.entidades.User;
@@ -22,13 +22,13 @@ public class RespuestaServicioImp implements RespuestaServicio {
 	private RespuestasDao respuestaDao;
 
 	@Override
-	public List<Respuesta> listarRespuestas(Pregunta pregunta) {
-		return respuestaDao.listarRespuestasPorPregunta(pregunta);
+	public List<Respuesta> listarRespuestas(Tema tema) {
+		return respuestaDao.listarRespuestasPorTema(tema);
 	}
 
 	@Override
-	public Respuesta crearRespuesta(String texto, User usuario, Pregunta idPregunta) {
-		Respuesta respuesta= new Respuesta(texto, usuario, idPregunta);
+	public Respuesta crearRespuesta(String texto, User usuario, Tema idTema) {
+		Respuesta respuesta= new Respuesta(texto, usuario, idTema);
 		respuestaDao.crear(respuesta);
 		return respuesta;
 	}
@@ -36,8 +36,8 @@ public class RespuestaServicioImp implements RespuestaServicio {
 	@Override
 	public RespuestaDTO conversionDTO(Respuesta respuesta) {
 
-		RespuestaDTO preguntaDTO = new RespuestaDTO(respuesta.getIdRespuesta(), respuesta.getRespuesta(), respuesta.getUsuario().getNombre(), respuesta.getPregunta().getIdPregunta(), respuesta.fechaFormateada());
-		return preguntaDTO;
+		RespuestaDTO temaDTO = new RespuestaDTO(respuesta.getIdRespuesta(), respuesta.getRespuesta(), respuesta.getUsuario().getNombre(), respuesta.getTema().getIdTema(), respuesta.fechaFormateada());
+		return temaDTO;
 	}
 
 	@Override

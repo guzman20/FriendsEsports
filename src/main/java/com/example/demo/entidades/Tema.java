@@ -22,18 +22,18 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "preguntas")
-public class Pregunta implements Serializable {
+@Table(name = "Temas")
+public class Tema implements Serializable {
 
 	private static final long serialVersionUID = -1491461123132939572L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name = "idPregunta")
-	private Long idPregunta;
+	@Column(name = "idTema")
+	private Long idTema;
 
-	@Column(name = "pregunta")
-	private String pregunta;
+	@Column(name = "tema")
+	private String tema;
 
 	@Column(name = "fechaDeCreacion")
 	private LocalDateTime fechaDeCreacion;
@@ -41,40 +41,35 @@ public class Pregunta implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idUsuarios")
 	private User usuario;
-
-	@ManyToOne
-	@JoinColumn(name = "idproductos")
-	private Producto producto;
 	
-	@OneToMany(mappedBy = "pregunta", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public Pregunta(String pregunta, User usuario, Producto producto) {
-		this.pregunta = pregunta;
+	public Tema(String Tema, User usuario) {
+		this.tema = Tema;
 		this.usuario = usuario;
-		this.producto = producto;
 		LocalDateTime date = LocalDateTime.now();
 		this.fechaDeCreacion = date;
 	}
 
-	public Pregunta() {
+	public Tema() {
 
 	}
 
-	public Long getIdPregunta() {
-		return idPregunta;
+	public Long getIdTema() {
+		return idTema;
 	}
 
-	public void setIdPregunta(Long idPregunta) {
-		this.idPregunta = idPregunta;
+	public void setIdTema(Long idTema) {
+		this.idTema = idTema;
 	}
 
-	public String getPregunta() {
-		return pregunta;
+	public String getTema() {
+		return tema;
 	}
 
-	public void setPregunta(String pregunta) {
-		this.pregunta = pregunta;
+	public void setTema(String Tema) {
+		this.tema = Tema;
 	}
 
 	public LocalDateTime getFechaDeCreacion() {
@@ -91,14 +86,6 @@ public class Pregunta implements Serializable {
 
 	public void setUsuario(User usuario) {
 		this.usuario = usuario;
-	}
-
-	public Producto getProducto() {
-		return producto;
-	}
-
-	public void setProducto(Producto producto) {
-		this.producto = producto;
 	}
 
 	public Set<Respuesta> getRespuestas() {

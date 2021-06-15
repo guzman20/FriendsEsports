@@ -1,17 +1,13 @@
 package com.example.demo.entidades;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
+public class TemaDTO {
 
+	private Long idTema;
 
-public class PreguntaDTO {
-
-	private Long idPregunta;
-
-	private String pregunta;
+	private String tema;
 
 	private String fechaDeCreacion;
 
@@ -23,11 +19,11 @@ public class PreguntaDTO {
 
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public PreguntaDTO(Long idPregunta, String pregunta, String fechaDeCreacion, Long idUsuario,
+	public TemaDTO(Long idTema, String tema, String fechaDeCreacion, Long idUsuario,
 			String nombreUsuario, Long idProducto, Set<Respuesta> respuestas) {
 		super();
-		this.idPregunta = idPregunta;
-		this.pregunta = pregunta;
+		this.idTema = idTema;
+		this.tema = tema;
 		this.fechaDeCreacion = fechaDeCreacion;
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
@@ -35,23 +31,23 @@ public class PreguntaDTO {
 		this.respuestas = respuestas;
 	}
 
-	public PreguntaDTO() {
+	public TemaDTO() {
 	}
 
-	public Long getIdPregunta() {
-		return idPregunta;
+	public Long getIdTema() {
+		return idTema;
 	}
 
-	public void setIdPregunta(Long idPregunta) {
-		this.idPregunta = idPregunta;
+	public void setIdTema(Long idTema) {
+		this.idTema = idTema;
 	}
 
-	public String getPregunta() {
-		return pregunta;
+	public String getTema() {
+		return tema;
 	}
 
-	public void setPregunta(String pregunta) {
-		this.pregunta = pregunta;
+	public void setTema(String tema) {
+		this.tema = tema;
 	}
 
 	public String getFechaDeCreacion() {

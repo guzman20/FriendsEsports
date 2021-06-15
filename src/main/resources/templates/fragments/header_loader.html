@@ -15,23 +15,25 @@
 	href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
 	integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
 	crossorigin="anonymous">
+	
+<script th:src="@{/js/jquery-3.5.1.min.js}"></script>
+
+<script >
+$(document).ready(function(){
+	$("#opciones").click (function(){
+	  $("#lista").slideToggle(400);
+	});
+});
+</script>
 
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-light bg-light p-2">
-		<div class="navbar-header">
-			<a th:href="@{/}" class="btn btn-primary"> 
-				<i class="fas fa-home"></i>Home
-			</a>
-		</div>
-		<div class="gnav">
-			<div class="nav navbar-nav navbar-right ">
-			<a th:href="@{/registro}" class="btn btn-primary">
-				<i class="fas fa-user fa-2x p-1"></i>
-			</a>
-			</div>
-		</div>
-	</nav>
+	<nav sec:authorize="isAnonymous()" th:replace="fragments/header_public"></nav>
+	<nav
+		sec:authorize="hasAuthority('ROL_REGISTRADO') && !hasAuthority('ROL_ADMIN')"
+		th:replace="fragments/header_registrado"></nav>
+	<nav sec:authorize="hasAuthority('ROL_ADMIN')"
+		th:replace="fragments/header_admin"></nav>
 </body>
 </html>
 
