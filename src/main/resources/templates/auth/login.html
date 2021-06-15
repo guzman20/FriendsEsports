@@ -3,68 +3,74 @@
 
 <head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
 </head>
 
 <body class="bg-gradient-primary">
 
 	<nav th:replace="fragments/header_loader"></nav>
-	
-    <div class="container">
 
-        <!-- Outer Row -->
-        <div class="row justify-content-center">
+	<div class="container">
 
-            <div class="col-6">
+		<!-- Outer Row -->
+		<div class="row justify-content-center">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div>
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Bienvenido, te ech&aacute;bamos de menos</h1>
-                                    </div>
-                                    <div class="alert alert-danger" role="alert" th:text="${error}" th:if="${error}"></div>
-                                    <form  action="login" th:action="@{/login}" method="post" class="user">
-                                    
-                                        <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                id="nombre" aria-describedby="emailHelp"
-                                                placeholder="Introduce el usuario" name="nombre">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="contrasenia" placeholder="Password" name="password">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Recordarme</label>
-                                            </div>
-                                        </div>
-                                        
-                                        <button type="submit" class="btn btn-primary btn-user btn-block"> Submit </button>
-                                    </form>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" th:href="@{/registro}" >Crear cuenta</a>
-                                    </div>
-                                </div>
-                        </div>
-                    </div>
-                </div>
+			<div class="col-6">
 
-            </div>
+				<div class="card o-hidden border-0 shadow-lg my-5">
+					<div class="card-body p-0">
+						<!-- Nested Row within Card Body -->
+						<div>
+							<div class="p-5">
+								<div class="text-center">
+									<h1 class="h4 text-gray-900 mb-4">Bienvenido, te
+										ech&aacute;bamos de menos</h1>
+								</div>
+								<div class="alert alert-danger" role="alert" th:text="${error}"
+									th:if="${error}"></div>
+								<form action="login" th:action="@{/login}" method="post"
+									class="user">
 
-        </div>
+									<div class="form-group">
+										<input type="text" class="form-control form-control-user"
+											id="nombre" aria-describedby="emailHelp"
+											placeholder="Introduce el usuario" name="nombre">
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control form-control-user"
+											id="contrasenia" placeholder="Password" name="password">
+									</div>
+									<div class="form-group">
+										<div class="custom-control custom-checkbox small">
+											<input type="checkbox" class="custom-control-input"
+												id="customCheck"> <label
+												class="custom-control-label" for="customCheck">Recordarme</label>
+										</div>
+									</div>
 
-    </div>
+									<button type="submit"
+										class="btn btn-primary btn-user btn-block">Submit</button>
+								</form>
+								<hr>
+								<div class="text-center">
+									<a class="small" th:href="@{/registro}">Crear cuenta</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
 
 </body>
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.entidades.Tema;
 import com.example.demo.entidades.TemaDTO;
@@ -28,24 +29,16 @@ public class TemaController {
 	@Autowired
 	UserServicio userServicio;
 
-	@RequestMapping(value = "/crear", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public TemaDTO publicartema(@RequestBody JsonNode values, HttpServletRequest request) {
+	@RequestMapping(value = "/crear")
+	public ModelAndView publicartema(HttpServletRequest request) {
 
-		String texto = values.findValue("temaTexto").asText();
+		ModelAndView mav = new ModelAndView();
 
-		if (texto != "") {
+		String tema = request.getParameter("tema");
 
-			Tema tema = new Tema();
-			Long idUsuario = (long) request.getSession().getAttribute("idUsuario");
-			User usuario = (User) userServicio.obtenerUsuario(idUsuario);
-			tema = temaServicio.crearTema(usuario, texto);
-
-			return temaServicio.conversionDTO(tema);
-
-		} else
-
-			return null;
+		mav.addObject("tema", tema);
+		mav.setViewName("crear");
+		return mav;
 
 	}
 
@@ -67,8 +60,7 @@ public class TemaController {
 		Long idtema = values.findValue("idtema").asLong();
 		String tema = values.findValue("tema").asText();
 
-		TemaDTO temaDTO = temaServicio
-				.conversionDTO(temaServicio.editarTema(idtema, tema));
+		TemaDTO temaDTO = temaServicio.conversionDTO(temaServicio.editarTema(idtema, tema));
 
 		return temaDTO;
 

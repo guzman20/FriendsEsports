@@ -19,6 +19,11 @@
 				hablar con otros amantes de League of legends.</p>
 			<p>Abajo veras diversas conversaciones empezadas por otros
 				usuarios.</p>
+			<form action="login" th:action="@{/tema/crear}" method="post"
+				class="user">
+				<input type="hidden" value="lol" id="tema" name="tema">
+				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
+			</form>
 			<div class="Card p-2 m-1">
 				<div class="card-body">
 					<h5 class="card-title">League Of Legends(LOL)</h5>
