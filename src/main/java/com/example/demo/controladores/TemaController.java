@@ -37,7 +37,7 @@ public class TemaController {
 		String tema = request.getParameter("tema");
 
 		mav.addObject("tema", tema);
-		mav.setViewName("crear");
+		mav.setViewName("tema/crear");
 		return mav;
 
 	}
