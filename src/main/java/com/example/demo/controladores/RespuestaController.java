@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.example.demo.entidades.Tema;
+import com.example.demo.entidades.Conversacion;
 import com.example.demo.entidades.Respuesta;
 import com.example.demo.entidades.RespuestaDTO;
 import com.example.demo.entidades.User;
 import com.example.demo.servicios.RespuestaServicio;
-import com.example.demo.servicios.TemaServicio;
+import com.example.demo.servicios.ConversacionServicio;
 import com.example.demo.servicios.UserServicio;
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -30,7 +30,7 @@ public class RespuestaController {
 	UserServicio userServicio;
 
 	@Autowired
-	TemaServicio temaServicio;
+	ConversacionServicio conversacionServicio;
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
@@ -43,8 +43,8 @@ public class RespuestaController {
 			Respuesta respuesta = new Respuesta();
 			Long idUsuario = (long) request.getSession().getAttribute("idUsuario");
 			User usuario = (User) userServicio.obtenerUsuario(idUsuario);
-			Tema idtema = temaServicio.obtenerTema(values.findValue("idTema").asLong());
-			respuesta = respuestaServicio.crearRespuesta(texto, usuario, idtema);
+			Conversacion idConversacion = conversacionServicio.obtenerConversacion(values.findValue("idConversacion").asLong());
+			respuesta = respuestaServicio.crearRespuesta(texto, usuario, idConversacion);
 			
 			RespuestaDTO respuestaDTO = respuestaServicio.conversionDTO(respuesta);
 			return respuestaDTO;
@@ -68,7 +68,7 @@ public class RespuestaController {
 	
 	@RequestMapping(value = "/editar", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public RespuestaDTO editarTema(@RequestBody JsonNode values, HttpServletRequest request) {
+	public RespuestaDTO editarConversacion(@RequestBody JsonNode values, HttpServletRequest request) {
 
 		Long idRespuesta = values.findValue("idRespuesta").asLong();
 		String respuesta = values.findValue("Respuesta").asText();

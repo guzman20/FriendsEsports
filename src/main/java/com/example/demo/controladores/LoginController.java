@@ -19,17 +19,11 @@ public class LoginController {
 	@Autowired
 	UserServicio userServicio;
 	
-	//Página de login custom
 	@GetMapping("/login")
 	public String login() {
 		return "auth/login";
 	}
 
-//	@GetMapping("/access-denied")
-//	public String accessDenied() {
-//		return "/error/access-denied";
-//	}
-//
 	@PostMapping("/crearUsuario")
 	public String createUser(@ModelAttribute("usuario") User elUsuario) {
 		User usuario = userServicio.crearUsuario(elUsuario);

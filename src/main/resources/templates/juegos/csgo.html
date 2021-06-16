@@ -14,29 +14,29 @@
 				Ofensive.</p>
 			<p>Abajo veras diversas conversaciones empezadas por otros
 				usuarios.</p>
-			<form action="login" th:action="@{/tema/crear}" method="post"
+			<form action="login" th:action="@{/conversacion/crear}" method="post"
 				class="user">
 				<input type="hidden" value="lol" id="tema" name="tema">
 				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
 			</form>
-			<div th:each="tema : ${temas}">
+			<div th:each="conversacion : ${conversacion}">
 				<div class="Card p-2 m-1">
 					<div class="card-body">
 						<p>
-							Creado por: <span th:text="${tema.usuario.nombre}"></span>
+							Creado por: <span th:text="${conversacion.usuario.nombre}"></span>
 						</p>
-						<h5 class="card-title" th:text="${tema.titulo}"></h5>
-						<p class="card-text" th:text="${tema.texto}"></p>
+						<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
+						<p class="card-text" th:text="${conversacion.texto}"></p>
 						<div class="row">
 							<div class="col-2">
-								<a th:href="@{/tema/{id}(id=${tema.idTema})}"
+								<a th:href="@{/conversacion/{id}(id=${conversacion.idConversacion})}"
 									class="btn btn-primary">Entrar</a>
 							</div>
 							<div
-								th:if="${session.idUsuario == tema.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
+								th:if="${session.idUsuario == conversacion.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
 								class="col-2">
 								<a
-									th:href="@{/tema/{tema}/borrar/{id}(id=${tema.idTema}, tema=${tema.tema})}"
+									th:href="@{/conversacion/{tema}/borrar/{id}(id=${conversacion.idConversacion}, tema=${conversacion.tema})}"
 									class="btn btn-secondary">Borrar</a>
 							</div>
 						</div>

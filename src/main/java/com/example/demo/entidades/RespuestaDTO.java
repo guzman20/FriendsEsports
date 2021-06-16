@@ -14,14 +14,14 @@ public class RespuestaDTO {
 
 	private String nombreUsuario;
 
-	private Long idTema;
+	private Long idConversacion;
 	
-	public RespuestaDTO(Long idRespuesta, String respuesta, String nombreUsuario, Long idTema, String fecha) {
+	public RespuestaDTO(Long idRespuesta, String respuesta, String nombreUsuario, Long idConversacion, String fecha) {
 		this.idRespuesta = idRespuesta;
 		this.respuesta = respuesta;
 		this.fechaDeCreacion = fecha;
 		this.nombreUsuario = nombreUsuario;
-		this.idTema = idTema;
+		this.idConversacion = idConversacion;
 	}
 
 	public RespuestaDTO() {
@@ -60,12 +60,12 @@ public class RespuestaDTO {
 		this.nombreUsuario = nombreUsuario;
 	}
 
-	public Long getIdTema() {
-		return idTema;
+	public Long getIdConversacion() {
+		return idConversacion;
 	}
 
-	public void setIdTema(Long idTema) {
-		this.idTema = idTema;
+	public void setIdConversacion(Long idConversacion) {
+		this.idConversacion = idConversacion;
 	}
 
 }

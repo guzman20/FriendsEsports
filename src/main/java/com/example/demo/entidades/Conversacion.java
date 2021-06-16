@@ -18,15 +18,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Temas")
-public class Tema implements Serializable {
+@Table(name = "Conversaciones")
+public class Conversacion implements Serializable {
 
 	private static final long serialVersionUID = -1491461123132939572L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name = "idTema")
-	private Long idTema;
+	@Column(name = "idConversacion")
+	private Long idConversacion;
 
 	@Column(name= "tema")
 	private String tema;
@@ -44,10 +44,10 @@ public class Tema implements Serializable {
 	@JoinColumn(name = "idUsuarios")
 	private User usuario;
 	
-	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "conversacion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public Tema(String tema,String titulo, String texto, User usuario) {
+	public Conversacion(String tema,String titulo, String texto, User usuario) {
 		this.tema = tema;
 		this.titulo = titulo;
 		this.texto = texto;
@@ -56,7 +56,7 @@ public class Tema implements Serializable {
 		this.fechaDeCreacion = date;
 	}
 
-	public Tema() {
+	public Conversacion() {
 
 	}
 	
@@ -86,12 +86,12 @@ public class Tema implements Serializable {
 		this.texto = texto;
 	}
 
-	public Long getIdTema() {
-		return idTema;
+	public Long getIdConversacion() {
+		return idConversacion;
 	}
 
-	public void setIdTema(Long idTema) {
-		this.idTema = idTema;
+	public void setIdConversacion(Long idConversacion) {
+		this.idConversacion = idConversacion;
 	}
 
 	public LocalDateTime getFechaDeCreacion() {

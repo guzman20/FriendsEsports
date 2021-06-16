@@ -9,60 +9,60 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.entidades.Tema;
+import com.example.demo.entidades.Conversacion;
 import com.example.demo.entidades.User;
-import com.example.demo.servicios.TemaServicio;
+import com.example.demo.servicios.ConversacionServicio;
 import com.example.demo.servicios.UserServicio;
 
 @Controller
-@RequestMapping(value = "/tema")
-public class TemaController {
+@RequestMapping(value = "/conversacion")
+public class ConversacionController {
 
 	@Autowired
-	TemaServicio temaServicio;
+	ConversacionServicio conversacionServicio;
 
 	@Autowired
 	UserServicio userServicio;
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
-	public ModelAndView creartema(HttpServletRequest request) {
+	public ModelAndView crearConversacion(HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 
-		String tema = request.getParameter("tema");
+		String conversacion = request.getParameter("conversacion");
 
-		mav.addObject("tema", tema);
-		mav.setViewName("tema/crear");
+		mav.addObject("conversacion", conversacion);
+		mav.setViewName("conversacion/crear");
 		return mav;
 
 	}
 	@RequestMapping(value = "/creado", method = RequestMethod.POST)
-	public ModelAndView publicartema(HttpServletRequest request) {
+	public ModelAndView publicarConversacion(HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 
-		String tema = request.getParameter("tema");
+		String conversacion = request.getParameter("conversacion");
 		String titulo = request.getParameter("titulo");
 		String texto = request.getParameter("texto");
 		long id=(long) request.getSession().getAttribute("idUsuario");
 		User usuario = (User)userServicio.obtenerUsuario(id);
 		
-		Tema t = new Tema();
+		Conversacion t = new Conversacion();
 		
-		t = temaServicio.crearTema(tema, titulo, texto, usuario);
+		t = conversacionServicio.crearConversacion(conversacion, titulo, texto, usuario);
 		
-		mav.setViewName("redirect:/juegos/"+tema);
+		mav.setViewName("redirect:/juegos/"+conversacion);
 		return mav;
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{tema}/borrar/{idTema}")
-	public ModelAndView borrartema(@PathVariable("idTema") long idTema,@PathVariable("tema") String tema,HttpServletRequest request) {
-		temaServicio.borrarTema(idTema);
+	@RequestMapping(method = RequestMethod.GET, value = "/{conversacion}/borrar/{idConversacion}")
+	public ModelAndView borrarConversacion(@PathVariable("idConversacion") long idConversacion,@PathVariable("conversacion") String conversacion,HttpServletRequest request) {
+		conversacionServicio.borrarConversacion(idConversacion);
 		
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("redirect:/juegos/"+tema);
+		mav.setViewName("redirect:/juegos/"+conversacion);
 		return mav;
 
 	}

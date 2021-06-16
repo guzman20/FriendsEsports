@@ -37,15 +37,15 @@ public class Respuesta implements Serializable {
 	private User usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "idTema")
-	private Tema tema;
+	@JoinColumn(name = "idConversacion")
+	private Conversacion conversacion;
 
-	public Respuesta(String respuesta, User usuario, Tema idTema) {
+	public Respuesta(String respuesta, User usuario, Conversacion idConversacion) {
 		this.respuesta = respuesta;
 		LocalDateTime date = LocalDateTime.now();
 		this.fechaDeCreacion = date;
 		this.usuario = usuario;
-		this.tema = idTema;
+		this.conversacion = idConversacion;
 	}
 
 	public Respuesta() {
@@ -84,12 +84,12 @@ public class Respuesta implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Tema getTema() {
-		return tema;
+	public Conversacion getConversacion() {
+		return conversacion;
 	}
 
-	public void setIdTema(Tema tema) {
-		this.tema = tema;
+	public void setIdConversacion(Conversacion conversacion) {
+		this.conversacion = conversacion;
 	}
 
 	public String fechaFormateada() {

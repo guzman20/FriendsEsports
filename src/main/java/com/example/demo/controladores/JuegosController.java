@@ -12,24 +12,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.entidades.Tema;
-import com.example.demo.servicios.TemaServicio;
+import com.example.demo.entidades.Conversacion;
+import com.example.demo.servicios.ConversacionServicio;
 
 @Controller
 @RequestMapping(value = "/juegos")
 public class JuegosController {
 	
 	@Autowired
-	TemaServicio temaServicio;
+	ConversacionServicio conversacionServicio;
 
 	@RequestMapping(method = RequestMethod.GET,  value ="/{tema}" )
-	public ModelAndView lol(@PathVariable("tema") String tema,HttpServletRequest request) {
+	public ModelAndView cargarJuegos(@PathVariable("tema") String tema,HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		
-		List<Tema> lTemas = temaServicio.ObtenerListaPorTemas(tema);
+		List<Conversacion> lconversaciones = conversacionServicio.ObtenerListaPorTemas(tema);
 
-		mav.addObject("temas", lTemas);
+		mav.addObject("conversaciones", lconversaciones);
 		mav.setViewName("juegos/"+tema);
 		return mav;
 
