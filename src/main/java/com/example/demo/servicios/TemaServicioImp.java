@@ -4,13 +4,11 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.dao.TemaDao;
 import com.example.demo.entidades.Tema;
-import com.example.demo.entidades.TemaDTO;
 import com.example.demo.entidades.User;
 
 
@@ -20,20 +18,6 @@ public class TemaServicioImp implements TemaServicio {
 	
 	@Autowired
 	private TemaDao temasDao;
-	
-	public TemaDTO conversionDTO(Tema tema) {
-		
-		TemaDTO temaDTO = new TemaDTO();
-		temaDTO.setFechaDeCreacion(tema.fechaFormateada());
-		temaDTO.setIdTema(tema.getIdTema());
-		temaDTO.setIdUsuario(tema.getUsuario().getIdUsuarios());
-		temaDTO.setNombreUsuario(tema.getUsuario().getNombre());
-		temaDTO.setTema(tema.getTema());
-		temaDTO.setRespuestas(tema.getRespuestas());
-		
-		return temaDTO;
-		
-	}
 
 	@Override
 	public void borrarTema(Long idTema) {
@@ -44,7 +28,6 @@ public class TemaServicioImp implements TemaServicio {
 	public Tema editarTema(Long idTema, String tema) {
 		Tema objTema = temasDao.buscar(idTema);
 		temasDao.borrar(idTema);
-		objTema.setTema(tema);
 		temasDao.crear(objTema);
 		return objTema;
 		
@@ -56,9 +39,15 @@ public class TemaServicioImp implements TemaServicio {
 	}
 
 	@Override
-	public Tema crearTema(User usuarios, String texto) {
-		// TODO Auto-generated method stub
-		return null;
+	public Tema crearTema(String tema, String titulo,String texto, User usuario) {
+		Tema t= new Tema(tema, texto, titulo, usuario);
+		temasDao.crear(t);
+		return t;
+	}
+
+	@Override
+	public List<Tema> ObtenerListaPorTemas(String tema) {
+		return temasDao.listarPorTemas(tema);
 	}
 
 	

@@ -1,12 +1,8 @@
 package com.example.demo.entidades;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,8 +28,14 @@ public class Tema implements Serializable {
 	@Column(name = "idTema")
 	private Long idTema;
 
-	@Column(name = "tema")
+	@Column(name= "tema")
 	private String tema;
+	
+	@Column(name = "titulo")
+	private String titulo;
+	
+	@Column(name = "texto")
+	private String texto;
 
 	@Column(name = "fechaDeCreacion")
 	private LocalDateTime fechaDeCreacion;
@@ -45,8 +47,10 @@ public class Tema implements Serializable {
 	@OneToMany(mappedBy = "tema", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public Tema(String Tema, User usuario) {
-		this.tema = Tema;
+	public Tema(String tema,String titulo, String texto, User usuario) {
+		this.tema = tema;
+		this.titulo = titulo;
+		this.texto = texto;
 		this.usuario = usuario;
 		LocalDateTime date = LocalDateTime.now();
 		this.fechaDeCreacion = date;
@@ -55,6 +59,32 @@ public class Tema implements Serializable {
 	public Tema() {
 
 	}
+	
+	
+
+	public String getTitulo() {
+		return titulo;
+	}
+
+	public String getTema() {
+		return tema;
+	}
+
+	public void setTema(String tema) {
+		this.tema = tema;
+	}
+
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
+	}
 
 	public Long getIdTema() {
 		return idTema;
@@ -62,14 +92,6 @@ public class Tema implements Serializable {
 
 	public void setIdTema(Long idTema) {
 		this.idTema = idTema;
-	}
-
-	public String getTema() {
-		return tema;
-	}
-
-	public void setTema(String Tema) {
-		this.tema = Tema;
 	}
 
 	public LocalDateTime getFechaDeCreacion() {

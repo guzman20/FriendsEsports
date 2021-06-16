@@ -3,12 +3,9 @@ package com.example.demo.servicios;
 import java.util.List;
 
 import com.example.demo.entidades.Tema;
-import com.example.demo.entidades.TemaDTO;
 import com.example.demo.entidades.User;
 
 public interface TemaServicio {
-	
-	public TemaDTO conversionDTO(Tema tema);
 	
 	public void borrarTema(Long idTema);
 
@@ -16,5 +13,7 @@ public interface TemaServicio {
 	
 	public Tema obtenerTema(long idTema);
 	
-	public Tema crearTema(User usuarios, String texto);
+	public Tema crearTema(String tema, String titulo,String texto, User usuario);
+	
+	public List<Tema> ObtenerListaPorTemas(String tema);
 }

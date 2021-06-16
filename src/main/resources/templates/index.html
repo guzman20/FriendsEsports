@@ -5,13 +5,7 @@
 <body>
 	<nav th:replace="fragments/header_loader"></nav>
 	<div class="row m-2">
-		<div class="list-group col-2">
-			<a href="#" class="list-group-item list-group-item-action">League
-				Of Legends(LoL)</a> <a href="#"
-				class="list-group-item list-group-item-action">Counter Strike:
-				Global Ofensive(CSGO)</a> <a href="#"
-				class="list-group-item list-group-item-action">Valorant</a>
-		</div>
+		<div th:replace="fragments/menu_lateral"></div>
 
 		<div class="container col-10">
 			<h1>¡Bienvenido!</h1>
@@ -41,7 +35,7 @@
 					<img class="card-img-top" src="/images/valorant.jpg" alt="Valorant">
 					<div class="card-body">
 						<h5 class="card-title">Valorant</h5>
-						<a th:href="@{/registro}" class="btn btn-primary">Entrar</a>
+						<a th:href="@{/juegos/valorant}" class="btn btn-primary">Entrar</a>
 					</div>
 				</div>
 				<div class="col-1"></div>
@@ -50,7 +44,7 @@
 						alt="Counter Strike: Global Ofensive">
 					<div class="card-body">
 						<h5 class="card-title">Counter Strike : Global Ofensive(CSGO)</h5>
-						<a th:href="@{/registro}" class="btn btn-primary">Entrar</a>
+						<a th:href="@{/juegos/csgo}" class="btn btn-primary">Entrar</a>
 					</div>
 				</div>
 			</div>

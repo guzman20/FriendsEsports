@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.entidades.Tema;
-import com.example.demo.entidades.TemaDTO;
 import com.example.demo.entidades.Respuesta;
 import com.example.demo.entidades.RespuestaDTO;
 import com.example.demo.entidades.User;
