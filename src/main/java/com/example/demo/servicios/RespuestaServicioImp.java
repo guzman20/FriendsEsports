@@ -37,12 +37,12 @@ public class RespuestaServicioImp implements RespuestaServicio {
 	}
 	
 	@Override
-	public Respuesta editarRespuesta(Long idRespuesta, String respuesta) {
-		Respuesta objRespuesta = respuestaDao.buscar(idRespuesta);
+	public Respuesta editarRespuesta(Long idRespuesta, String texto) {
+		Respuesta t = respuestaDao.buscar(idRespuesta);
+		t.setRespuesta(texto);
 		respuestaDao.borrar(idRespuesta);
-		objRespuesta.setRespuesta(respuesta);
-		respuestaDao.crear(objRespuesta);
-		return objRespuesta;
+		respuestaDao.crear(t);
+		return t;
 		
 	}
 }

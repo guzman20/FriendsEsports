@@ -94,31 +94,30 @@ form {
 								th:if="${session.idUsuario == respuesta.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
 								class="col-2">
 								<a
-									th:href="@{/respuesta/borrar/{id}(id=${respuesta.idRespuesta})}"
+									th:href="@{/respuesta/borrar/{idConversacion}/{idRespuesta}(idRespuesta=${respuesta.idRespuesta},idConversacion=${conversacion.idConversacion})}"
 									class="btn btn-danger">Borrar</a>
 							</div>
 							<div
 								th:if="${session.idUsuario == respuesta.usuario.getIdUsuarios()}"
 								class="col-2 ">
-								<a class="btn btn-secondary" id="editar">Editar</a>
-								<div id="formularioEditar" style="display: none;">
-									<form action="post"
-										th:action="@{/respuesta/editar/{id}(id=${respuesta.idRespuesta})}"
-										method="post">
-										<div class="form-group">
-											<textarea class="form-control form-control-user" id="texto"
-												th:text="${respuesta.respuesta}" name="texto"
-												required="true"></textarea>
-										</div>
-										<button type="submit"
-											class="btn btn-primary btn-user btn-block">Confimar</button>
-									</form>
-								</div>
+								<a class="btn btn-secondary editar">Editar</a>
 							</div>
+						</div>
+						<div id="formularioEditar" style="display: none;">
+							<form action="post"
+								th:action="@{/respuesta/editar/{idRespuesta}(idRespuesta=${respuesta.idRespuesta})}"
+								method="post">
+								<div class="form-group">
+									<textarea class="form-control form-control-user" id="texto"
+										th:text="${respuesta.respuesta}" name="texto" required="true"></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
+							</form>
 						</div>
 
 					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
