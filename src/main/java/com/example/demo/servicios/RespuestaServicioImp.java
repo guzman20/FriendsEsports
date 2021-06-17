@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.example.demo.dao.RespuestasDao;
 import com.example.demo.entidades.Conversacion;
 import com.example.demo.entidades.Respuesta;
-import com.example.demo.entidades.RespuestaDTO;
 import com.example.demo.entidades.User;
 
 @Transactional
@@ -30,13 +29,6 @@ public class RespuestaServicioImp implements RespuestaServicio {
 		Respuesta respuesta= new Respuesta(texto, usuario, idConversacion);
 		respuestaDao.crear(respuesta);
 		return respuesta;
-	}
-
-	@Override
-	public RespuestaDTO conversionDTO(Respuesta respuesta) {
-
-		RespuestaDTO respuestaDTO = new RespuestaDTO(respuesta.getIdRespuesta(), respuesta.getRespuesta(), respuesta.getUsuario().getNombre(), respuesta.getConversacion().getIdConversacion(), respuesta.fechaFormateada());
-		return respuestaDTO;
 	}
 
 	@Override

@@ -11,11 +11,10 @@ import com.example.demo.dao.ConversacionDao;
 import com.example.demo.entidades.Conversacion;
 import com.example.demo.entidades.User;
 
-
 @Transactional
 @Service
 public class ConversacionServicioImp implements ConversacionServicio {
-	
+
 	@Autowired
 	private ConversacionDao conversacionDao;
 
@@ -25,12 +24,14 @@ public class ConversacionServicioImp implements ConversacionServicio {
 	}
 
 	@Override
-	public Conversacion editarConversacion(Long idConversacion, String tema) {
-		Conversacion objConversacion = conversacionDao.buscar(idConversacion);
+	public Conversacion editarConversacion(Long idConversacion, String titulo, String texto) {
+		Conversacion t = conversacionDao.buscar(idConversacion);
+		t.setTitulo(titulo);
+		t.setTexto(texto);
 		conversacionDao.borrar(idConversacion);
-		conversacionDao.crear(objConversacion);
-		return objConversacion;
-		
+		conversacionDao.crear(t);
+		return t;
+
 	}
 
 	@Override
@@ -39,8 +40,8 @@ public class ConversacionServicioImp implements ConversacionServicio {
 	}
 
 	@Override
-	public Conversacion crearConversacion(String tema, String titulo,String texto, User usuario) {
-		Conversacion t= new Conversacion(tema, texto, titulo, usuario);
+	public Conversacion crearConversacion(String tema, String titulo, String texto, User usuario) {
+		Conversacion t = new Conversacion(tema, texto, titulo, usuario);
 		conversacionDao.crear(t);
 		return t;
 	}
@@ -49,8 +50,5 @@ public class ConversacionServicioImp implements ConversacionServicio {
 	public List<Conversacion> ObtenerListaPorTemas(String tema) {
 		return conversacionDao.listarPorTemas(tema);
 	}
-
-	
-
 
 }

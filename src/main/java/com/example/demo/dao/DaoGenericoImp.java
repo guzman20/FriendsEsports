@@ -44,9 +44,8 @@ public class DaoGenericoImp<T>  implements DaoGenerico<T>{
 	}
 
 	@Override
-	public T actualizar(T t) {
-		// TODO Auto-generated method stub
-		return null;
+	public T actualizar(T entity) {
+		return (T) this.em.merge(entity);
 	}
 
 	

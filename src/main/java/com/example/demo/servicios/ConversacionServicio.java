@@ -9,7 +9,7 @@ public interface ConversacionServicio {
 	
 	public void borrarConversacion(Long idConversacion);
 
-	public Conversacion editarConversacion(Long idConversacion, String tema);
+	public Conversacion editarConversacion(Long idConversacion, String titulo, String texto);
 	
 	public Conversacion obtenerConversacion(long idConversacion);
 	

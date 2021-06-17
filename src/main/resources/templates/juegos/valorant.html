@@ -13,31 +13,53 @@
 				otros amantes de Valorant.</p>
 			<p>Abajo veras diversas conversaciones empezadas por otros
 				usuarios.</p>
-			<form action="login" th:action="@{/tema/crear}" method="post"
-				class="user">
-				<input type="hidden" value="lol" id="tema" name="tema">
+			<form action="post" th:action="@{/conversacion/crear}" method="post">
+				<input type="hidden" value="valorant" id="tema" name="tema">
 				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
 			</form>
-			<div th:each="tema : ${temas}">
+			<div th:each="conversacion : ${conversaciones}">
 				<div class="Card p-2 m-1">
 					<div class="card-body">
 						<p>
-							Creado por: <span th:text="${tema.usuario.nombre}"></span>
+							Creado por: <span th:text="${conversacion.usuario.nombre}"></span>
 						</p>
-						<h5 class="card-title" th:text="${tema.titulo}"></h5>
-						<p class="card-text" th:text="${tema.texto}"></p>
+						<p>
+							A las : <span th:text="${conversacion.fechaDeCreacion}"></span>
+						</p>
+						<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
+						<p class="card-text" th:text="${conversacion.texto}"></p>
 						<div class="row">
 							<div class="col-2">
-								<a th:href="@{/tema/{id}(id=${tema.idTema})}"
+								<a
+									th:href="@{/conversacion/{id}(id=${conversacion.idConversacion})}"
 									class="btn btn-primary">Entrar</a>
 							</div>
 							<div
-								th:if="${session.idUsuario == tema.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
+								th:if="${session.idUsuario == conversacion.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
 								class="col-2">
 								<a
-									th:href="@{/tema/{tema}/borrar/{id}(id=${tema.idTema}, tema=${tema.tema})}"
-									class="btn btn-secondary">Borrar</a>
+									th:href="@{/conversacion/{tema}/borrar/{id}(id=${conversacion.idConversacion}, tema=${conversacion.tema})}"
+									class="btn btn-danger">Borrar</a>
 							</div>
+							<div
+								th:if="${session.idUsuario == conversacion.usuario.getIdUsuarios()}"
+								class="col-2 ">
+								<a class="btn btn-secondary editar">Editar</a>
+							</div>
+						</div>
+						<div style="display: none;">
+							<form action="post"
+								th:action="@{/conversacion/{tema}/editar/{id}(id=${conversacion.idConversacion}, tema=${conversacion.tema})}"
+								method="post">
+								<div class="form-group">
+									<input type="texto" id="titulo" name="titulo"
+										th:value="${conversacion.titulo}"
+										class="form-control form-control-user">
+									<textarea class="form-control form-control-user" id="texto"
+										th:text="${conversacion.texto}" name="texto" required="true"></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
+							</form>
 						</div>
 					</div>
 				</div>
