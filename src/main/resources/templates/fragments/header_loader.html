@@ -35,9 +35,9 @@
 <body>
 	<nav sec:authorize="isAnonymous()" th:replace="fragments/header_public"></nav>
 	<nav
-		sec:authorize="hasAuthority('ROL_REGISTRADO') && !hasAuthority('ROL_ADMIN')"
+		sec:authorize="hasAuthority('rolRegistrado') && !hasAuthority('rolAdmin')"
 		th:replace="fragments/header_registrado"></nav>
-	<nav sec:authorize="hasAuthority('ROL_ADMIN')"
+	<nav sec:authorize="hasAuthority('rolAdmin')"
 		th:replace="fragments/header_admin"></nav>
 </body>
 </html>

@@ -8,11 +8,11 @@
 		<version>2.3.5.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>SpringMarket</artifactId>
+	<groupId>com.FriendsEsports</groupId>
+	<artifactId>FriendsEsports</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringMarket</name>
-	<description>Demo project for Spring Boot</description>
+	<name>FriendsEsports</name>
+	<description>FriendsEsports application</description>
 
 	<properties>
 		<java.version>11</java.version>
