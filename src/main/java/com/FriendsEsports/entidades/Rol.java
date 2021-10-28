@@ -28,7 +28,7 @@ public class Rol {
 	private String nombreRol;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "id_rol"), inverseJoinColumns = @JoinColumn(name = "id_usuarios"))
+	@JoinTable(name = "usuario_rol", joinColumns = @JoinColumn(name = "id_rol"), inverseJoinColumns = @JoinColumn(name = "id_usuario"))
 	private Set<Usuario> usuarios;
 
 	public int getIdRol() {

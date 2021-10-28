@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,28 +17,28 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "respuestas")
+@Table(name = "respuesta")
 public class Respuesta implements Serializable {
 
 	private static final long serialVersionUID = 4283034374507590772L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name = "idRespuesta")
+	@Column(name = "id_respuesta")
 	private Long idRespuesta;
 
 	@Column(name = "respuesta")
 	private String respuesta;
 
-	@Column(name = "fechaDeCreacion")
+	@Column(name = "fecha_de_creacion")
 	private LocalDateTime fechaDeCreacion;
 
 	@ManyToOne
-	@JoinColumn(name = "idUsuarios")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 
 	@ManyToOne
-	@JoinColumn(name = "idConversacion")
+	@JoinColumn(name = "id_conversacion")
 	private Conversacion conversacion;
 
 	public Respuesta(String respuesta, Usuario usuario, Conversacion idConversacion) {

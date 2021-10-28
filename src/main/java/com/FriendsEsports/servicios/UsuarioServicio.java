@@ -12,9 +12,11 @@ public interface UsuarioServicio {
 
 	public Usuario obtenerUsuario(long idUsuarios);
 	
-	public Usuario modificarUsuario(Usuario usuario);
+	public Usuario editarUsuario(Usuario usuario);
 	
 	public Usuario buscarUsuario(String nombreUsuario);
 
 	public Usuario findByUsername(String username);
+
+	public boolean verificarIdentidad(String antiguaPassword, String string);
 }

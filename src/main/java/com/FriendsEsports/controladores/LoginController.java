@@ -55,7 +55,7 @@ public class LoginController {
 		u.setNombre(nombre);
 		u.setPassword(password);
 		u.setEmail(direccionemail);
-		u.setFecha_Nacimiento(fecha);
+		u.setFechaNacimiento(fecha);
 		usuarioServicio.crearUsuario(u);
 		
 

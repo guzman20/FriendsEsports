@@ -15,10 +15,14 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "usuarios")
+@Table(name = "usuario")
 public class Usuario implements Serializable {
 
 
@@ -26,23 +30,29 @@ public class Usuario implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name = "id_usuarios")
-	private Long idUsuarios;
+	@Column(name = "id_usuario")
+	private Long idUsuario;
 
 	@Column(name = "nombre", unique = true)
 	private String nombre;
 
-	@Column(name = "passwordusuario")
+	@Column(name = "password_usuario")
 	private String password;
 
 	@Column(name = "email", unique = true)
 	private String email;
 
-	@Column(name = "fecha_Nacimiento")
-	private String fecha_Nacimiento;
+	@Column(name = "fecha_nacimiento")
+	private String fechaNacimiento;
 	
-	@ManyToMany(mappedBy = "usuarios")
+	@ManyToMany(mappedBy = "usuarios", cascade = CascadeType.ALL)
 	private Set<Rol> roles = new HashSet<>();
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Respuesta> respuestas = new HashSet<>();
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Conversacion> conversaciones = new HashSet<>();
 
 	public Set<Rol> getRoles() {
 		return roles;
@@ -56,25 +66,25 @@ public class Usuario implements Serializable {
 	public Usuario() {
 
 	}
-	public Usuario(Long idUsuarios, String nombre, String password, String email,
-			String fecha_Nacimiento) {
-		this.idUsuarios = idUsuarios;
+	public Usuario(Long idUsuario, String nombre, String password, String email,
+			String fechaNacimiento) {
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.password = password;
 		this.email = email;
-		this.fecha_Nacimiento = fecha_Nacimiento;
+		this.fechaNacimiento = fechaNacimiento;
 	}
-	public Usuario(String nombre, String password, String email, String fecha_Nacimiento) {
+	public Usuario(String nombre, String password, String email, String fechaNacimiento) {
 		this.nombre = nombre;
 		this.password = password;
 		this.email = email;
-		this.fecha_Nacimiento = fecha_Nacimiento;
+		this.fechaNacimiento = fechaNacimiento;
 	}
-	public Long getIdUsuarios() {
-		return idUsuarios;
+	public Long getIdUsuario() {
+		return idUsuario;
 	}
-	public void setIdUsuarios(Long idUsuarios) {
-		this.idUsuarios = idUsuarios;
+	public void setIdUsuario(Long idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	public String getNombre() {
 		return nombre;
@@ -95,11 +105,11 @@ public class Usuario implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getFecha_Nacimiento() {
-		return fecha_Nacimiento;
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
 	}
-	public void setFecha_Nacimiento(String fecha_Nacimiento) {
-		this.fecha_Nacimiento = fecha_Nacimiento;
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public boolean anadirRol(Rol rol) {

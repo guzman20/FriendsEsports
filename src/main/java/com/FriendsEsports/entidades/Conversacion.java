@@ -18,14 +18,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Conversaciones")
+@Table(name = "conversacion")
 public class Conversacion implements Serializable {
 
 	private static final long serialVersionUID = -1491461123132939572L;
 
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	@Column(name = "idConversacion")
+	@Column(name = "id_conversacion")
 	private Long idConversacion;
 
 	@Column(name= "juego")
@@ -37,11 +37,11 @@ public class Conversacion implements Serializable {
 	@Column(name = "texto")
 	private String texto;
 
-	@Column(name = "fechaDeCreacion")
+	@Column(name = "fecha_de_creacion")
 	private LocalDateTime fechaDeCreacion;
 
 	@ManyToOne
-	@JoinColumn(name = "idUsuarios")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
 	
 	@OneToMany(mappedBy = "conversacion", cascade = CascadeType.ALL, orphanRemoval = true)
