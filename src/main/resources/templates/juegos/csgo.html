@@ -15,7 +15,7 @@
 			<p>Abajo veras diversas conversaciones empezadas por otros
 				usuarios.</p>
 			<form action="post" th:action="@{/conversacion/crear}" method="post">
-				<input type="hidden" value="csgo" id="tema" name="tema">
+				<input type="hidden" value="csgo" id="juego" name="juego">
 				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
 			</form>
 			<div th:each="conversacion : ${conversaciones}">
@@ -36,21 +36,21 @@
 									class="btn btn-primary">Entrar</a>
 							</div>
 							<div
-								th:if="${session.idUsuario == conversacion.usuario.getIdUsuarios() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
+								th:if="${session.idUsuario == conversacion.usuario.getIdUsuario() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
 								class="col-2">
 								<a
-									th:href="@{/conversacion/{tema}/borrar/{id}(id=${conversacion.idConversacion}, tema=${conversacion.tema})}"
+									th:href="@{/conversacion/{juego}/borrar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
 									class="btn btn-danger">Borrar</a>
 							</div>
 							<div
-								th:if="${session.idUsuario == conversacion.usuario.getIdUsuarios()}"
+								th:if="${session.idUsuario == conversacion.usuario.getIdUsuario()}"
 								class="col-2 ">
 								<a class="btn btn-secondary editar">Editar</a>
 							</div>
 						</div>
 						<div style="display: none;">
 							<form action="post"
-								th:action="@{/conversacion/{tema}/editar/{id}(id=${conversacion.idConversacion}, tema=${conversacion.tema})}"
+								th:action="@{/conversacion/{juego}/editar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
 								method="post">
 								<div class="form-group">
 									<input type="texto" id="titulo" name="titulo"

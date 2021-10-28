@@ -56,8 +56,9 @@ public class UsuarioServicioImp implements UsuarioServicio{
 	}
 
 	@Override
-	public Usuario modificarUsuario(Usuario usuario) {
-		return null;
+	public Usuario editarUsuario(Usuario usuario) {
+		usuario.setPassword(Encriptador.encode(usuario.getPassword()));
+		return usuarioDao.actualizar(usuario);
 	}
 
 	@Override
@@ -68,6 +69,12 @@ public class UsuarioServicioImp implements UsuarioServicio{
 	@Override
 	public Usuario findByUsername(String username) {
 		return usuarioDao.buscarPorNombre(username);
+	}
+
+	@Override
+	public boolean verificarIdentidad(String antiguaPassword, String nombre) {
+		Usuario usuario =usuarioDao.buscarPorNombre(nombre);
+		return Encriptador.matches(antiguaPassword, usuario.getPassword());
 	}
 
 }

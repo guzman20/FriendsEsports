@@ -11,8 +11,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,7 +37,7 @@ public class UsuarioController {
 			session.setAttribute("nombre", nombre);
 			Usuario usuario = new Usuario();
 			usuario = usuarioServicio.buscarUsuario(nombre);
-			session.setAttribute("idUsuario", usuario.getIdUsuarios());
+			session.setAttribute("idUsuario", usuario.getIdUsuario());
 			return "redirect:/index";
 		} else
 			return "redirect:/user/login";
@@ -55,6 +57,52 @@ public class UsuarioController {
 		usuario = usuarioServicio.obtenerUsuario(id);
 		mav.addObject("usuario", usuario);
 		mav.setViewName("user/perfil");
+		return mav;
+
+	}
+
+	@GetMapping("/borrar/{idUsuario}")
+	public String borrarUsuario(HttpSession session, @PathVariable("idUsuario") long idUsuario,
+			HttpServletRequest request) {
+		usuarioServicio.eliminarUsuario(idUsuario);
+		session.invalidate();
+		return "redirect:/index";
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/editar")
+	public ModelAndView editarConversacion(HttpServletRequest request, HttpSession session) {
+
+		String antiguaPassword = request.getParameter("antiguaPassword");
+		long idUsuario = (long) session.getAttribute("idUsuario");
+		Usuario antiguoUsuario = usuarioServicio.obtenerUsuario(idUsuario);
+
+		if (usuarioServicio.verificarIdentidad(antiguaPassword, antiguoUsuario.getNombre())) {
+			String nombre = request.getParameter("nombre");
+			if (nombre.equals("") || nombre == null)
+				nombre = antiguoUsuario.getNombre();
+
+			String email = request.getParameter("email");
+			if (email.equals("") || email == null)
+				email = antiguoUsuario.getEmail();
+
+			String fechaNacimiento = request.getParameter("fechaNacimiento");
+			if (fechaNacimiento.equals("") || fechaNacimiento == null)
+				fechaNacimiento = antiguoUsuario.getFechaNacimiento();
+
+			String nuevaPassword = request.getParameter("nuevaPassword");
+			if (nuevaPassword.equals("") || nuevaPassword == null) {
+				antiguoUsuario.setNombre(nombre);
+				antiguoUsuario.setEmail(email);
+				antiguoUsuario.setFechaNacimiento(fechaNacimiento);
+				usuarioServicio.editarUsuario(antiguoUsuario);
+			} else {
+				Usuario usuarioNuevo = new Usuario(idUsuario, nombre, nuevaPassword, email, fechaNacimiento);
+				usuarioServicio.editarUsuario(usuarioNuevo);
+			}
+		}
+
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/user/perfil");
 		return mav;
 
 	}

@@ -36,7 +36,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		HttpSession session = request.getSession();
 		Usuario authUser = usuarioServicio.findByUsername(userDetails.getUsername());
 		session.setAttribute("nombre", authUser.getNombre());
-		session.setAttribute("idUsuario", authUser.getIdUsuarios());
+		session.setAttribute("idUsuario", authUser.getIdUsuario());
 
 
 		boolean isRegistrado = false;
