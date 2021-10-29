@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<style type="text/css">
+form {
+	width: 100%;
+}
+</style>
+
+</head>
+
+<body class="bg-gradient-primary">
+
+	<nav th:replace="fragments/header_loader"></nav>
+
+	<div class="container row m-2">
+		<div th:replace="fragments/menu_lateral"></div>
+		<div class="card p-2 m-1 col-9">
+			<div class="card-body">
+				<p>
+					Creado por: <span th:text="${conversacion.usuario.nombre}"></span>
+				</p>
+				<p>
+					A las : <span th:text="${conversacion.fechaDeCreacion}"></span>
+				</p>
+				<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
+				<p class="card-text" th:text="${conversacion.texto}"></p>
+				<div class="row">
+					<div
+						th:if="${session.idUsuario == conversacion.usuario.getIdUsuario() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
+						class="col-2">
+						<a
+							th:href="@{/conversacion/{juego}/borrar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
+							class="btn btn-danger">Borrar</a>
+					</div>
+					<div
+						th:if="${session.idUsuario == conversacion.usuario.getIdUsuario()}"
+						class="col-2 ">
+						<a class="btn btn-secondary editar">Editar</a>
+					</div>
+				</div>
+				<div style="display: none;">
+					<form action="post"
+						th:action="@{/conversacion/{juego}/editar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
+						method="post">
+						<div class="form-group">
+							<input type="texto" id="titulo" name="titulo"
+								th:value="${conversacion.titulo}"
+								class="form-control form-control-user">
+							<textarea class="form-control form-control-user" id="texto"
+								th:text="${conversacion.texto}" name="texto" required="true"></textarea>
+						</div>
+						<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
+					</form>
+				</div>
+			</div>
+			<div class="row p-2 m-1">
+				<a class="btn btn-secondary abrir col-2 m-1 p-2">Responder</a>
+				<form action="post" th:action="@{/respuesta/creado}" method="post"
+					style="display: none;" class="col-12">
+					<input type="text" placeholder="Introduzca su respuesta"
+						id="textoRespuesta" name="textoRespuesta"
+						class="form-control form-control-user m-1 p-2"> <input
+						type="hidden" id="idConversacion"
+						th:value="${conversacion.idConversacion}" name="idConversacion">
+					<button type="submit" class="btn btn-primary btn-user btn-block">Publicar</button>
+				</form>
+			</div>
+
+		</div>
+		<div th:each="respuesta : ${respuestas}">
+			<div class="row">
+				<div class="col-2" style="display: hidden"></div>
+				<div class="card p-2 m-1 col-9">
+					<div class="card-body">
+						<p>
+							Creado por: <span th:text="${respuesta.usuario.nombre}"></span>
+						</p>
+						<p>
+							A las : <span th:text="${respuesta.fechaDeCreacion}"></span>
+						</p>
+						<p class="card-text" th:text="${respuesta.respuesta}"></p>
+						<div class="row">
+							<div
+								th:if="${session.idUsuario == respuesta.usuario.getIdUsuario() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
+								class="col-2">
+								<a
+									th:href="@{/respuesta/borrar/{idConversacion}/{idRespuesta}(idRespuesta=${respuesta.idRespuesta},idConversacion=${conversacion.idConversacion})}"
+									class="btn btn-danger">Borrar</a>
+							</div>
+							<div
+								th:if="${session.idUsuario == respuesta.usuario.getIdUsuario()}"
+								class="col-2 ">
+								<a class="btn btn-secondary editar">Editar</a>
+							</div>
+						</div>
+						<div id="formularioEditar" style="display: none;">
+							<form action="post"
+								th:action="@{/respuesta/editar/{idConversacion}/{idRespuesta}(idRespuesta=${respuesta.idRespuesta},idConversacion=${conversacion.idConversacion})}"
+								method="post">
+								<div class="form-group">
+									<textarea class="form-control form-control-user" id="texto"
+										th:text="${respuesta.respuesta}" name="texto" required="true"></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
+							</form>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+
+
+</html>

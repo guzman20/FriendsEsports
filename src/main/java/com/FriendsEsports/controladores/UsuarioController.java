@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.FriendsEsports.entidades.Conversacion;
 import com.FriendsEsports.entidades.Usuario;
 import com.FriendsEsports.servicios.UsuarioServicio;
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/usuario")
 public class UsuarioController {
 
 	@Autowired
@@ -40,7 +41,7 @@ public class UsuarioController {
 			session.setAttribute("idUsuario", usuario.getIdUsuario());
 			return "redirect:/index";
 		} else
-			return "redirect:/user/login";
+			return "redirect:/usuario/login";
 	}
 
 	@GetMapping("/logout")
@@ -49,14 +50,13 @@ public class UsuarioController {
 		return "redirect:/index";
 	}
 
-	@GetMapping("/perfil")
-	public ModelAndView verPerfil(HttpServletRequest request) {
+	@GetMapping("/perfil/{idUsuario}")
+	public ModelAndView verPerfil(HttpServletRequest request, @PathVariable("idUsuario") long idUsuario) {
 		Usuario usuario = new Usuario();
 		ModelAndView mav = new ModelAndView();
-		long id = (long) request.getSession().getAttribute("idUsuario");
-		usuario = usuarioServicio.obtenerUsuario(id);
+		usuario = usuarioServicio.obtenerUsuario(idUsuario);
 		mav.addObject("usuario", usuario);
-		mav.setViewName("user/perfil");
+		mav.setViewName("usuario/perfil");
 		return mav;
 
 	}
@@ -64,8 +64,12 @@ public class UsuarioController {
 	@GetMapping("/borrar/{idUsuario}")
 	public String borrarUsuario(HttpSession session, @PathVariable("idUsuario") long idUsuario,
 			HttpServletRequest request) {
+		long idSesion = (long)session.getAttribute("idUsuario");
+		Usuario usuario = usuarioServicio.obtenerUsuario(idSesion);
+		if(usuario.getRoles().contains("rolAdmin"))
 		usuarioServicio.eliminarUsuario(idUsuario);
-		session.invalidate();
+		if(session.getAttribute("idUsuario").equals(idUsuario))
+			session.invalidate();
 		return "redirect:/index";
 	}
 
@@ -102,8 +106,21 @@ public class UsuarioController {
 		}
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/user/perfil");
+		mav.setViewName("redirect:/usuario/perfil");
 		return mav;
 
 	}
+	
+	/*@RequestMapping(method = RequestMethod.GET,  value ="/historialConversacion/{idUsuario}" )
+	public ModelAndView cargarJuegos(@PathVariable("juego") String juego,HttpServletRequest request) {
+
+		ModelAndView mav = new ModelAndView();
+		
+		List<Conversacion> listaConversaciones = conversacionServicio.ObtenerListaPorJuegos(juego);
+
+		mav.addObject("conversaciones", listaConversaciones);
+		mav.setViewName("juegos/"+juego);
+		return mav;
+
+	}*/
 }

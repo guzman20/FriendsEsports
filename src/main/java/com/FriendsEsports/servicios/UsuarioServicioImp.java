@@ -1,5 +1,9 @@
 package com.FriendsEsports.servicios;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -195,7 +195,7 @@ $("body").on('click', '#mostrar', mostrar);
 
 function mostrar() {
 	
-	$(this).next().toggle();
+	$(this).next().slideToggle(400);
 }
 
 $("body").on('click', '#crearBotonPregunta', publicarPregunta);
@@ -426,4 +426,11 @@ function publicarRespuesta() {
 		}
 
 	});
+}
+
+$("body").on('click', '#mostrarEditarUsuario', mostrarEditarUsuario);
+
+function mostrarEditarUsuario() {
+	
+	$('#modificar').slideToggle(400);
 }

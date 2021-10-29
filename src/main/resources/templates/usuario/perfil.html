@@ -1,0 +1,121 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<style type="text/css">
+form {
+	width: 100%;
+}
+</style>
+
+</head>
+
+<body class="bg-gradient-primary">
+
+	<nav th:replace="fragments/header_loader"></nav>
+
+	<div class="container">
+
+		<div class="card o-hidden border-0 shadow-lg my-5">
+			<div class="card-body p-0">
+				<div class="p-5 row">
+					<div class="text-center">
+						<h1 class="h4 text-gray-900 mb-4">Perfil</h1>
+					</div>
+					<h1 class="h5 text-gray-900 mb-4">Datos de la cuenta</h1>
+					<div class="col-7">
+						<div class="form-group">
+							<span class="">Nombre: </span> <span class=""
+								th:text="${usuario.nombre}"></span>
+						</div>
+						<div class="form-group">
+							<span class="">Correo Electronico: </span> <span class=""
+								th:text="${usuario.email}"></span>
+						</div>
+						<div class="form-group">
+							<span class="">Fecha de nacimiento: </span> <span class=""
+								th:text="${usuario.fechaNacimiento}"></span>
+						</div>
+					</div>
+
+					<div class="col-5 row text-center">
+						<div th:if="${session.idUsuario == usuario.idUsuario}" class="col-6 mb-3">
+							<a id="mostrarEditarUsuario" class="btn btn-primary">Editar</a>
+						</div>
+						<div
+							th:if="${session.idUsuario == usuario.idUsuario or #authorization.expression('hasAuthority(''rolAdmin'')')}"
+							class="col-6 mb-3">
+							<a 
+								th:href="@{/usuario/borrar/{id}(id=${usuario.idUsuario})}"
+								class="btn btn-danger">Borrar</a>
+						</div>
+						<div
+							th:if="${session.idUsuario == usuario.idUsuario or #authorization.expression('hasAuthority(''rolAdmin'')')}"
+							class="col-6 mb-3">
+							<a 
+								th:href="@{/usuario/listaConversaciones/{id}(id=${usuario.idUsuario})}"
+								class="btn btn-secondary">Ver historial de conversaciones</a>
+						</div>
+					</div>
+				</div>
+
+				<div id="modificar" style="display: none;" class="pt-0 pb-5 px-5">
+					<form th:action="@{/usuario/editar}" method="post"
+						class="user">
+						<div class="p-5">
+							<div class="text-center">
+								<h1 class="h4 text-gray-900 mb-4">Modificar Usuario</h1>
+							</div>
+							<div class="form-group">
+								<div class="p-2">
+									<h1 class="h6 text-gray-900 mb-4">Nombre</h1>
+									<input type="text" class="form-control form-control-user"
+										id="nombre" name="nombre" th:value="${usuario.nombre}">
+								</div>
+								<div class="p-2">
+									<h1 class="h6 text-gray-900 mb-4">Nueva Contraseña</h1>
+									<input type="password" class="form-control form-control-user"
+										id="nuevaPassword" name="nuevaPassword">
+								</div>
+								<div class="p-2">
+									<h1 class="h6 text-gray-900 mb-4">Antigua Contraseña</h1>
+									<input type="password" class="form-control form-control-user"
+										id="antiguaPassword" name="antiguaPassword" required="true">
+								</div>
+								<div class="p-2">
+									<h1 class="h6 text-gray-900 mb-4">Email</h1>
+									<input type="email" class="form-control form-control-user"
+										id="email" placeholder="email" name="email" th:value="${usuario.email}">
+								</div>
+								<div class="p-2">
+									<h1 class="h6 text-gray-900 mb-4">Fecha de nacimiento</h1>
+									<input type="date" class="form-control form-control-user"
+										id="fechaNacimiento" placeholder="fechaNacimiento" name="fechaNacimiento" th:value="${usuario.fechaNacimiento}">
+								</div>
+								<div class="alert alert-danger" role="alert" th:text="${error}"
+									th:if="${error}">Malardo</div>
+							</div>
+							<div class="form-group">
+								<div>
+									<input type="submit"
+										class="form-control form-control-user btn btn-primary btn-user btn-block"
+										value="Aceptar">
+								</div>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

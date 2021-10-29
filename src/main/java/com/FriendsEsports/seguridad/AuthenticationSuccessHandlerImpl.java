@@ -54,7 +54,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		String targetUrl;
 		if (isRegistrado) {
 
-			targetUrl = "/user/perfil";
+			targetUrl = "/usuario/perfil";
 		} else if (isAdmin) {
 			targetUrl = "/index";
 		} else {
