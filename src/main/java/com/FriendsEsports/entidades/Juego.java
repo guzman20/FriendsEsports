@@ -38,12 +38,15 @@ public class Juego implements Serializable {
 	@OneToMany(mappedBy = "juego", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Conversacion> conversaciones = new HashSet<>();
 
-	public Juego(Long idJuego, String nombre, byte[] imagen) {
-		this.idJuego = idJuego;
+	public Juego(String nombre, byte[] imagen) {
 		this.nombre = nombre;
 		this.imagen = imagen;
 	}
 
+	public Juego(String nombre) {
+		this.nombre = nombre;
+	}
+	
 	public Juego() {
 		
 	}

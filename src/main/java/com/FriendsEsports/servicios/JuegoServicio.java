@@ -12,4 +12,6 @@ public interface JuegoServicio {
 
 	List<Juego> listarJuegos();
 
+	Juego crearJuego(Juego juego);
+
 }

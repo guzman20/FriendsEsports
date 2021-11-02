@@ -40,8 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/imagenes/{id}",
                     "/fragments/**",
                     "/webjars/**").permitAll()
-//	        //Permisos registrados
+	        //Permisos registrados
 	        .antMatchers("/usuario/**").hasAnyAuthority("rolRegistrado", "rolAdmin")
+	        //Permisos admin
+	        .antMatchers("/admin/**").hasAnyAuthority("rolAdmin")
 	        .anyRequest().authenticated()
 	         .and()
 	     .formLogin()

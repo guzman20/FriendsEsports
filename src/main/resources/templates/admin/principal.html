@@ -1,0 +1,49 @@
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<style type="text/css">
+form {
+	width: 100%;
+}
+</style>
+
+</head>
+
+<body class="bg-gradient-primary">
+
+	<nav th:replace="fragments/header_loader"></nav>
+
+	<div class="container">
+
+		<div class="card o-hidden border-0 shadow-lg my-5">
+			<div class="card-body p-0">
+				<div class="row text-center m-2">
+					<!-- <div th:if="${session.idUsuario == usuario.idUsuario}"
+						class="col-6 mb-3">
+						<a id="mostrarEditarUsuario" class="btn btn-primary">Editar</a>
+					</div> -->
+					<div class="col-12 mb-3">
+						<a href="/admin/crearJuego"
+							class="btn btn-primary">Crear juego</a>
+					</div>
+					<div class="col-12 mb-3">
+						<a href="@{/usuario/listaUsuarios"
+							class="btn btn-secondary">Ver lista Usuarios</a>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+</body>
+</html>

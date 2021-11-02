@@ -31,4 +31,9 @@ public class JuegoServicioImp implements JuegoServicio{
 	public Juego obtenerPorId(long idjuego) {
 		return juegoDao.buscar(idjuego);
 	}
+
+	@Override
+	public Juego crearJuego(Juego juego) {
+		return juegoDao.crear(juego);
+	}
 }
