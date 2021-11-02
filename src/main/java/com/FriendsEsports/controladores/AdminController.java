@@ -1,11 +1,16 @@
 package com.FriendsEsports.controladores;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +23,7 @@ import com.FriendsEsports.entidades.Conversacion;
 import com.FriendsEsports.entidades.Juego;
 import com.FriendsEsports.servicios.ConversacionServicio;
 import com.FriendsEsports.servicios.JuegoServicio;
+
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -54,10 +60,20 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/index");
 		try {
-			byte[] image = imagen.getBytes();
-			String juegoNombre = request.getParameter("nombre");
-			Juego juego = new Juego(juegoNombre, image);
-			juego = juegoServicio.crearJuego(juego);
+			
+			String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
+	        
+	        File imagenGuardada =new File("src/main/resources/static/imagenes-juegos/"+nombreImagen);
+	        
+	        String juegoNombre = request.getParameter("nombre");
+			Juego juego = new Juego(juegoNombre, imagenGuardada.getPath());
+	        juego = juegoServicio.crearJuego(juego);
+	        
+	        FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
+			
+	        BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
+	        stream.write(imagen.getBytes());
+	        stream.close();
 			
 			List<Conversacion> listaConversaciones = conversacionServicio.ObtenerListaPorJuegos(juego);
 			List<Juego> listaJuegos = juegoServicio.listarJuegos();

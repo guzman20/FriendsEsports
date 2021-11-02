@@ -33,12 +33,12 @@ public class Juego implements Serializable {
 	
 	@Lob
 	@Column(name = "imagen")
-	private byte[] imagen;
+	private String imagen;
 
 	@OneToMany(mappedBy = "juego", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Conversacion> conversaciones = new HashSet<>();
 
-	public Juego(String nombre, byte[] imagen) {
+	public Juego(String nombre, String imagen) {
 		this.nombre = nombre;
 		this.imagen = imagen;
 	}
@@ -75,11 +75,11 @@ public class Juego implements Serializable {
 		this.conversaciones = conversaciones;
 	}
 
-	public byte[] getImagen() {
+	public String getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(byte[] imagen) {
+	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 
