@@ -94,12 +94,21 @@ public class Respuesta implements Serializable {
 	}
 
 	public String fechaFormateada() {
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
-		
+
 		return formattedDateTime;
-		
+
+	}
+
+	public String horaFormateada() {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
+
+		return formattedDateTime;
+
 	}
 	
 }

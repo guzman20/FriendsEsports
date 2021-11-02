@@ -39,7 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     "/filtrado",
                     "/imagenes/{id}",
                     "/fragments/**",
-                    "/webjars/**").permitAll()
+                    "/webjars/**",
+                    "/imagenes-juegos/**").permitAll()
 	        //Permisos registrados
 	        .antMatchers("/usuario/**").hasAnyAuthority("rolRegistrado", "rolAdmin")
 	        //Permisos admin

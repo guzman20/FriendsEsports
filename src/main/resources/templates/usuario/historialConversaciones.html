@@ -15,7 +15,8 @@
 							Creado por: <span th:text="${conversacion.usuario.nombre}"></span>
 						</p>
 						<p>
-							A las : <span th:text="${conversacion.fechaDeCreacion}"></span>
+							El dia : <span th:text="${conversacion.fechaFormateada()}"></span><br>
+							A las : <span th:text="${conversacion.horaFormateada()}"></span>
 						</p>
 						<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
 						<p class="card-text" th:text="${conversacion.texto}"></p>

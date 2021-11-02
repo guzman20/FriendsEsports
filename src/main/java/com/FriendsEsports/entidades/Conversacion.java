@@ -24,17 +24,17 @@ public class Conversacion implements Serializable {
 	private static final long serialVersionUID = -1491461123132939572L;
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_conversacion")
 	private Long idConversacion;
 
 	@ManyToOne
 	@JoinColumn(name = "id_juego")
 	private Juego juego;
-	
+
 	@Column(name = "titulo")
 	private String titulo;
-	
+
 	@Column(name = "texto")
 	private String texto;
 
@@ -44,11 +44,11 @@ public class Conversacion implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	
+
 	@OneToMany(mappedBy = "conversacion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public Conversacion(Juego juego,String titulo, String texto, Usuario usuario) {
+	public Conversacion(Juego juego, String titulo, String texto, Usuario usuario) {
 		this.juego = juego;
 		this.titulo = titulo;
 		this.texto = texto;
@@ -60,8 +60,6 @@ public class Conversacion implements Serializable {
 	public Conversacion() {
 
 	}
-	
-	
 
 	public String getTitulo() {
 		return titulo;
@@ -120,12 +118,21 @@ public class Conversacion implements Serializable {
 	}
 
 	public String fechaFormateada() {
-		
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
-		
+
 		return formattedDateTime;
-		
+
+	}
+
+	public String horaFormateada() {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
+		String formattedDateTime = this.getFechaDeCreacion().format(formatter);
+
+		return formattedDateTime;
+
 	}
 
 }
