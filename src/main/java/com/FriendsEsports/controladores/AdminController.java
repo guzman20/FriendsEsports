@@ -63,10 +63,10 @@ public class AdminController {
 			
 			String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 	        
-	        File imagenGuardada =new File("src/main/resources/static/imagenes-juegos/"+nombreImagen);
+	        File imagenGuardada =new File(Juego.getImagenPath()+nombreImagen);
 	        
 	        String juegoNombre = request.getParameter("nombre");
-			Juego juego = new Juego(juegoNombre, imagenGuardada.getPath());
+			Juego juego = new Juego(juegoNombre, nombreImagen);
 	        juego = juegoServicio.crearJuego(juego);
 	        
 	        FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);

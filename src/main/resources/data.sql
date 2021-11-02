@@ -9,9 +9,9 @@ INSERT INTO FriendEsports.rol (id_rol, nombre_rol) VALUES ('2','rolAdmin');
 INSERT INTO FriendEsports.usuario_rol (id_usuario, id_rol) VALUES ('1', '2');
 INSERT INTO FriendEsports.usuario_rol (id_usuario, id_rol) VALUES ('2', '1');
 
-INSERT INTO FriendEsports.juego(id_juego,nombre) VALUES('1','League Of Legends');
-INSERT INTO FriendEsports.juego(id_juego,nombre) VALUES('2','Valorant');
-INSERT INTO FriendEsports.juego(id_juego,nombre) VALUES('3','Counter Strike : Global Ofensive');
+INSERT INTO FriendEsports.juego(id_juego,nombre,imagen) VALUES('1','League Of Legends','lol.jpg');
+INSERT INTO FriendEsports.juego(id_juego,nombre,imagen) VALUES('2','Valorant','valorant.jpg');
+INSERT INTO FriendEsports.juego(id_juego,nombre,imagen) VALUES('3','Counter Strike : Global Ofensive','csgo.jpg');
 
 INSERT INTO FriendEsports.conversacion (id_juego, titulo, texto,id_usuario,fecha_de_creacion) VALUES ('1','Anivia, la criofenix','Mi campeón favorito, sin duda alguna Anivia, la criofenix. No tendrá mucho ataque, no tendrá mucha defensa... pero me encanta. Es muy difícil de controlar, sobre todo la Q, porque tienes que petarla y controlar la distancia muy bien para stunear.','1','2021-06-16 18:31:44.813730');
 INSERT INTO FriendEsports.conversacion (id_juego, titulo, texto,id_usuario,fecha_de_creacion) VALUES ('2','Os juro, Como oiga a alguien decir otra vez que no se puede hacer counter a Viper despues de plantar ','1) Pushea bro?

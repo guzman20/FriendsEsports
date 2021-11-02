@@ -23,6 +23,8 @@ public class Juego implements Serializable {
 	
 	private static final long serialVersionUID = -4755552236832699376L;
 	
+	private static final String imagenPath = "src/main/resources/static/imagenes-juegos/";
+	
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
 	@Column(name = "id_juego")
@@ -31,7 +33,6 @@ public class Juego implements Serializable {
 	@Column(name = "nombre")
 	private String nombre;
 	
-	@Lob
 	@Column(name = "imagen")
 	private String imagen;
 
@@ -83,6 +84,8 @@ public class Juego implements Serializable {
 		this.imagen = imagen;
 	}
 
-	
+	public static String getImagenPath() {
+		return imagenPath;
+	}
 	
 }	
