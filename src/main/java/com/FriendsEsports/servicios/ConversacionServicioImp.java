@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.FriendsEsports.dao.ConversacionDao;
 import com.FriendsEsports.entidades.Conversacion;
+import com.FriendsEsports.entidades.Juego;
 import com.FriendsEsports.entidades.Usuario;
 
 @Transactional
@@ -40,15 +41,20 @@ public class ConversacionServicioImp implements ConversacionServicio {
 	}
 
 	@Override
-	public Conversacion crearConversacion(String juego, String titulo, String texto, Usuario usuario) {
+	public Conversacion crearConversacion(Juego juego, String titulo, String texto, Usuario usuario) {
 		Conversacion t = new Conversacion(juego, texto, titulo, usuario);
 		conversacionDao.crear(t);
 		return t;
 	}
 
 	@Override
-	public List<Conversacion> ObtenerListaPorJuegos(String juego) {
+	public List<Conversacion> ObtenerListaPorJuegos(Juego juego) {
 		return conversacionDao.listarPorJuegos(juego);
+	}
+
+	@Override
+	public List<Conversacion> ObtenerListaPorUsuario(Usuario u) {
+		return conversacionDao.ObtenerListaPorUsuario(u);
 	}
 
 }

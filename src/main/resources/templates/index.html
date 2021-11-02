@@ -8,47 +8,18 @@
 		<div th:replace="fragments/menu_lateral"></div>
 
 		<div class="container col-10">
-			<h1>¡Bienvenido!</h1>
-			<p>
-				Esta pagina web sirve como punto de encuentro entre jugadores de
-				diversos juegos entre ellos: League of Legends, Valorant y Counter
-				Strike Global Ofensive. Para poder interactuar debes <a
-					th:href="@{/registro}">Crear una cuenta</a> y podras especificar en
-				que juegos buscar compañeros.
-			</p>
-			<p>
-				Si ya tienes cuenta y has <a th:href="@{/login}">iniciado sesion</a>
-				dale a las imagenes de abajo o al menu lateral de la izquierda y
-				selecciona el juego del cual quieres buscar jugadores.
-			</p>
+			<div th:replace="fragments/index_mensaje_cargador"></div>
 			<div class="row">
-				<div class="Card col-3 p-2">
+				<div th:each="juego : ${juegos}" class="Card col-5 p-2 m-1">
 					<img class="card-img-top" src="/images/lol.jpg"
 						alt="League Of Legends">
 					<div class="card-body">
-						<h5 class="card-title">League Of Legends(LOL)</h5>
-						<a th:href="@{/juegos/lol}" class="btn btn-primary">Entrar</a>
-					</div>
-				</div>
-				<div class="col-1"></div>
-				<div class="Card col-3 p-2">
-					<img class="card-img-top" src="/images/valorant.jpg" alt="Valorant">
-					<div class="card-body">
-						<h5 class="card-title">Valorant</h5>
-						<a th:href="@{/juegos/valorant}" class="btn btn-primary">Entrar</a>
-					</div>
-				</div>
-				<div class="col-1"></div>
-				<div class="Card col-3 p-2">
-					<img class="card-img-top" src="/images/csgo.jpg"
-						alt="Counter Strike: Global Ofensive">
-					<div class="card-body">
-						<h5 class="card-title">Counter Strike : Global Ofensive(CSGO)</h5>
-						<a th:href="@{/juegos/csgo}" class="btn btn-primary">Entrar</a>
+						<h5 class="card-title" th:text="${juego.nombre}"></h5>
+						<a th:href="@{/juegos/{juego}(juego=${juego.idJuego})}"
+							class="btn btn-primary">Entrar</a>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 	</div>
 </body>

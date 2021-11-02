@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<meta charset="utf-8" />
+
+</head>
+<body>
+	<nav sec:authorize="isAnonymous()" th:replace="fragments/index_mensaje_publico"></nav>
+	<nav
+		sec:authorize="hasAuthority('rolRegistrado') || hasAuthority('rolAdmin')"
+		th:replace="fragments/index_mensaje_logueado"></nav>
+</body>
+</html>

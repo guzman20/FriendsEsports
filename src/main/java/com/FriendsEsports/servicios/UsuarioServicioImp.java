@@ -31,11 +31,6 @@ public class UsuarioServicioImp implements UsuarioServicio{
 	@Autowired
 	private BCryptPasswordEncoder Encriptador;
 	
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-	    return new BCryptPasswordEncoder();
-	}
-	
 	@Override
 	public boolean logIn(String nombreUsuario, String password) {
 		return usuarioDao.logIn(nombreUsuario, password);
@@ -55,7 +50,7 @@ public class UsuarioServicioImp implements UsuarioServicio{
 	}
 
 	@Override
-	public Usuario obtenerUsuario(long idUsuario) {
+	public Usuario buscarUsuario(long idUsuario) {
 		return usuarioDao.buscar(idUsuario);
 	}
 
@@ -68,11 +63,6 @@ public class UsuarioServicioImp implements UsuarioServicio{
 	@Override
 	public Usuario buscarUsuario(String nombreUsuario) {
 		return usuarioDao.buscarPorNombre(nombreUsuario);
-	}
-
-	@Override
-	public Usuario findByUsername(String username) {
-		return usuarioDao.buscarPorNombre(username);
 	}
 
 	@Override

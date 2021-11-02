@@ -34,7 +34,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		HttpSession session = request.getSession();
-		Usuario authUser = usuarioServicio.findByUsername(userDetails.getUsername());
+		Usuario authUser = usuarioServicio.buscarUsuario(userDetails.getUsername());
 		session.setAttribute("nombre", authUser.getNombre());
 		session.setAttribute("idUsuario", authUser.getIdUsuario());
 
@@ -54,7 +54,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		String targetUrl;
 		if (isRegistrado) {
 
-			targetUrl = "/usuario/perfil";
+			targetUrl = "/usuario/perfil/"+authUser.getIdUsuario();
 		} else if (isAdmin) {
 			targetUrl = "/index";
 		} else {

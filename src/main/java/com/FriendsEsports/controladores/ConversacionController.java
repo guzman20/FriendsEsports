@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.FriendsEsports.entidades.Conversacion;
+import com.FriendsEsports.entidades.Juego;
 import com.FriendsEsports.entidades.Respuesta;
 import com.FriendsEsports.entidades.Usuario;
 import com.FriendsEsports.servicios.ConversacionServicio;
+import com.FriendsEsports.servicios.JuegoServicio;
 import com.FriendsEsports.servicios.RespuestaServicio;
 import com.FriendsEsports.servicios.UsuarioServicio;
 
@@ -27,9 +29,12 @@ public class ConversacionController {
 
 	@Autowired
 	UsuarioServicio usuarioServicio;
-	
-	@Autowired 
+
+	@Autowired
 	RespuestaServicio respuestaServicio;
+
+	@Autowired
+	JuegoServicio juegoServicio;
 
 	@RequestMapping(value = "/crear", method = RequestMethod.POST)
 	public ModelAndView crearConversacion(HttpServletRequest request) {
@@ -43,59 +48,68 @@ public class ConversacionController {
 		return mav;
 
 	}
+
 	@RequestMapping(value = "/creado", method = RequestMethod.POST)
 	public ModelAndView publicarConversacion(HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/index");
+		String juegoNombre = request.getParameter("juego");
+		Juego juego = juegoServicio.obtenerPorNombre(juegoNombre);
+		if (juego != null) {
+			String titulo = request.getParameter("titulo");
+			String texto = request.getParameter("texto");
+			long id = (long) request.getSession().getAttribute("idUsuario");
+			Usuario usuario = (Usuario) usuarioServicio.buscarUsuario(id);
 
-		String juego = request.getParameter("juego");
-		String titulo = request.getParameter("titulo");
-		String texto = request.getParameter("texto");
-		long id=(long) request.getSession().getAttribute("idUsuario");
-		Usuario usuario = (Usuario)usuarioServicio.obtenerUsuario(id);
-		
-		Conversacion t = new Conversacion();
-		
-		t = conversacionServicio.crearConversacion(juego, titulo, texto, usuario);
-		
-		mav.setViewName("redirect:/juegos/"+juego);
+			Conversacion t = new Conversacion();
+
+			t = conversacionServicio.crearConversacion(juego, titulo, texto, usuario);
+
+			mav.setViewName("redirect:/conversacion/" + t.getIdConversacion());
+		} else {
+			mav.setViewName("redirect:/conversacion/crear");
+		}
 		return mav;
 
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{conversacion}/borrar/{idConversacion}")
-	public ModelAndView borrarConversacion(@PathVariable("idConversacion") long idConversacion,@PathVariable("conversacion") String conversacion,HttpServletRequest request) {
+	public ModelAndView borrarConversacion(@PathVariable("idConversacion") long idConversacion,
+			@PathVariable("conversacion") String conversacion, HttpServletRequest request) {
 		conversacionServicio.borrarConversacion(idConversacion);
-		
+
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("redirect:/juegos/"+conversacion);
+		mav.setViewName("redirect:/juegos/" + conversacion);
 		return mav;
 
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/{conversacion}/editar/{idConversacion}")
-	public ModelAndView editarConversacion(@PathVariable("idConversacion") long idConversacion,@PathVariable("conversacion") String conversacion,HttpServletRequest request) {
-		
+	public ModelAndView editarConversacion(@PathVariable("idConversacion") long idConversacion,
+			@PathVariable("conversacion") String conversacion, HttpServletRequest request) {
+
 		String titulo = request.getParameter("titulo");
 		String texto = request.getParameter("texto");
 		conversacionServicio.editarConversacion(idConversacion, titulo, texto);
-		
+
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("redirect:/juegos/"+conversacion);
+		mav.setViewName("redirect:/juegos/" + conversacion);
 		return mav;
 
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/{idConversacion}")
-	public ModelAndView verConversacion(@PathVariable("idConversacion") long idConversacion,HttpServletRequest request) {
-		
+	public ModelAndView verConversacion(@PathVariable("idConversacion") long idConversacion,
+			HttpServletRequest request) {
+
 		Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
-		List<Respuesta> r =respuestaServicio.listarRespuestas(c);
-		
+		List<Respuesta> r = respuestaServicio.listarRespuestas(c);
+
 		ModelAndView mav = new ModelAndView();
-		
+
 		mav.addObject("conversacion", c);
 		mav.addObject("respuestas", r);
 

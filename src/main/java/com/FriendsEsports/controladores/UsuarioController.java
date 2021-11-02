@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.FriendsEsports.entidades.Conversacion;
 import com.FriendsEsports.entidades.Usuario;
+import com.FriendsEsports.servicios.ConversacionServicio;
 import com.FriendsEsports.servicios.UsuarioServicio;
 
 @Controller
@@ -28,6 +29,9 @@ public class UsuarioController {
 
 	@Autowired
 	UsuarioServicio usuarioServicio;
+	
+	@Autowired
+	ConversacionServicio conversacionServicio;
 
 	@PostMapping("/logueado")
 	public String Loguearse(@RequestParam(value = "nombre", required = false) String nombre,
@@ -54,7 +58,7 @@ public class UsuarioController {
 	public ModelAndView verPerfil(HttpServletRequest request, @PathVariable("idUsuario") long idUsuario) {
 		Usuario usuario = new Usuario();
 		ModelAndView mav = new ModelAndView();
-		usuario = usuarioServicio.obtenerUsuario(idUsuario);
+		usuario = usuarioServicio.buscarUsuario(idUsuario);
 		mav.addObject("usuario", usuario);
 		mav.setViewName("usuario/perfil");
 		return mav;
@@ -65,7 +69,7 @@ public class UsuarioController {
 	public String borrarUsuario(HttpSession session, @PathVariable("idUsuario") long idUsuario,
 			HttpServletRequest request) {
 		long idSesion = (long)session.getAttribute("idUsuario");
-		Usuario usuario = usuarioServicio.obtenerUsuario(idSesion);
+		Usuario usuario = usuarioServicio.buscarUsuario(idSesion);
 		if(usuario.getRoles().contains("rolAdmin"))
 		usuarioServicio.eliminarUsuario(idUsuario);
 		if(session.getAttribute("idUsuario").equals(idUsuario))
@@ -78,7 +82,7 @@ public class UsuarioController {
 
 		String antiguaPassword = request.getParameter("antiguaPassword");
 		long idUsuario = (long) session.getAttribute("idUsuario");
-		Usuario antiguoUsuario = usuarioServicio.obtenerUsuario(idUsuario);
+		Usuario antiguoUsuario = usuarioServicio.buscarUsuario(idUsuario);
 
 		if (usuarioServicio.verificarIdentidad(antiguaPassword, antiguoUsuario.getNombre())) {
 			String nombre = request.getParameter("nombre");
@@ -111,16 +115,17 @@ public class UsuarioController {
 
 	}
 	
-	/*@RequestMapping(method = RequestMethod.GET,  value ="/historialConversacion/{idUsuario}" )
-	public ModelAndView cargarJuegos(@PathVariable("juego") String juego,HttpServletRequest request) {
+	@RequestMapping(method = RequestMethod.GET,  value ="/listaConversaciones/{idUsuario}" )
+	public ModelAndView cargarJuegos(@PathVariable("idUsuario") long idUsuario,HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		
-		List<Conversacion> listaConversaciones = conversacionServicio.ObtenerListaPorJuegos(juego);
+		Usuario u = usuarioServicio.buscarUsuario(idUsuario);
+		List<Conversacion> conversaciones = conversacionServicio.ObtenerListaPorUsuario(u);
 
-		mav.addObject("conversaciones", listaConversaciones);
-		mav.setViewName("juegos/"+juego);
+		mav.addObject("conversaciones", conversaciones);
+		mav.setViewName("usuario/historialConversaciones");
 		return mav;
 
-	}*/
+	}
 }

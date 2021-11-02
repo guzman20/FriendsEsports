@@ -8,17 +8,21 @@
 		<div th:replace="fragments/menu_lateral"></div>
 
 		<div class="container col-10">
-			<h1>Valorant</h1>
-			<p>Bienvenido a la seccion de Valorant en esta podras hablar con
-				otros amantes de Valorant.</p>
+			<h1 th:text="${juego.nombre}"></h1>
+			<p>
+				Bienvenido a la seccion de <span th:text="${juego.nombre}"></span>
+				en esta podras hablar con otros amantes de <span
+					th:text="${juego.nombre}"></span>
+			</p>
 			<p>Abajo veras diversas conversaciones empezadas por otros
 				usuarios.</p>
 			<form action="post" th:action="@{/conversacion/crear}" method="post">
-				<input type="hidden" value="valorant" id="juego" name="juego">
+				<input type="hidden" th:value="${juego.nombre}" id="juego"
+					name="juego">
 				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
 			</form>
 			<div th:each="conversacion : ${conversaciones}">
-				<div class="Card p-2 m-1">
+				<div class="card p-2 m-1">
 					<div class="card-body">
 						<p>
 							Creado por: <span th:text="${conversacion.usuario.nombre}"></span>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+
+<meta charset="utf-8" />
+</head>
+<body>
+	<h1>¡Bienvenido!</h1>
+			<p>
+				Esta pagina web sirve como punto de encuentro entre jugadores de
+				diversos juegos entre ellos: League of Legends, Valorant y Counter
+				Strike Global Ofensive. Para poder interactuar debes <a
+					th:href="@{/registro}">Crear una cuenta</a> y podras especificar en
+				que juegos buscar compañeros.
+			</p>
+			<p>
+				Si ya tienes cuenta y has <a th:href="@{/login}">iniciado sesion</a>
+				dale a las imagenes de abajo o al menu lateral de la izquierda y
+				selecciona el juego del cual quieres buscar jugadores.
+			</p>
+</body>
+</html>

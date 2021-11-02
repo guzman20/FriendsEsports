@@ -28,8 +28,9 @@ public class Conversacion implements Serializable {
 	@Column(name = "id_conversacion")
 	private Long idConversacion;
 
-	@Column(name= "juego")
-	private String juego;
+	@ManyToOne
+	@JoinColumn(name = "id_juego")
+	private Juego juego;
 	
 	@Column(name = "titulo")
 	private String titulo;
@@ -47,7 +48,7 @@ public class Conversacion implements Serializable {
 	@OneToMany(mappedBy = "conversacion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
 
-	public Conversacion(String juego,String titulo, String texto, Usuario usuario) {
+	public Conversacion(Juego juego,String titulo, String texto, Usuario usuario) {
 		this.juego = juego;
 		this.titulo = titulo;
 		this.texto = texto;
@@ -66,11 +67,11 @@ public class Conversacion implements Serializable {
 		return titulo;
 	}
 
-	public String getJuego() {
+	public Juego getJuego() {
 		return juego;
 	}
 
-	public void setJuego(String tema) {
+	public void setJuego(Juego juego) {
 		this.juego = juego;
 	}
 

@@ -8,15 +8,8 @@
 		<div th:replace="fragments/menu_lateral"></div>
 
 		<div class="container col-10">
-			<h1>League of legends</h1>
-			<p>Bienvenido a la seccion de League of legends en esta podras
-				hablar con otros amantes de League of legends.</p>
-			<p>Abajo veras diversas conversaciones empezadas por otros
-				usuarios.</p>
-			<form action="post" th:action="@{/conversacion/crear}" method="post">
-				<input type="hidden" value="lol" id="juego" name="juego">
-				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
-			</form>
+			<h1>Este tu historial de conversaciones</h1>
+			<p>Aqui podras editar, borrar o simplemente revisar tu conversaciones pasadas.</p>
 			<div th:each="conversacion : ${conversaciones}">
 				<div class="Card p-2 m-1">
 					<div class="card-body">

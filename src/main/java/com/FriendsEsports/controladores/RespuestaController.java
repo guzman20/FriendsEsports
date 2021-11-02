@@ -42,7 +42,7 @@ public class RespuestaController {
 		long idC = Long.parseLong(request.getParameter("idConversacion"));
 		Conversacion c = conversacionServicio.obtenerConversacion(idC);
 		long id=(long) request.getSession().getAttribute("idUsuario");
-		Usuario usuario = (Usuario)usuarioServicio.obtenerUsuario(id);
+		Usuario usuario = (Usuario)usuarioServicio.buscarUsuario(id);
 		
 		Respuesta t = new Respuesta();
 		
