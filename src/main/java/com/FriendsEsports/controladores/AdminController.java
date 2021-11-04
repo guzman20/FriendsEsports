@@ -21,19 +21,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.FriendsEsports.entidades.Conversacion;
 import com.FriendsEsports.entidades.Juego;
+import com.FriendsEsports.entidades.Usuario;
 import com.FriendsEsports.servicios.ConversacionServicio;
 import com.FriendsEsports.servicios.JuegoServicio;
-
+import com.FriendsEsports.servicios.UsuarioServicio;
 
 @Controller
 @RequestMapping(value = "/admin")
 public class AdminController {
-	
+
 	@Autowired
 	JuegoServicio juegoServicio;
-	
+
 	@Autowired
 	ConversacionServicio conversacionServicio;
+
+	@Autowired
+	UsuarioServicio usuarioServicio;
 
 	@GetMapping("/principal")
 	public ModelAndView borrarConversacion(HttpServletRequest request) {
@@ -44,7 +48,7 @@ public class AdminController {
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/crearJuego", method = RequestMethod.GET)
 	public ModelAndView crearConversacion(HttpServletRequest request) {
 
@@ -53,31 +57,31 @@ public class AdminController {
 		return mav;
 
 	}
-	
+
 	@RequestMapping(value = "/creadoJuego", method = RequestMethod.POST)
 	public ModelAndView publicarJuego(HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/index");
 		try {
-			
+
 			String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
-	        
-	        File imagenGuardada =new File(Juego.getImagenPath()+nombreImagen);
-	        
-	        String juegoNombre = request.getParameter("nombre");
+
+			File imagenGuardada = new File(Juego.getImagenPath() + nombreImagen);
+
+			String juegoNombre = request.getParameter("nombre");
 			Juego juego = new Juego(juegoNombre, nombreImagen);
-	        juego = juegoServicio.crearJuego(juego);
-	        
-	        FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
-			
-	        BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
-	        stream.write(imagen.getBytes());
-	        stream.close();
-			
+			juego = juegoServicio.crearJuego(juego);
+
+			FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
+
+			BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
+			stream.write(imagen.getBytes());
+			stream.close();
+
 			List<Conversacion> listaConversaciones = conversacionServicio.ObtenerListaPorJuegos(juego);
 			List<Juego> listaJuegos = juegoServicio.listarJuegos();
-			
+
 			mav.addObject("juegos", listaJuegos);
 			mav.addObject("juego", juego);
 			mav.addObject("conversaciones", listaConversaciones);
@@ -85,6 +89,19 @@ public class AdminController {
 		} catch (Exception e) {
 			return mav;
 		}
+		return mav;
+
+	}
+
+	@RequestMapping(value = "/listaUsuarios", method = RequestMethod.GET)
+	public ModelAndView listaUsuarios(HttpServletRequest request) {
+
+		ModelAndView mav = new ModelAndView();
+
+		List<Usuario> usuarios = usuarioServicio.ObtenerListaUsuarios();
+
+		mav.addObject("usuarios", usuarios);
+		mav.setViewName("admin/listaUsuarios");
 		return mav;
 
 	}

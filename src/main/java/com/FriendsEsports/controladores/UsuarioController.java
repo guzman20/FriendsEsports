@@ -70,11 +70,11 @@ public class UsuarioController {
 			HttpServletRequest request) {
 		long idSesion = (long)session.getAttribute("idUsuario");
 		Usuario usuario = usuarioServicio.buscarUsuario(idSesion);
-		if(usuario.getRoles().contains("rolAdmin"))
+		if(usuario.getRoles().stream().anyMatch(rol -> rol.getNombreRol().equals("rolAdmin")) || idSesion==idUsuario)
 		usuarioServicio.eliminarUsuario(idUsuario);
 		if(session.getAttribute("idUsuario").equals(idUsuario))
 			session.invalidate();
-		return "redirect:/index";
+		return "redirect:/admin/listaUsuarios";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/editar")
@@ -116,7 +116,7 @@ public class UsuarioController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET,  value ="/listaConversaciones/{idUsuario}" )
-	public ModelAndView cargarJuegos(@PathVariable("idUsuario") long idUsuario,HttpServletRequest request) {
+	public ModelAndView historialConversaciones(@PathVariable("idUsuario") long idUsuario,HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 		

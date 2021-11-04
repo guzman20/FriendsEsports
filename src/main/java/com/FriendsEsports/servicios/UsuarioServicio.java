@@ -1,5 +1,7 @@
 package com.FriendsEsports.servicios;
 
+import java.util.List;
+
 import com.FriendsEsports.entidades.Usuario;
 
 public interface UsuarioServicio {
@@ -17,4 +19,6 @@ public interface UsuarioServicio {
 	public Usuario buscarUsuario(String nombreUsuario);
 
 	public boolean verificarIdentidad(String antiguaPassword, String string);
+
+	public List<Usuario> ObtenerListaUsuarios();
 }
