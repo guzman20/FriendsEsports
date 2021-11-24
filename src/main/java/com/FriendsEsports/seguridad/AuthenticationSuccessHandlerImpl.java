@@ -37,6 +37,7 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 		Usuario authUser = usuarioServicio.buscarUsuario(userDetails.getUsername());
 		session.setAttribute("nombre", authUser.getNombre());
 		session.setAttribute("idUsuario", authUser.getIdUsuario());
+		session.setAttribute("imagenUsuario", authUser.getImagen());
 
 
 		boolean isRegistrado = false;

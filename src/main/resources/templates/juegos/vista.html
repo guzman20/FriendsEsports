@@ -1,6 +1,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
+<style type="text/css">
+.perfil {
+	max-width: 60px;
+	max-height: 60px;
+}
+</style>
 </head>
 <body>
 	<nav th:replace="fragments/header_loader"></nav>
@@ -24,13 +30,15 @@
 			<div th:each="conversacion : ${conversaciones}">
 				<div class="card p-2 m-1">
 					<div class="card-body">
-						<p>
-							Creado por: <span th:text="${conversacion.usuario.nombre}"></span>
-						</p>
-						<p>
-							El dia : <span th:text="${conversacion.fechaFormateada()}"></span><br>
-							A las : <span th:text="${conversacion.horaFormateada()}"></span>
-						</p>
+						<div>
+							<span class="m-1 p-1"> <span
+								th:if="${conversacion.usuario.imagen != null}"><img
+									class="perfil border rounded"
+									th:src="@{/imagenes-usuarios/{imagen}(imagen=${conversacion.usuario.imagen})}"></span>
+								<span th:unless="${conversacion.usuario.imagen != null}"><i
+									class="fas fa-user fa-2x p-1 navbar-right border rounded"></i></span>
+							</span><span class="m-1" th:text="${conversacion.usuario.nombre}"></span>
+						</div>
 						<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
 						<p class="card-text" th:text="${conversacion.texto}"></p>
 						<div class="row">
@@ -51,6 +59,10 @@
 								class="col-2 ">
 								<a class="btn btn-secondary editar">Editar</a>
 							</div>
+							<p class="col-4">
+								El dia : <span th:text="${conversacion.fechaFormateada()}"></span>
+								A las : <span th:text="${conversacion.horaFormateada()}"></span>
+							</p>
 						</div>
 						<div style="display: none;">
 							<form action="post"

@@ -14,72 +14,48 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled=true)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-    private UserDetailsService userDetailsService;
-	
-	//Configuración inicial para que los no conectados solo accedan a registro y login
+	private UserDetailsService userDetailsService;
+
+	// Configuración inicial para que los no conectados solo accedan a registro y
+	// login
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	    http
-	        .authorizeRequests()
-	        //Permisos públicos
-	        .antMatchers(
-                    "/","/index",
-                    "/js/**",
-                    "/css/**",
-                    "/vendor/**",
-                    "/images/**",
-                    "/registro",
-                    "/login",
-                    "/signup",
-                    "/filtrado",
-                    "/imagenes/{id}",
-                    "/fragments/**",
-                    "/webjars/**",
-                    "/imagenes-juegos/**").permitAll()
-	        //Permisos registrados
-	        .antMatchers("/usuario/**").hasAnyAuthority("rolRegistrado", "rolAdmin")
-	        //Permisos admin
-	        .antMatchers("/admin/**").hasAnyAuthority("rolAdmin")
-	        .anyRequest().authenticated()
-	         .and()
-	     .formLogin()
-           .loginPage("/login")
-           .loginProcessingUrl("/login")
-           .usernameParameter("nombre")
-          .successHandler((AuthenticationSuccessHandler) myAuthenticationSuccessHandler())
-          .permitAll()
-      .and()
-      .logout()
-          .invalidateHttpSession(true)
-           .deleteCookies("JSESSIONID")
-           .clearAuthentication(true)
-          .logoutUrl("/logout")
-          .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-          .logoutSuccessUrl("/login?logout")
-          .permitAll();
-	    
-}
-	
-	
+		http.authorizeRequests()
+				// Permisos públicos
+				.antMatchers("/", "/index", "/js/**", "/css/**", "/vendor/**", "/images/**", "/registro", "/login",
+						"/signup", "/filtrado", "/imagenes/{id}", "/fragments/**", "/webjars/**", "/imagenes-juegos/**")
+				.permitAll()
+				// Permisos registrados
+				.antMatchers("/usuario/**").hasAnyAuthority("rolRegistrado", "rolAdmin")
+				// Permisos admin
+				.antMatchers("/admin/**").hasAnyAuthority("rolAdmin").anyRequest().authenticated().and().formLogin()
+				.loginPage("/login").loginProcessingUrl("/login").usernameParameter("nombre")
+				.successHandler((AuthenticationSuccessHandler) myAuthenticationSuccessHandler()).permitAll().and()
+				.logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").clearAuthentication(true)
+				.logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login?logout").permitAll();
+
+	}
+
 	@Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception { 
- 
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());     
-    }
-    
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+	}
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		return bCryptPasswordEncoder;
 	}
-	
-    @Bean
-    public AuthenticationSuccessHandlerImpl myAuthenticationSuccessHandler(){
-        return new AuthenticationSuccessHandlerImpl();
-    }
+
+	@Bean
+	public AuthenticationSuccessHandlerImpl myAuthenticationSuccessHandler() {
+		return new AuthenticationSuccessHandlerImpl();
+	}
 }

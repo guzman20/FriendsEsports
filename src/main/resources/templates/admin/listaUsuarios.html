@@ -1,6 +1,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8" />
+<style type="text/css">
+.perfil {
+	max-width: 60px;
+	max-height: 60px;
+}
+</style>
 </head>
 <body>
 	<nav th:replace="fragments/header_loader"></nav>
@@ -10,20 +16,37 @@
 			<div th:each="usuario : ${usuarios}">
 				<div class="Card p-2 m-1">
 					<div class="card-body">
-					<div>
-						<div class="col-2">
-								<p>Nombre: <span th:text="${usuario.nombre}"></span></p>
+						<div class="row">
+							<div class="col-3">
+								<a> <span th:if="${usuario.imagen != null}"><img
+										class="perfil"
+										th:src="@{/imagenes-usuarios/{imagen}(imagen=${usuario.imagen})}"></span>
+									<span th:unless="${usuario.imagen != null}"><i
+										class="fas fa-user fa-2x p-1 navbar-right border rounded"></i></span>
+								</a>
 							</div>
-						<div class="col-2">
-								<p>Correo electronico: <span th:text="${usuario.email}"></span></p>
+							<div class="col-2">
+								<p>
+									Nombre: <span th:text="${usuario.nombre}"></span>
+								</p>
 							</div>
-						<div class="col-2">
-								<p>Fecha de nacimiento: <span th:text="${usuario.fechaNacimiento}"></span></p>
+							<div class="col-2">
+								<p>
+									Correo electronico: <span th:text="${usuario.email}"></span>
+								</p>
 							</div>
-						<div class="col-2">
-								<p>roles: <span th:each="rol : ${usuario.roles}" th:text="@{{rol} (rol=${rol.nombreRol})}"></span></p>
+							<div class="col-3">
+								<p>
+									Fecha de nacimiento: <span th:text="${usuario.fechaNacimiento}"></span>
+								</p>
 							</div>
-					</div>
+							<div class="col-2">
+								<p>
+									roles: <span th:each="rol : ${usuario.roles}"
+										th:text="@{{rol} (rol=${rol.nombreRol})}"></span>
+								</p>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-2">
 								<a
@@ -31,8 +54,7 @@
 									class="btn btn-primary">Entrar</a>
 							</div>
 							<div class="col-2">
-								<a
-									th:href="@{/usuario/borrar/{id}(id=${usuario.idUsuario})}"
+								<a th:href="@{/usuario/borrar/{id}(id=${usuario.idUsuario})}"
 									class="btn btn-danger">Borrar</a>
 							</div>
 						</div>

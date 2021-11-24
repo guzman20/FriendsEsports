@@ -434,3 +434,18 @@ function mostrarEditarUsuario() {
 	
 	$('#modificar').slideToggle(400);
 }
+$("body").on('click', '.editar', editar);
+
+function editar(){
+	
+	$(this).parent().parent().next().slideToggle(400);
+	
+}
+
+$("body").on('click', '.abrir', abrir);
+
+function abrir(){
+	
+	$(this).parent().parent().next().next().slideToggle(400);
+	
+}

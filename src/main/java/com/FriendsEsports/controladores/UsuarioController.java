@@ -29,20 +29,20 @@ public class UsuarioController {
 
 	@Autowired
 	UsuarioServicio usuarioServicio;
-	
+
 	@Autowired
 	ConversacionServicio conversacionServicio;
 
 	@PostMapping("/logueado")
-	public String Loguearse(@RequestParam(value = "nombre", required = false) String nombre,
-			@RequestParam(value = "password", required = false) String password, HttpServletRequest request,
+	public String Loguearse(@RequestParam(value = "nombre") String nombre,
+			@RequestParam(value = "password") String password, HttpServletRequest request,
 			HttpSession session) throws IOException {
-
 		if (usuarioServicio.logIn(nombre, password)) {
 			session.setAttribute("nombre", nombre);
 			Usuario usuario = new Usuario();
 			usuario = usuarioServicio.buscarUsuario(nombre);
 			session.setAttribute("idUsuario", usuario.getIdUsuario());
+			session.setAttribute("imagenUsuario", usuario.getImagen());
 			return "redirect:/index";
 		} else
 			return "redirect:/usuario/login";
@@ -68,11 +68,11 @@ public class UsuarioController {
 	@GetMapping("/borrar/{idUsuario}")
 	public String borrarUsuario(HttpSession session, @PathVariable("idUsuario") long idUsuario,
 			HttpServletRequest request) {
-		long idSesion = (long)session.getAttribute("idUsuario");
+		long idSesion = (long) session.getAttribute("idUsuario");
 		Usuario usuario = usuarioServicio.buscarUsuario(idSesion);
-		if(usuario.getRoles().stream().anyMatch(rol -> rol.getNombreRol().equals("rolAdmin")) || idSesion==idUsuario)
-		usuarioServicio.eliminarUsuario(idUsuario);
-		if(session.getAttribute("idUsuario").equals(idUsuario))
+		if (usuario.getRoles().stream().anyMatch(rol -> rol.getNombreRol().equals("rolAdmin")) || idSesion == idUsuario)
+			usuarioServicio.eliminarUsuario(idUsuario);
+		if (session.getAttribute("idUsuario").equals(idUsuario))
 			session.invalidate();
 		return "redirect:/admin/listaUsuarios";
 	}
@@ -104,7 +104,7 @@ public class UsuarioController {
 				antiguoUsuario.setFechaNacimiento(fechaNacimiento);
 				usuarioServicio.editarUsuario(antiguoUsuario);
 			} else {
-				Usuario usuarioNuevo = new Usuario(idUsuario, nombre, nuevaPassword, email, fechaNacimiento);
+				Usuario usuarioNuevo = new Usuario(nombre, nuevaPassword, email, fechaNacimiento);
 				usuarioServicio.editarUsuario(usuarioNuevo);
 			}
 		}
@@ -114,12 +114,12 @@ public class UsuarioController {
 		return mav;
 
 	}
-	
-	@RequestMapping(method = RequestMethod.GET,  value ="/listaConversaciones/{idUsuario}" )
-	public ModelAndView historialConversaciones(@PathVariable("idUsuario") long idUsuario,HttpServletRequest request) {
+
+	@RequestMapping(method = RequestMethod.GET, value = "/listaConversaciones/{idUsuario}")
+	public ModelAndView historialConversaciones(@PathVariable("idUsuario") long idUsuario, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
-		
+
 		Usuario u = usuarioServicio.buscarUsuario(idUsuario);
 		List<Conversacion> conversaciones = conversacionServicio.ObtenerListaPorUsuario(u);
 

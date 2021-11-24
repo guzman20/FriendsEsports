@@ -25,11 +25,12 @@ import javax.persistence.*;
 @Table(name = "usuario")
 public class Usuario implements Serializable {
 
-
 	private static final long serialVersionUID = -790316512454150774L;
 
+	private static final String imagenPath = "src/main/resources/static/imagenes-usuarios/";
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_usuario")
 	private Long idUsuario;
 
@@ -44,13 +45,16 @@ public class Usuario implements Serializable {
 
 	@Column(name = "fecha_nacimiento")
 	private String fechaNacimiento;
-	
+
+	@Column(name = "imagen")
+	private String imagen;
+
 	@ManyToMany(mappedBy = "usuarios", cascade = CascadeType.ALL)
 	private Set<Rol> roles = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Conversacion> conversaciones = new HashSet<>();
 
@@ -62,52 +66,71 @@ public class Usuario implements Serializable {
 		this.roles = roles;
 	}
 
-
 	public Usuario() {
 
 	}
-	public Usuario(Long idUsuario, String nombre, String password, String email,
-			String fechaNacimiento) {
+
+	public Usuario(Long idUsuario, String nombre, String password, String email, String fechaNacimiento,
+			String imagen) {
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.password = password;
 		this.email = email;
 		this.fechaNacimiento = fechaNacimiento;
+		this.imagen = imagen;
 	}
+
+	public Usuario(String nombre, String password, String email, String fechaNacimiento, String imagen) {
+		this.nombre = nombre;
+		this.password = password;
+		this.email = email;
+		this.fechaNacimiento = fechaNacimiento;
+		this.imagen = imagen;
+	}
+
 	public Usuario(String nombre, String password, String email, String fechaNacimiento) {
 		this.nombre = nombre;
 		this.password = password;
 		this.email = email;
 		this.fechaNacimiento = fechaNacimiento;
 	}
+
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
+
 	public void setIdUsuario(Long idUsuario) {
 		this.idUsuario = idUsuario;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
+
 	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
@@ -122,5 +145,32 @@ public class Usuario implements Serializable {
 		rol.getUsuarios().remove(this);
 	}
 
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public Set<Conversacion> getConversaciones() {
+		return conversaciones;
+	}
+
+	public void setConversaciones(Set<Conversacion> conversaciones) {
+		this.conversaciones = conversaciones;
+	}
+
+	public Set<Respuesta> getRespuestas() {
+		return respuestas;
+	}
+
+	public void setRespuestas(Set<Respuesta> respuestas) {
+		this.respuestas = respuestas;
+	}
 	
+	public static String getImagenPath() {
+		return imagenPath;
+	}
+
 }

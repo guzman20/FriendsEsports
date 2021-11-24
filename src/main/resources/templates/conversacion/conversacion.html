@@ -22,17 +22,19 @@ form {
 
 	<nav th:replace="fragments/header_loader"></nav>
 
-	<div class="container row m-2">
+	<div class="row m-2">
 		<div th:replace="fragments/menu_lateral"></div>
 		<div class="card p-2 m-1 col-9">
 			<div class="card-body">
-				<p>
-					Creado por: <span th:text="${conversacion.usuario.nombre}"></span>
-				</p>
-				<p>
-					El dia : <span th:text="${conversacion.fechaFormateada()}"></span><br>
-					A las : <span th:text="${conversacion.horaFormateada()}"></span>
-				</p>
+				<div>
+					<span class="m-1 p-1"> <span
+						th:if="${conversacion.usuario.imagen != null}"><img
+							class="perfil border rounded"
+							th:src="@{/imagenes-usuarios/{imagen}(imagen=${conversacion.usuario.imagen})}"></span>
+						<span th:unless="${conversacion.usuario.imagen != null}"><i
+							class="fas fa-user fa-2x p-1 navbar-right border rounded"></i></span>
+					</span><span class="m-1" th:text="${conversacion.usuario.nombre}"></span>
+				</div>
 				<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
 				<p class="card-text" th:text="${conversacion.texto}"></p>
 				<div class="row">
@@ -40,7 +42,7 @@ form {
 						th:if="${session.idUsuario == conversacion.usuario.getIdUsuario() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
 						class="col-2">
 						<a
-							th:href="@{/conversacion/{juego}/borrar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
+							th:href="@{/conversacion/borrar/{id}(id=${conversacion.idConversacion})}"
 							class="btn btn-danger">Borrar</a>
 					</div>
 					<div
@@ -48,10 +50,17 @@ form {
 						class="col-2 ">
 						<a class="btn btn-secondary editar">Editar</a>
 					</div>
+					<div class="col-2">
+						<a class="btn btn-secondary abrir">Responder</a>
+					</div>
+					<p class="col-4">
+						El dia : <span th:text="${conversacion.fechaFormateada()}"></span>
+						A las : <span th:text="${conversacion.horaFormateada()}"></span>
+					</p>
 				</div>
-				<div style="display: none;">
+				<div style="display: none;" class="col-4">
 					<form action="post"
-						th:action="@{/conversacion/{juego}/editar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
+						th:action="@{/conversacion/editar/{id}(id=${conversacion.idConversacion})}"
 						method="post">
 						<div class="form-group">
 							<input type="texto" id="titulo" name="titulo"
@@ -63,19 +72,19 @@ form {
 						<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
 					</form>
 				</div>
+				<div style="display: none;" class="col-4">
+					<form action="post" th:action="@{/respuesta/creado}" method="post"
+						class="col-12">
+						<input type="text" placeholder="Introduzca su respuesta"
+							id="textoRespuesta" name="textoRespuesta"
+							class="form-control form-control-user m-1 p-2"> <input
+							type="hidden" id="idConversacion"
+							th:value="${conversacion.idConversacion}" name="idConversacion">
+						<button type="submit" class="btn btn-primary btn-user btn-block">Publicar</button>
+					</form>
+				</div>
 			</div>
-			<div class="row p-2 m-1">
-				<a class="btn btn-secondary abrir col-2 m-1 p-2">Responder</a>
-				<form action="post" th:action="@{/respuesta/creado}" method="post"
-					style="display: none;" class="col-12">
-					<input type="text" placeholder="Introduzca su respuesta"
-						id="textoRespuesta" name="textoRespuesta"
-						class="form-control form-control-user m-1 p-2"> <input
-						type="hidden" id="idConversacion"
-						th:value="${conversacion.idConversacion}" name="idConversacion">
-					<button type="submit" class="btn btn-primary btn-user btn-block">Publicar</button>
-				</form>
-			</div>
+
 
 		</div>
 		<div th:each="respuesta : ${respuestas}">

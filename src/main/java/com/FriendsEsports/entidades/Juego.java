@@ -30,7 +30,7 @@ public class Juego implements Serializable {
 	@Column(name = "id_juego")
 	private Long idJuego;
 	
-	@Column(name = "nombre")
+	@Column(name = "nombre", unique = true)
 	private String nombre;
 	
 	@Column(name = "imagen")

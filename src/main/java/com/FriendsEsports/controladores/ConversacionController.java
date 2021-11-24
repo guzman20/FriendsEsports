@@ -75,21 +75,23 @@ public class ConversacionController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/{conversacion}/borrar/{idConversacion}")
+	@RequestMapping(method = RequestMethod.GET, value = "/borrar/{idConversacion}")
 	public ModelAndView borrarConversacion(@PathVariable("idConversacion") long idConversacion,
-			@PathVariable("conversacion") String conversacion, HttpServletRequest request) {
+			HttpServletRequest request) {
+		Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
+		
 		conversacionServicio.borrarConversacion(idConversacion);
 
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("redirect:/juegos/" + conversacion);
+		mav.setViewName("redirect:/juegos/" + c.getJuego().getIdJuego());
 		return mav;
 
 	}
 
-	@RequestMapping(method = RequestMethod.POST, value = "/{conversacion}/editar/{idConversacion}")
+	@RequestMapping(method = RequestMethod.POST, value = "/editar/{idConversacion}")
 	public ModelAndView editarConversacion(@PathVariable("idConversacion") long idConversacion,
-			@PathVariable("conversacion") String conversacion, HttpServletRequest request) {
+			HttpServletRequest request) {
 
 		String titulo = request.getParameter("titulo");
 		String texto = request.getParameter("texto");
@@ -97,7 +99,7 @@ public class ConversacionController {
 
 		ModelAndView mav = new ModelAndView();
 
-		mav.setViewName("redirect:/juegos/" + conversacion);
+		mav.setViewName("redirect:/conversacion/" + idConversacion);
 		return mav;
 
 	}
@@ -108,9 +110,11 @@ public class ConversacionController {
 
 		Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
 		List<Respuesta> r = respuestaServicio.listarRespuestas(c);
+		List<Juego> listaJuegos = juegoServicio.listarJuegos();
 
 		ModelAndView mav = new ModelAndView();
 
+		mav.addObject("juegos", listaJuegos);
 		mav.addObject("conversacion", c);
 		mav.addObject("respuestas", r);
 

@@ -21,8 +21,11 @@
 				class="fas fa-tools "></i> Administrar </a>
 		</div>
 		<div id="opciones" class="gnav">
-			<a class="btn btn-primary"> <i
-				class="fas fa-user fa-2x p-1 navbar-right"></i>
+			<a class="btn btn-primary"> <span
+				th:if="${session.imagenUsuario != null}"><img
+					class="card-img-top" th:src="${session.imagenUsuario}"></span> <span
+				th:unless="${session.imagenUsuario != null}"><i
+					class="fas fa-user fa-2x p-1 navbar-right"></i></span>
 			</a>
 			<ul id="lista" style="display: none;">
 				<li><a
