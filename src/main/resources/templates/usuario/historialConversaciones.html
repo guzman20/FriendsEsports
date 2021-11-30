@@ -7,19 +7,25 @@
 	<div class="row m-2">
 		<div class="container col-10">
 			<h1>Este tu historial de conversaciones</h1>
-			<p>Aqui podras editar, borrar o simplemente revisar tu conversaciones pasadas.</p>
+			<p>Aqui podras editar, borrar o simplemente revisar tu
+				conversaciones pasadas.</p>
 			<div th:each="conversacion : ${conversaciones}">
-				<div class="Card p-2 m-1">
+				<div class="card p-2 m-1">
 					<div class="card-body">
-						<p>
-							Creado por: <span th:text="${conversacion.usuario.nombre}"></span>
-						</p>
-						<p>
-							El dia : <span th:text="${conversacion.fechaFormateada()}"></span><br>
-							A las : <span th:text="${conversacion.horaFormateada()}"></span>
-						</p>
+						<div>
+							<span class="m-1 p-1"> <span
+								th:if="${conversacion.usuario.imagen != null}"><img
+									class="perfil border rounded"
+									th:src="@{/imagenes-usuarios/{imagen}(imagen=${conversacion.usuario.imagen})}"></span>
+								<span th:unless="${conversacion.usuario.imagen != null}"><i
+									class="fas fa-user fa-2x p-1 navbar-right border rounded"></i></span>
+							</span><span class="m-1" th:text="${conversacion.usuario.nombre}"></span>
+						</div>
 						<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
 						<p class="card-text" th:text="${conversacion.texto}"></p>
+						<span th:if="${conversacion.imagen != null}"><img
+							class="card-img-top conversacion-imagen m-2"
+							th:src="@{/imagenes-conversacion/{conversacion}(conversacion=${conversacion.imagen})}"></span>
 						<div class="row">
 							<div class="col-2">
 								<a
@@ -38,10 +44,14 @@
 								class="col-2 ">
 								<a class="btn btn-secondary editar">Editar</a>
 							</div>
+							<p class="col-4">
+								El dia : <span th:text="${conversacion.fechaFormateada()}"></span>
+								A las : <span th:text="${conversacion.horaFormateada()}"></span>
+							</p>
 						</div>
 						<div style="display: none;">
 							<form action="post"
-								th:action="@{/conversacion/{juego}/editar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
+								th:action="@{/conversacion/editar/{id}(id=${conversacion.idConversacion})}"
 								method="post">
 								<div class="form-group">
 									<input type="texto" id="titulo" name="titulo"

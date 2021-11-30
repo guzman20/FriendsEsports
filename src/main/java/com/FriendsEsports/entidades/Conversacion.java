@@ -22,6 +22,8 @@ import javax.persistence.Table;
 public class Conversacion implements Serializable {
 
 	private static final long serialVersionUID = -1491461123132939572L;
+	
+	private static final String imagenPath = "src/main/resources/static/imagenes-conversacion/";
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -44,6 +46,9 @@ public class Conversacion implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
+	
+	@Column(name = "imagen")
+	private String imagen;
 
 	@OneToMany(mappedBy = "conversacion", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<Respuesta> respuestas = new HashSet<>();
@@ -56,6 +61,21 @@ public class Conversacion implements Serializable {
 		LocalDateTime date = LocalDateTime.now();
 		this.fechaDeCreacion = date;
 	}
+	
+	
+
+	public Conversacion(Juego juego, String titulo, String texto, Usuario usuario, String imagen) {
+		super();
+		this.juego = juego;
+		this.titulo = titulo;
+		this.texto = texto;
+		this.usuario = usuario;
+		this.imagen = imagen;
+		LocalDateTime date = LocalDateTime.now();
+		this.fechaDeCreacion = date;
+	}
+
+
 
 	public Conversacion() {
 
@@ -115,6 +135,18 @@ public class Conversacion implements Serializable {
 
 	public void setRespuestas(Set<Respuesta> respuestas) {
 		this.respuestas = respuestas;
+	}
+	
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+	public static String getImagenPath() {
+		return imagenPath;
 	}
 
 	public String fechaFormateada() {

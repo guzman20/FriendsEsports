@@ -1,15 +1,20 @@
 package com.FriendsEsports.controladores;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.FriendsEsports.entidades.Conversacion;
@@ -37,39 +42,60 @@ public class ConversacionController {
 	@Autowired
 	JuegoServicio juegoServicio;
 
-	@RequestMapping(value = "/crear", method = RequestMethod.POST)
+	@RequestMapping(value = "/crear", method = RequestMethod.GET)
 	public ModelAndView crearConversacion(HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 
-		String juego = request.getParameter("juego");
+		List<Juego> juegos = juegoServicio.listarJuegos();
 
-		mav.addObject("juego", juego);
+		mav.addObject("juegos", juegos);
 		mav.setViewName("conversacion/crear");
 		return mav;
 
 	}
 
 	@RequestMapping(value = "/creado", method = RequestMethod.POST)
-	public ModelAndView publicarConversacion(HttpServletRequest request) {
+	public ModelAndView publicarConversacion(HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/index");
-		String juegoNombre = request.getParameter("juego");
-		Juego juego = juegoServicio.obtenerPorNombre(juegoNombre);
-		if (juego != null) {
-			String titulo = request.getParameter("titulo");
-			String texto = request.getParameter("texto");
-			long id = (long) request.getSession().getAttribute("idUsuario");
-			Usuario usuario = (Usuario) usuarioServicio.buscarUsuario(id);
+		try {
+			String juegoNombre = request.getParameter("juego");
+			Juego juego = juegoServicio.obtenerPorId(Integer.parseInt(juegoNombre));
+			if (juego != null) {
+				
+				String titulo = request.getParameter("titulo");
+				String texto = request.getParameter("texto");
+				long id = (long) request.getSession().getAttribute("idUsuario");
+				Usuario usuario = (Usuario) usuarioServicio.buscarUsuario(id);
+				
+				Conversacion t =new Conversacion();
+	
+				if(imagen!=null) {
+					String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
-			Conversacion t = new Conversacion();
+					File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
 
-			t = conversacionServicio.crearConversacion(juego, titulo, texto, usuario);
+					FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
 
-			mav.setViewName("redirect:/conversacion/" + t.getIdConversacion());
-		} else {
-			mav.setViewName("redirect:/conversacion/crear");
+					BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
+					stream.write(imagen.getBytes());
+					stream.close();
+					
+					t = new Conversacion(juego, texto, titulo, usuario, nombreImagen);
+				}
+				else
+					t = new Conversacion(juego, texto, titulo, usuario);
+				
+				conversacionServicio.crearConversacion(t);
+	
+				mav.setViewName("redirect:/conversacion/" + t.getIdConversacion());
+			} else {
+				mav.setViewName("redirect:/conversacion/crear");
+			}
+		} catch (Exception e) {
+			return mav;
 		}
 		return mav;
 

@@ -37,6 +37,9 @@ form {
 				</div>
 				<h5 class="card-title" th:text="${conversacion.titulo}"></h5>
 				<p class="card-text" th:text="${conversacion.texto}"></p>
+				<span th:if="${conversacion.imagen != null}"><img
+					class="card-img-top conversacion-imagen m-2"
+					th:src="@{/imagenes-conversacion/{conversacion}(conversacion=${conversacion.imagen})}"></span>
 				<div class="row">
 					<div
 						th:if="${session.idUsuario == conversacion.usuario.getIdUsuario() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
@@ -92,27 +95,33 @@ form {
 				<div class="col-2" style="display: hidden"></div>
 				<div class="card p-2 m-1 col-9">
 					<div class="card-body">
-						<p>
-							Creado por: <span th:text="${respuesta.usuario.nombre}"></span>
-						</p>
-						<p>
-							El dia : <span th:text="${respuesta.fechaFormateada()}"></span><br>
-							A las : <span th:text="${respuesta.horaFormateada()}"></span>
-						</p>
+						<div>
+							<span class="m-1 p-1"> <span
+								th:if="${respuesta.usuario.imagen != null}"><img
+									class="perfil border rounded"
+									th:src="@{/imagenes-usuarios/{imagen}(imagen=${respuesta.usuario.imagen})}"></span>
+								<span th:unless="${conversacion.usuario.imagen != null}"><i
+									class="fas fa-user fa-2x p-1 navbar-right border rounded"></i></span>
+							</span><span class="m-1" th:text="${respuesta.usuario.nombre}"></span>
+						</div>
 						<p class="card-text" th:text="${respuesta.respuesta}"></p>
 						<div class="row">
 							<div
 								th:if="${session.idUsuario == respuesta.usuario.getIdUsuario() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
-								class="col-2">
+								class="col-4">
 								<a
 									th:href="@{/respuesta/borrar/{idConversacion}/{idRespuesta}(idRespuesta=${respuesta.idRespuesta},idConversacion=${conversacion.idConversacion})}"
 									class="btn btn-danger">Borrar</a>
 							</div>
 							<div
 								th:if="${session.idUsuario == respuesta.usuario.getIdUsuario()}"
-								class="col-2 ">
+								class="col-4 ">
 								<a class="btn btn-secondary editar">Editar</a>
 							</div>
+							<p class="col-4">
+								El dia : <span th:text="${respuesta.fechaFormateada()}"></span>
+								A las : <span th:text="${respuesta.horaFormateada()}"></span>
+							</p>
 						</div>
 						<div id="formularioEditar" style="display: none;">
 							<form action="post"

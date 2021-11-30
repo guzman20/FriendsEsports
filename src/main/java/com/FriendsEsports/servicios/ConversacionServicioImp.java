@@ -41,10 +41,10 @@ public class ConversacionServicioImp implements ConversacionServicio {
 	}
 
 	@Override
-	public Conversacion crearConversacion(Juego juego, String titulo, String texto, Usuario usuario) {
-		Conversacion t = new Conversacion(juego, texto, titulo, usuario);
-		conversacionDao.crear(t);
-		return t;
+	public Conversacion crearConversacion(Conversacion c) {
+		
+		conversacionDao.crear(c);
+		return c;
 	}
 
 	@Override

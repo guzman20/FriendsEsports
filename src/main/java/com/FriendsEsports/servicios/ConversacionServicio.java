@@ -14,7 +14,7 @@ public interface ConversacionServicio {
 	
 	public Conversacion obtenerConversacion(long idConversacion);
 	
-	public Conversacion crearConversacion(Juego juego, String titulo,String texto, Usuario usuario);
+	public Conversacion crearConversacion(Conversacion c);
 	
 	public List<Conversacion> ObtenerListaPorJuegos(Juego juego);
 
