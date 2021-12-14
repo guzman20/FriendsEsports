@@ -16,6 +16,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "juego")
@@ -30,6 +32,8 @@ public class Juego implements Serializable {
 	@Column(name = "id_juego")
 	private Long idJuego;
 	
+	@NotNull(message= "No puede ser nulo el nombre.")
+	@NotBlank(message= "No puede ser vacio el nombre.")
 	@Column(name = "nombre", unique = true)
 	private String nombre;
 	

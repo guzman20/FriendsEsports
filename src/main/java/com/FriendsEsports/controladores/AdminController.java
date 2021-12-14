@@ -7,12 +7,16 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -49,20 +53,20 @@ public class AdminController {
 
 	}
 
-	@RequestMapping(value = "/crearJuego", method = RequestMethod.GET)
-	public ModelAndView crearConversacion(HttpServletRequest request) {
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("admin/crearJuego");
-		return mav;
+	@GetMapping(value = "/crearJuego")
+	public String crearJuego(@ModelAttribute("juegoObjeto") Juego juegoObjeto,HttpServletRequest request) {
+		return "admin/crearJuego";
 
 	}
 
-	@RequestMapping(value = "/creadoJuego", method = RequestMethod.POST)
-	public ModelAndView publicarJuego(HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
+	@PostMapping(value = "/crearJuego")
+	public ModelAndView publicarJuego(@Valid @ModelAttribute("juegoObjeto") Juego juegoObjeto, BindingResult result,HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/index");
+		if(result.hasErrors()) {
+			return new ModelAndView("admin/crearJuego", "juegoObjeto", juegoObjeto);
+		}
 		try {
 
 			String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
@@ -87,6 +91,7 @@ public class AdminController {
 			mav.addObject("conversaciones", listaConversaciones);
 			mav.setViewName("/juegos/vista");
 		} catch (Exception e) {
+			mav.setViewName("redirect:/admin/crearJuego");
 			return mav;
 		}
 		return mav;

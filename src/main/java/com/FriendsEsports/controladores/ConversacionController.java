@@ -6,11 +6,16 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,24 +47,31 @@ public class ConversacionController {
 	@Autowired
 	JuegoServicio juegoServicio;
 
-	@RequestMapping(value = "/crear", method = RequestMethod.GET)
-	public ModelAndView crearConversacion(HttpServletRequest request) {
+	@GetMapping(value = "/crear")
+	public ModelAndView crearConversacion(@ModelAttribute("conversacion") Conversacion conversacion,
+			HttpServletRequest request) {
 
-		ModelAndView mav = new ModelAndView();
+		ModelAndView mav = new ModelAndView("conversacion/crear", "conversacion",conversacion);
 
 		List<Juego> juegos = juegoServicio.listarJuegos();
 
 		mav.addObject("juegos", juegos);
-		mav.setViewName("conversacion/crear");
 		return mav;
 
 	}
 
-	@RequestMapping(value = "/creado", method = RequestMethod.POST)
-	public ModelAndView publicarConversacion(HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
+	@PostMapping(value = "/creado")
+	public ModelAndView publicarConversacion(@Valid @ModelAttribute("conversacion") Conversacion conversacion,
+			BindingResult result, HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/index");
+		if(result.hasErrors()) {
+			mav = new ModelAndView("conversacion/crear", "conversacion", conversacion);
+			List<Juego> juegos = juegoServicio.listarJuegos();
+
+			mav.addObject("juegos", juegos);
+		}
 		try {
 			String juegoNombre = request.getParameter("juego");
 			Juego juego = juegoServicio.obtenerPorId(Integer.parseInt(juegoNombre));
@@ -123,7 +135,7 @@ public class ConversacionController {
 			String titulo = request.getParameter("titulo");
 			String texto = request.getParameter("texto");
 
-			if (imagen.getSize()!=0) {
+			if (imagen.getSize() != 0) {
 				String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
 				File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
