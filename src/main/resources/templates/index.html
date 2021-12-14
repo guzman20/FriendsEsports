@@ -11,12 +11,23 @@
 			<div th:replace="fragments/index_mensaje_cargador"></div>
 			<div class="row">
 				<div th:each="juego : ${juegos}" class="Card col-5 p-2 m-1">
-					<img class="card-img-top" th:src="@{/imagenes-juegos/{juego}(juego=${juego.imagen})}"
+					<img class="card-img-top"
+						th:src="@{/imagenes-juegos/{juego}(juego=${juego.imagen})}"
 						th:alt="${juego.nombre}">
 					<div class="card-body">
 						<h5 class="card-title" th:text="${juego.nombre}"></h5>
-						<a th:href="@{/juegos/{juego}(juego=${juego.idJuego})}"
-							class="btn btn-primary">Entrar</a>
+						<div class="row">
+							<div class="col-6">
+								<a th:href="@{/juegos/{juego}(juego=${juego.idJuego})}"
+									class="btn btn-primary">Entrar</a>
+							</div>
+							<div
+								th:if="${#authorization.expression('hasAuthority(''rolAdmin'')')}"
+								class="col-6 mb-3">
+								<a th:href="@{/admin/borrarJuego/{id}(id=${juego.idJuego})}"
+									class="btn btn-danger">Borrar</a>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

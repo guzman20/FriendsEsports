@@ -64,15 +64,15 @@ public class ConversacionController {
 			String juegoNombre = request.getParameter("juego");
 			Juego juego = juegoServicio.obtenerPorId(Integer.parseInt(juegoNombre));
 			if (juego != null) {
-				
+
 				String titulo = request.getParameter("titulo");
 				String texto = request.getParameter("texto");
 				long id = (long) request.getSession().getAttribute("idUsuario");
 				Usuario usuario = (Usuario) usuarioServicio.buscarUsuario(id);
-				
-				Conversacion t =new Conversacion();
-	
-				if(imagen!=null) {
+
+				Conversacion t = new Conversacion();
+
+				if (imagen != null) {
 					String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
 					File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
@@ -82,14 +82,13 @@ public class ConversacionController {
 					BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
 					stream.write(imagen.getBytes());
 					stream.close();
-					
+
 					t = new Conversacion(juego, texto, titulo, usuario, nombreImagen);
-				}
-				else
+				} else
 					t = new Conversacion(juego, texto, titulo, usuario);
-				
+
 				conversacionServicio.crearConversacion(t);
-	
+
 				mav.setViewName("redirect:/conversacion/" + t.getIdConversacion());
 			} else {
 				mav.setViewName("redirect:/conversacion/crear");
@@ -105,7 +104,7 @@ public class ConversacionController {
 	public ModelAndView borrarConversacion(@PathVariable("idConversacion") long idConversacion,
 			HttpServletRequest request) {
 		Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
-		
+
 		conversacionServicio.borrarConversacion(idConversacion);
 
 		ModelAndView mav = new ModelAndView();
@@ -117,16 +116,37 @@ public class ConversacionController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/editar/{idConversacion}")
 	public ModelAndView editarConversacion(@PathVariable("idConversacion") long idConversacion,
-			HttpServletRequest request) {
-
-		String titulo = request.getParameter("titulo");
-		String texto = request.getParameter("texto");
-		conversacionServicio.editarConversacion(idConversacion, titulo, texto);
-
+			@RequestParam("imagen") MultipartFile imagen, HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("redirect:/index");
+		try {
+			String titulo = request.getParameter("titulo");
+			String texto = request.getParameter("texto");
 
-		mav.setViewName("redirect:/conversacion/" + idConversacion);
-		return mav;
+			if (imagen.getSize()!=0) {
+				String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
+
+				File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
+
+				FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
+
+				BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
+				stream.write(imagen.getBytes());
+				stream.close();
+
+				Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
+				File imagenOriginal = new File(Conversacion.getImagenPath() + c.getImagen());
+				imagenOriginal.delete();
+
+				conversacionServicio.editarConversacion(idConversacion, titulo, texto, nombreImagen);
+			} else
+				conversacionServicio.editarConversacion(idConversacion, titulo, texto);
+
+			mav.setViewName("redirect:/conversacion/" + idConversacion);
+			return mav;
+		} catch (Exception e) {
+			return mav;
+		}
 
 	}
 

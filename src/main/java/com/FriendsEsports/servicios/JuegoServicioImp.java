@@ -36,4 +36,14 @@ public class JuegoServicioImp implements JuegoServicio{
 	public Juego crearJuego(Juego juego) {
 		return juegoDao.crear(juego);
 	}
+
+	@Override
+	public boolean borrarJuego(Juego juego) {
+		if(obtenerPorId(juego.getIdJuego())!=null) {
+			juegoDao.borrar(juego.getIdJuego());
+			return true;
+		}
+		else
+			return false;
+	}
 }

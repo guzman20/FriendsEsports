@@ -105,4 +105,16 @@ public class AdminController {
 		return mav;
 
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/borrarJuego/{idJuego}")
+	public String borrarConversacion(@PathVariable("idJuego") long idJuego,
+			HttpServletRequest request) {
+		Juego juego = juegoServicio.obtenerPorId(idJuego);
+		
+		if(juegoServicio.borrarJuego(juego))
+			return "redirect:/";
+		else
+			return "/";
+
+	}
 }

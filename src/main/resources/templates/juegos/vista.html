@@ -61,14 +61,18 @@
 						</div>
 						<div style="display: none;">
 							<form action="post"
-								th:action="@{/conversacion/{juego}/editar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
-								method="post">
+								th:action="@{/conversacion/editar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
+								method="post" enctype="multipart/form-data">
 								<div class="form-group">
-									<input type="texto" id="titulo" name="titulo"
-										th:value="${conversacion.titulo}"
-										class="form-control form-control-user">
+									<label class="">Titulo: </label> <input type="texto"
+										id="titulo" name="titulo" th:value="${conversacion.titulo}"
+										class="form-control form-control-user"> <label
+										class="">Texto: </label>
 									<textarea class="form-control form-control-user" id="texto"
 										th:text="${conversacion.texto}" name="texto" required="true"></textarea>
+									<label class="">Imagen: </label> <input type="file"
+										class="form-control form-control-user" id="imagen"
+										name="imagen">
 								</div>
 								<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
 							</form>

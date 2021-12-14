@@ -14,4 +14,5 @@ public interface JuegoServicio {
 
 	Juego crearJuego(Juego juego);
 
+	boolean borrarJuego(Juego juego);
 }

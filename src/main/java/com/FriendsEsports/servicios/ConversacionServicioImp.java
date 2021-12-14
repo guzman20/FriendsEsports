@@ -57,4 +57,14 @@ public class ConversacionServicioImp implements ConversacionServicio {
 		return conversacionDao.ObtenerListaPorUsuario(u);
 	}
 
+	@Override
+	public Conversacion editarConversacion(Long idConversacion, String titulo, String texto, String imagen) {
+		Conversacion t = conversacionDao.buscar(idConversacion);
+		t.setTitulo(titulo);
+		t.setTexto(texto);
+		t.setImagen(imagen);
+		conversacionDao.actualizar(t);
+		return t;
+	}
+
 }

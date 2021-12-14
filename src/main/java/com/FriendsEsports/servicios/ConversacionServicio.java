@@ -12,6 +12,8 @@ public interface ConversacionServicio {
 
 	public Conversacion editarConversacion(Long idConversacion, String titulo, String texto);
 	
+	public Conversacion editarConversacion(Long idConversacion, String titulo, String texto, String imagen);
+	
 	public Conversacion obtenerConversacion(long idConversacion);
 	
 	public Conversacion crearConversacion(Conversacion c);
