@@ -17,9 +17,6 @@ import com.FriendsEsports.dao.UsuarioDao;
 import com.FriendsEsports.entidades.Rol;
 import com.FriendsEsports.entidades.Usuario;
 
-
-
-
 @Transactional
 @Service
 public class DetallesUsuarios implements  UserDetailsService {
@@ -31,7 +28,11 @@ public class DetallesUsuarios implements  UserDetailsService {
 	@Transactional()
 	public UserDetails loadUserByUsername(String nombre) throws UsernameNotFoundException {
 
+		
 		Usuario usuario = usuarioDao.buscarPorNombre(nombre);
+		if (usuario == null) {
+            throw new UsernameNotFoundException(nombre);
+        }
 		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
 		for (Rol rol : usuario.getRoles()) {
 			grantedAuthorities.add(new SimpleGrantedAuthority(rol.getNombreRol()));

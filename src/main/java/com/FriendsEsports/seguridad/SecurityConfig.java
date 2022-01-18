@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/usuario/**").hasAnyAuthority("rolRegistrado", "rolAdmin")
 				// Permisos admin
 				.antMatchers("/admin/**").hasAnyAuthority("rolAdmin").anyRequest().authenticated().and().formLogin()
-				.loginPage("/login").loginProcessingUrl("/login").usernameParameter("nombre")
+				.loginPage("/login").loginProcessingUrl("/login").usernameParameter("nombre").failureUrl("/login-error")
 				.successHandler((AuthenticationSuccessHandler) myAuthenticationSuccessHandler()).permitAll().and()
 				.logout().invalidateHttpSession(true).deleteCookies("JSESSIONID").clearAuthentication(true)
 				.logoutUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
