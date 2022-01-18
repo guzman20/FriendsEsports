@@ -23,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.FriendsEsports.entidades.Conversacion;
+import com.FriendsEsports.entidades.ConversacionDTO;
 import com.FriendsEsports.entidades.Juego;
 import com.FriendsEsports.entidades.Respuesta;
+import com.FriendsEsports.entidades.RespuestaDTO;
 import com.FriendsEsports.entidades.Usuario;
 import com.FriendsEsports.servicios.ConversacionServicio;
 import com.FriendsEsports.servicios.JuegoServicio;
@@ -47,44 +49,43 @@ public class ConversacionController {
 	@Autowired
 	JuegoServicio juegoServicio;
 
-	@GetMapping(value = "/crear")
-	public ModelAndView crearConversacion(@ModelAttribute("conversacion") Conversacion conversacion,
-			HttpServletRequest request) {
+	@PostMapping(value = "/crear")
+	public ModelAndView crearConversacion(@ModelAttribute("conversacion") ConversacionDTO ConversacionDTO,
+			HttpServletRequest request, @RequestParam("juego") String juego) {
 
-		ModelAndView mav = new ModelAndView("conversacion/crear", "conversacion",conversacion);
+		ModelAndView mav = new ModelAndView("conversacion/crear", "conversacion", ConversacionDTO);
 
-		List<Juego> juegos = juegoServicio.listarJuegos();
-
-		mav.addObject("juegos", juegos);
+		mav.addObject("juego", juego);
 		return mav;
 
 	}
 
 	@PostMapping(value = "/creado")
-	public ModelAndView publicarConversacion(@Valid @ModelAttribute("conversacion") Conversacion conversacion,
-			BindingResult result, HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
+	public ModelAndView publicarConversacion(@Valid @ModelAttribute("conversacion") ConversacionDTO ConversacionDTO,
+			BindingResult result, HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen,
+			@RequestParam("juego") String idj) {
 
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("redirect:/index");
-		if(result.hasErrors()) {
-			mav = new ModelAndView("conversacion/crear", "conversacion", conversacion);
+		if (result.hasErrors()) {
+			mav = new ModelAndView("conversacion/crear", "conversacion", ConversacionDTO);
 			List<Juego> juegos = juegoServicio.listarJuegos();
 
 			mav.addObject("juegos", juegos);
 		}
 		try {
-			String juegoNombre = request.getParameter("juego");
-			Juego juego = juegoServicio.obtenerPorId(Integer.parseInt(juegoNombre));
+			long idJuego = Integer.parseInt(idj);
+			Juego juego = juegoServicio.obtenerPorId(idJuego);
 			if (juego != null) {
 
-				String titulo = request.getParameter("titulo");
-				String texto = request.getParameter("texto");
+				String titulo = ConversacionDTO.getTitulo();
+				String texto = ConversacionDTO.getTexto();
 				long id = (long) request.getSession().getAttribute("idUsuario");
 				Usuario usuario = (Usuario) usuarioServicio.buscarUsuario(id);
 
 				Conversacion t = new Conversacion();
 
-				if (imagen != null) {
+				if (imagen.getOriginalFilename().length() != 0) {
 					String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
 					File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
@@ -163,14 +164,14 @@ public class ConversacionController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{idConversacion}")
-	public ModelAndView verConversacion(@PathVariable("idConversacion") long idConversacion,
-			HttpServletRequest request) {
+	public ModelAndView verConversacion(@ModelAttribute("respuesta") RespuestaDTO respuestaDTO,
+			@PathVariable("idConversacion") long idConversacion, HttpServletRequest request, ModelAndView mav) {
 
 		Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
 		List<Respuesta> r = respuestaServicio.listarRespuestas(c);
 		List<Juego> listaJuegos = juegoServicio.listarJuegos();
-
-		ModelAndView mav = new ModelAndView();
+		if (!mav.getModel().containsKey("respuesta"))
+			mav.addObject("respuesta", new RespuestaDTO());
 
 		mav.addObject("juegos", listaJuegos);
 		mav.addObject("conversacion", c);

@@ -66,7 +66,7 @@ form {
 						th:action="@{/conversacion/editar/{id}(id=${conversacion.idConversacion})}"
 						method="post">
 						<div class="form-group">
-							<input type="texto" id="titulo" name="titulo"
+							<input type="text" id="titulo" name="titulo"
 								th:value="${conversacion.titulo}"
 								class="form-control form-control-user">
 							<textarea class="form-control form-control-user" id="texto"
@@ -76,13 +76,15 @@ form {
 					</form>
 				</div>
 				<div style="display: none;" class="col-4">
-					<form action="post" th:action="@{/respuesta/creado}" method="post"
-						class="col-12">
+					<form action="post" th:action="@{/respuesta/creado/{id}(id=${conversacion.idConversacion})}" method="post"
+						class="col-12" th:object="${respuesta}">
 						<input type="text" placeholder="Introduzca su respuesta"
 							id="textoRespuesta" name="textoRespuesta"
-							class="form-control form-control-user m-1 p-2"> <input
-							type="hidden" id="idConversacion"
-							th:value="${conversacion.idConversacion}" name="idConversacion">
+							class="form-control form-control-user m-1 p-2"
+							th:field="*{textoRespuesta}">
+						<div class="error p-2"
+							th:if="${errores!=null}"
+							th:errors="*{textoRespuesta}"></div>
 						<button type="submit" class="btn btn-primary btn-user btn-block">Publicar</button>
 					</form>
 				</div>
@@ -97,11 +99,12 @@ form {
 					<div class="card-body">
 						<div>
 							<span class="m-1 p-1"> <span
-								th:if="${respuesta.usuario.imagen != null}"><img
+								th:if="${respuesta.usuario.imagen != '' && respuesta.usuario.imagen != null}"><img
 									class="perfil border rounded"
 									th:src="@{/imagenes-usuarios/{imagen}(imagen=${respuesta.usuario.imagen})}"></span>
-								<span th:unless="${conversacion.usuario.imagen != null}"><i
-									class="fas fa-user fa-2x p-1 navbar-right border rounded"></i></span>
+								<span
+								th:unless="${respuesta.usuario.imagen != '' && respuesta.usuario.imagen != null}"><i
+									class="perfil fas fa-user fa-2x p-1 border rounded"></i></span>
 							</span><span class="m-1" th:text="${respuesta.usuario.nombre}"></span>
 						</div>
 						<p class="card-text" th:text="${respuesta.respuesta}"></p>

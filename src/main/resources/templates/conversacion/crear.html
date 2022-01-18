@@ -28,38 +28,36 @@ form {
 		<div class="card o-hidden border-0 shadow-lg my-5 col-4">
 			<div class="card-body p-0">
 				<form action="#" th:action="@{/conversacion/creado}" method="post"
-					class="user" enctype="multipart/form-data" th:object="${conversacion}">
+					class="user" enctype="multipart/form-data"
+					th:object="${conversacion}">
 					<div class="p-5">
 						<div class="text-center">
-							<h1 class="h4 text-gray-900 mb-4">Crear una Nueva Conversacion</h1>
+							<h1 class="h4 text-gray-900 mb-4">Crear una Nueva
+								Conversacion</h1>
 						</div>
 						<div class="form-group">
-							<div class="input-group mb-3 p-2">
-								<div class="input-group-prepend">
-									<label class="input-group-text" for="juego">Juego:</label>
-								</div>
-								<select class="custom-select" id="juego" name="juego" th:field="*{juego}">
-									<option th:each="juego : ${juegos}" th:value="${juego.idJuego}"
-										th:text="${juego.nombre}"></option>
-								</select>
-							</div>
-							<div class="error p-2" th:if="${#fields.hasErrors('juego')}" th:errors="*{juego}"></div>
+							<input type="hidden" id="juego" name="juego" th:value="${juego}"
+								th:field="*{juego}">
 							<div class="p-2">
 								<input type="text" class="form-control form-control-user"
-									id="titulo" placeholder="Titulo" name="titulo" th:field="*{titulo}">
+									id="titulo" placeholder="Titulo" name="titulo"
+									th:field="*{titulo}">
 							</div>
-							<div class="error p-2" th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></div>
+							<div class="error p-2" th:if="${#fields.hasErrors('titulo')}"
+								th:errors="*{titulo}"></div>
 							<div class="p-2">
 								<textarea class="form-control form-control-user" id="texto"
-									placeholder="Introduzca su texto" name="texto" th:field="*{texto}"></textarea>
+									placeholder="Introduzca su texto" name="texto"
+									th:field="*{texto}"></textarea>
 							</div>
-							<div class="error p-2" th:if="${#fields.hasErrors('texto')}" th:errors="*{titulo}"></div>
+							<div class="error p-2" th:if="${#fields.hasErrors('texto')}"
+								th:errors="*{texto}"></div>
 							<div class="p-2">
-								<label class="">Imagen: </label>
-								<input type="file" class="form-control form-control-user"
-									id="imagen" name="imagen">
+								<label class="">Imagen: </label> <input type="file"
+									class="form-control form-control-user" id="imagen"
+									name="imagen">
 							</div>
-							
+
 							<div class="alert alert-danger" role="alert" th:text="${error}"
 								th:if="${error}"></div>
 						</div>
@@ -67,7 +65,7 @@ form {
 							<div>
 								<input type="submit"
 									class="form-control form-control-user btn btn-primary btn-user btn-block"
-									value="Publicar Tema">
+									value="Publicar Conversacion">
 							</div>
 						</div>
 					</div>

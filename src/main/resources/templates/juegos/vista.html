@@ -16,7 +16,8 @@
 			</p>
 			<p>Abajo veras diversas conversaciones empezadas por otros
 				usuarios.</p>
-			<form action="get" th:action="@{/conversacion/crear}" method="get">
+			<form action="post" th:action="@{/conversacion/crear}" method="post">
+				<input type="hidden" id="juego" name="juego" th:value="${juego.idJuego}">
 				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
 			</form>
 			<div th:each="conversacion : ${conversaciones}">

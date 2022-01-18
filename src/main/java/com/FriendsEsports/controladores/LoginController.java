@@ -39,7 +39,7 @@ public class LoginController {
 	public String createUser(@ModelAttribute("usuario") Usuario elUsuario) {
 		Usuario usuario = usuarioServicio.crearUsuario(elUsuario);
 
-		return "redirect:/index";
+		return "redirect:/login";
 	}
 
 	@GetMapping("/registro")
@@ -56,28 +56,38 @@ public class LoginController {
 	public String crearUsuario(HttpServletRequest request, @RequestParam("imagen") MultipartFile imagen) {
 
 		try {
+			if (imagen == null) {
 
-			String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
+				String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
-			File imagenGuardada = new File(Usuario.getImagenPath() + nombreImagen);
+				File imagenGuardada = new File(Usuario.getImagenPath() + nombreImagen);
 
-			String nombre = request.getParameter("nombre");
-			String direccionemail = request.getParameter("email");
-			String password = request.getParameter("password");
-			String fecha = request.getParameter("fechaNacimiento");
-			Usuario u = new Usuario(nombre, password,direccionemail, fecha, nombreImagen);
-			u = usuarioServicio.crearUsuario(u);
+				String nombre = request.getParameter("nombre");
+				String direccionemail = request.getParameter("email");
+				String password = request.getParameter("password");
+				String fecha = request.getParameter("fechaNacimiento");
+				Usuario u = new Usuario(nombre, password, direccionemail, fecha, nombreImagen);
+				u = usuarioServicio.crearUsuario(u);
 
-			FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
+				FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
 
-			BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
-			stream.write(imagen.getBytes());
-			stream.close();
+				BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
+				stream.write(imagen.getBytes());
+				stream.close();
+			}else {
+				
+				String nombre = request.getParameter("nombre");
+				String direccionemail = request.getParameter("email");
+				String password = request.getParameter("password");
+				String fecha = request.getParameter("fechaNacimiento");
+				Usuario u = new Usuario(nombre, password, direccionemail, fecha);
+				u = usuarioServicio.crearUsuario(u);
+			}
 
 		} catch (Exception e) {
 			return "redirect:/";
 		}
-		return "redirect:/";
+		return "redirect:/login";
 	}
 
 }

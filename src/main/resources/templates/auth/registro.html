@@ -28,7 +28,7 @@ form {
 			<div class="card-body p-0">
 				<div class="row">
 					<form action="#" th:action="@{/signup}" method="post" class="user"
-						enctype="multipart/form-data">
+						enctype="multipart/form-data" th:object="${usuario}">
 						<div>
 							<div class="p-5">
 								<div class="text-center">
@@ -38,17 +38,17 @@ form {
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="text" class="form-control form-control-user"
 											id="nombre" placeholder="Nombre" name="nombre"
-											required="true">
+											required="true" th:field="*{nombre}">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="password" class="form-control form-control-user"
 											id="contrasenia" placeholder="Contraseña" name="password"
-											required="true">
+											required="true" th:field="*{password}">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="email" class="form-control form-control-user"
 											id="email" placeholder="Correo electronico" name="email"
-											required="true">
+											required="true" th:field="*{email}">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="password" class="form-control form-control-user"
@@ -57,7 +57,8 @@ form {
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="date" class="form-control form-control-user"
-											id="fecha" name="fechaNacimiento" required="true">
+											id="fecha" name="fechaNacimiento" required="true"
+											th:field="*{fechaNacimiento}">
 									</div>
 									<div class="p-2">
 										<label class="col-sm-6 mb-3 mb-sm-0">Imagen: </label> <input
