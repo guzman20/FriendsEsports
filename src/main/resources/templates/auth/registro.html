@@ -38,27 +38,36 @@ form {
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="text" class="form-control form-control-user"
 											id="nombre" placeholder="Nombre" name="nombre"
-											required="true" th:field="*{nombre}">
+											th:field="*{nombre}">
+										<div class="error p-2" th:if="${#fields.hasErrors('nombre')}"
+											th:errors="*{nombre}"></div>
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="password" class="form-control form-control-user"
-											id="contrasenia" placeholder="Contraseña" name="password"
-											required="true" th:field="*{password}">
+											id="contrasena" placeholder="Contraseña" name="contrasena"
+											th:field="*{contrasena}">
+										<div class="error p-2"
+											th:if="${#fields.hasErrors('contrasena')}"
+											th:errors="*{contrasena}"></div>
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="email" class="form-control form-control-user"
 											id="email" placeholder="Correo electronico" name="email"
-											required="true" th:field="*{email}">
+											th:field="*{email}">
+										<div class="error p-2" th:if="${#fields.hasErrors('email')}"
+											th:errors="*{email}"></div>
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="password" class="form-control form-control-user"
-											id="repetircontrasenia" placeholder="Repite la contraseña"
-											required="true">
+											id="repetircontrasenia" placeholder="Repite la contraseña">
 									</div>
 									<div class="col-sm-6 mb-3 mb-sm-0">
 										<input type="date" class="form-control form-control-user"
-											id="fecha" name="fechaNacimiento" required="true"
+											id="fecha" name="fechaNacimiento"
 											th:field="*{fechaNacimiento}">
+										<div class="error p-2"
+											th:if="${#fields.hasErrors('fechaNacimiento')}"
+											th:errors="*{fechaNacimiento}"></div>
 									</div>
 									<div class="p-2">
 										<label class="col-sm-6 mb-3 mb-sm-0">Imagen: </label> <input

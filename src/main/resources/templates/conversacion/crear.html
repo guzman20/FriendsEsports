@@ -33,10 +33,10 @@ form {
 					<div class="p-5">
 						<div class="text-center">
 							<h1 class="h4 text-gray-900 mb-4">Crear una Nueva
-								Conversacion</h1>
+								Conversacion sobre <span th:text="${juego.nombre}"></span></h1>
 						</div>
 						<div class="form-group">
-							<input type="hidden" id="juego" name="juego" th:value="${juego}"
+							<input type="hidden" id="juego" name="juego" th:value="${juego.idJuego}"
 								th:field="*{juego}">
 							<div class="p-2">
 								<input type="text" class="form-control form-control-user"

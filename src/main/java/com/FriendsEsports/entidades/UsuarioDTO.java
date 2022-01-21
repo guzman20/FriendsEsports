@@ -11,30 +11,30 @@ import javax.validation.constraints.NotNull;
 import org.springframework.web.multipart.MultipartFile;
 
 public class UsuarioDTO {
-	
-	@NotNull(message= "No puede ser nulo el juego.")
-	@NotBlank(message= "No puede ser vacio el titulo.")
+
+	@NotNull(message = "No puede ser nulo el nombre.")
+	@NotBlank(message = "No puede ser vacio el nombre.")
 	private String nombre;
-	
-	@NotNull(message= "No puede ser nulo el titulo.")
-	@NotBlank(message= "No puede ser vacio el titulo.")
+
+	@NotNull(message = "No puede ser nulo la contraseña.")
+	@NotBlank(message = "No puede ser vacio la contraseña.")
 	private String contrasena;
-	
-	@NotNull(message= "No puede ser nulo el texto.")
-	@NotBlank(message= "No puede ser vacio el texto.")
+
+	@NotNull(message = "No puede ser nulo el email.")
+	@NotBlank(message = "No puede ser vacio el email.")
 	private String email;
-	
-	@NotNull(message= "No puede ser nulo el texto.")
-	@NotBlank(message= "No puede ser vacio el texto.")
+
+	@NotNull(message = "No puede ser nulo la fecha de nacimiento.")
+	@NotBlank(message = "No puede ser vacio la fecha de nacimiento.")
 	private String fechaNacimiento;
-	
+
 	private MultipartFile imagen;
 
 	public UsuarioDTO(
-			@NotNull(message = "No puede ser nulo el juego.") @NotBlank(message = "No puede ser vacio el titulo.") String nombre,
-			@NotNull(message = "No puede ser nulo el titulo.") @NotBlank(message = "No puede ser vacio el titulo.") String contrasena,
-			@NotNull(message = "No puede ser nulo el texto.") @NotBlank(message = "No puede ser vacio el texto.") String email,
-			@NotNull(message = "No puede ser nulo el texto.") @NotBlank(message = "No puede ser vacio el texto.") String fechaNacimiento,
+			@NotNull(message = "No puede ser nulo el nombre.") @NotBlank(message = "No puede ser vacio el nombre.") String nombre,
+			@NotNull(message = "No puede ser nulo la contraseña.") @NotBlank(message = "No puede ser vacio la contraseña.") String contrasena,
+			@NotNull(message = "No puede ser nulo el email.") @NotBlank(message = "No puede ser vacio el email.") String email,
+			@NotNull(message = "No puede ser nulo la fecha de nacimiento.") @NotBlank(message = "No puede ser vacio la fecha de nacimiento.") String fechaNacimiento,
 			MultipartFile imagen) {
 		super();
 		this.nombre = nombre;
@@ -84,7 +84,4 @@ public class UsuarioDTO {
 		this.imagen = imagen;
 	}
 
-	
-	
-	
 }

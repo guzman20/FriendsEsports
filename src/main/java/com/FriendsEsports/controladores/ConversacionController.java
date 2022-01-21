@@ -51,10 +51,11 @@ public class ConversacionController {
 
 	@PostMapping(value = "/crear")
 	public ModelAndView crearConversacion(@ModelAttribute("conversacion") ConversacionDTO ConversacionDTO,
-			HttpServletRequest request, @RequestParam("juego") String juego) {
+			HttpServletRequest request, @RequestParam("juego") String idJuego) {
 
 		ModelAndView mav = new ModelAndView("conversacion/crear", "conversacion", ConversacionDTO);
 
+		Juego juego = juegoServicio.obtenerPorId(Integer.parseInt(idJuego));
 		mav.addObject("juego", juego);
 		return mav;
 
@@ -70,7 +71,8 @@ public class ConversacionController {
 		if (result.hasErrors()) {
 			mav = new ModelAndView("conversacion/crear", "conversacion", ConversacionDTO);
 			List<Juego> juegos = juegoServicio.listarJuegos();
-
+			Juego juego = juegoServicio.obtenerPorId(Integer.parseInt(idj));
+			mav.addObject("juego", juego);
 			mav.addObject("juegos", juegos);
 		}
 		try {
