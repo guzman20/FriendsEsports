@@ -64,26 +64,36 @@ form {
 				<div style="display: none;" class="col-4">
 					<form action="post"
 						th:action="@{/conversacion/editar/{id}(id=${conversacion.idConversacion})}"
-						method="post">
+						method="post" enctype="multipart/form-data"
+						th:object="${conversacion}">
 						<div class="form-group">
-							<input type="text" id="titulo" name="titulo"
-								th:value="${conversacion.titulo}"
-								class="form-control form-control-user">
+							<label class="">Titulo: </label> <input type="texto" id="titulo"
+								name="titulo" th:value="${conversacion.titulo}"
+								class="form-control form-control-user" th:field="*{titulo}">
+							<div class="error p-2" th:if="${#fields.hasErrors('titulo')}"
+								th:errors="*{titulo}"></div>
+							<label class="">Texto: </label>
 							<textarea class="form-control form-control-user" id="texto"
-								th:text="${conversacion.texto}" name="texto" required="true"></textarea>
+								th:text="${conversacion.texto}" name="texto" th:field="*{texto}"
+								th:value="${conversacion.texto}"></textarea>
+							<div class="error p-2" th:if="${#fields.hasErrors('texto')}"
+								th:errors="*{texto}"></div>
+							<label class="">Imagen: </label> <input type="file"
+								class="form-control form-control-user" id="imagen" name="imagen">
 						</div>
 						<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
 					</form>
 				</div>
 				<div style="display: none;" class="col-4">
-					<form action="post" th:action="@{/respuesta/creado/{id}(id=${conversacion.idConversacion})}" method="post"
-						class="col-12" th:object="${respuesta}">
+					<form action="post"
+						th:action="@{/respuesta/creado/{id}(id=${conversacion.idConversacion})}"
+						method="post" class="col-12" th:object="${respuesta}">
 						<input type="text" placeholder="Introduzca su respuesta"
 							id="textoRespuesta" name="textoRespuesta"
 							class="form-control form-control-user m-1 p-2"
 							th:field="*{textoRespuesta}">
 						<div class="error p-2"
-							th:if="${errores!=null}"
+							th:if="${#fields.hasErrors('textoRespuesta')}"
 							th:errors="*{textoRespuesta}"></div>
 						<button type="submit" class="btn btn-primary btn-user btn-block">Publicar</button>
 					</form>
@@ -129,10 +139,14 @@ form {
 						<div id="formularioEditar" style="display: none;">
 							<form action="post"
 								th:action="@{/respuesta/editar/{idConversacion}/{idRespuesta}(idRespuesta=${respuesta.idRespuesta},idConversacion=${conversacion.idConversacion})}"
-								method="post">
+								method="post" th:object="${respuestaEditar}">
 								<div class="form-group">
-									<textarea class="form-control form-control-user" id="texto"
-										th:text="${respuesta.respuesta}" name="texto" required="true"></textarea>
+									<textarea class="form-control form-control-user"
+										id="textoRespuesta" th:text="${respuesta.respuesta}"
+										name="textoRespuesta" th:field="*{textoRespuesta}"></textarea>
+									<div class="error p-2"
+										th:if="${#fields.hasErrors('textoRespuesta')}"
+										th:errors="*{textoRespuesta}"></div>
 								</div>
 								<button type="submit" class="btn btn-primary btn-user btn-block">Confimar</button>
 							</form>

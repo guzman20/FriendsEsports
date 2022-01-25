@@ -23,10 +23,10 @@
 		<div id="opciones" class="gnav">
 			<a class="btn btn-primary"> 
 			<span
-				th:if="${session.imagenUsuario != ''}"><img
+				th:if="${session.imagenUsuario != null}"><img
 					class="perfil"  th:src="@{/imagenes-usuarios/{imagen}(imagen=${session.imagenUsuario})}"
 					></span> <span
-				th:unless="${session.imagenUsuario != ''}"><i
+				th:unless="${session.imagenUsuario != null}"><i
 					class="fas fa-user fa-2x p-1 navbar-right"></i></span>
 			</a>
 

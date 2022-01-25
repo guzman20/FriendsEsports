@@ -31,6 +31,9 @@ public class ConversacionDTO {
 	
 	private Set<Respuesta> respuestas = new HashSet<>();
 
+	public ConversacionDTO() {
+	}
+
 	public ConversacionDTO(Long idConversacion,
 			@NotNull(message = "No puede ser nulo el juego.") String idJuego,
 			@NotNull(message = "No puede ser nulo el titulo.") @NotBlank(message = "No puede ser vacio el titulo.") String titulo,

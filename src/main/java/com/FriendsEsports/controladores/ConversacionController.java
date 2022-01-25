@@ -10,6 +10,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.FriendsEsports.entidades.Conversacion;
 import com.FriendsEsports.entidades.ConversacionDTO;
@@ -130,50 +132,76 @@ public class ConversacionController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/editar/{idConversacion}")
-	public ModelAndView editarConversacion(@PathVariable("idConversacion") long idConversacion,
-			@RequestParam("imagen") MultipartFile imagen, HttpServletRequest request) {
+	public ModelAndView editarConversacion(@ModelAttribute("conversacion") @Valid ConversacionDTO conversacionDTO,
+			BindingResult result, @PathVariable("idConversacion") long idConversacion,
+			@RequestParam("imagen") MultipartFile imagen, HttpServletRequest request, RedirectAttributes atributos) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/index");
-		try {
-			String titulo = request.getParameter("titulo");
-			String texto = request.getParameter("texto");
+		if (result.hasErrors()) {
+			atributos.addFlashAttribute("org.springframework.validation.BindingResult.conversacion", result);
+			atributos.addFlashAttribute("conversacion", conversacionDTO);
 
-			if (imagen.getSize() != 0) {
-				String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
+			mav = new ModelAndView("redirect:/conversacion/" + idConversacion);
+			List<Juego> juegos = juegoServicio.listarJuegos();
+			mav.addObject("juegos", juegos);
+		} else {
+			try {
+				String titulo = request.getParameter("titulo");
+				String texto = request.getParameter("texto");
 
-				File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
+				if (imagen.getSize() != 0) {
+					String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
-				FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
+					File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
 
-				BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
-				stream.write(imagen.getBytes());
-				stream.close();
+					FileOutputStream salidaImagen = new FileOutputStream(imagenGuardada);
 
-				Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
-				File imagenOriginal = new File(Conversacion.getImagenPath() + c.getImagen());
-				imagenOriginal.delete();
+					BufferedOutputStream stream = new BufferedOutputStream(salidaImagen);
+					stream.write(imagen.getBytes());
+					stream.close();
 
-				conversacionServicio.editarConversacion(idConversacion, titulo, texto, nombreImagen);
-			} else
-				conversacionServicio.editarConversacion(idConversacion, titulo, texto);
+					Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
+					File imagenOriginal = new File(Conversacion.getImagenPath() + c.getImagen());
+					imagenOriginal.delete();
 
-			mav.setViewName("redirect:/conversacion/" + idConversacion);
-			return mav;
-		} catch (Exception e) {
-			return mav;
+					conversacionServicio.editarConversacion(idConversacion, titulo, texto, nombreImagen);
+				} else
+					conversacionServicio.editarConversacion(idConversacion, titulo, texto);
+
+				mav.setViewName("redirect:/conversacion/" + idConversacion);
+			} catch (Exception e) {
+				return mav;
+			}
 		}
+		return mav;
 
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/{idConversacion}")
-	public ModelAndView verConversacion(@ModelAttribute("respuesta") RespuestaDTO respuestaDTO,
-			@PathVariable("idConversacion") long idConversacion, HttpServletRequest request, ModelAndView mav) {
+	public ModelAndView verConversacion(@PathVariable("idConversacion") long idConversacion, HttpServletRequest request,
+			Model modelo) {
 
+		ModelAndView mav = new ModelAndView();
 		Conversacion c = conversacionServicio.obtenerConversacion(idConversacion);
 		List<Respuesta> r = respuestaServicio.listarRespuestas(c);
 		List<Juego> listaJuegos = juegoServicio.listarJuegos();
-		if (!mav.getModel().containsKey("respuesta"))
+		if (modelo.containsAttribute("org.springframework.validation.BindingResult.respuesta"))
+			mav.addObject("org.springframework.validation.BindingResult.respuesta",
+					modelo.getAttribute("org.springframework.validation.BindingResult.respuesta"));
+		else {
 			mav.addObject("respuesta", new RespuestaDTO());
+		}
+		if (modelo.containsAttribute("org.springframework.validation.BindingResult.conversacion"))
+			mav.addObject("org.springframework.validation.BindingResult.conversacion",
+					modelo.getAttribute("org.springframework.validation.BindingResult.conversacion"));
+		else {
+			mav.addObject("conversacion", new ConversacionDTO());
+		}
+		if (modelo.containsAttribute("org.springframework.validation.BindingResult.respuestaEditar"))
+			mav.addObject("org.springframework.validation.BindingResult.respuestaEditar",
+					modelo.getAttribute("org.springframework.validation.BindingResult.respuestaEditar"));
+		else {
+			mav.addObject("respuestaEditar", new RespuestaDTO());
+		}
 
 		mav.addObject("juegos", listaJuegos);
 		mav.addObject("conversacion", c);

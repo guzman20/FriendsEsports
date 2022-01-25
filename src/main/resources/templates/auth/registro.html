@@ -29,39 +29,41 @@ form {
 				<div class="row">
 					<form action="#" th:action="@{/signup}" method="post" class="user"
 						enctype="multipart/form-data" th:object="${usuario}">
-						<div>
-							<div class="p-5">
-								<div class="text-center">
-									<h1 class="h4 text-gray-900 mb-4">Crear una cuenta</h1>
+						<div class="p-5">
+							<div class="text-center">
+								<h1 class="h4 text-gray-900 mb-4">Crear una cuenta</h1>
+							</div>
+							<div class="form-group row">
+								<div class="col-sm-6 mb-3 mb-sm-0">
+									<input type="text" class="form-control form-control-user"
+										id="nombre" placeholder="Nombre" name="nombre"
+										th:field="*{nombre}">
+									<div class="error p-2" th:if="${#fields.hasErrors('nombre')}"
+										th:errors="*{nombre}"></div>
 								</div>
-								<div class="form-group row">
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="text" class="form-control form-control-user"
-											id="nombre" placeholder="Nombre" name="nombre"
-											th:field="*{nombre}">
-										<div class="error p-2" th:if="${#fields.hasErrors('nombre')}"
-											th:errors="*{nombre}"></div>
-									</div>
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="password" class="form-control form-control-user"
-											id="contrasena" placeholder="Contraseña" name="contrasena"
-											th:field="*{contrasena}">
-										<div class="error p-2"
-											th:if="${#fields.hasErrors('contrasena')}"
-											th:errors="*{contrasena}"></div>
-									</div>
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="email" class="form-control form-control-user"
-											id="email" placeholder="Correo electronico" name="email"
-											th:field="*{email}">
-										<div class="error p-2" th:if="${#fields.hasErrors('email')}"
-											th:errors="*{email}"></div>
-									</div>
-									<div class="col-sm-6 mb-3 mb-sm-0">
-										<input type="password" class="form-control form-control-user"
-											id="repetircontrasenia" placeholder="Repite la contraseña">
-									</div>
-									<div class="col-sm-6 mb-3 mb-sm-0">
+								<div class="col-sm-6 mb-3 mb-sm-0">
+									<input type="password" class="form-control form-control-user"
+										id="antiguaPassword" placeholder="Contraseña"
+										name="antiguaPassword" th:field="*{antiguaPassword}">
+									<div class="error p-2"
+										th:if="${#fields.hasErrors('antiguaPassword')}"
+										th:errors="*{antiguaPassword}"></div>
+								</div>
+								<div class="col-sm-6 mb-3 mb-sm-0">
+									<input type="password" class="form-control form-control-user"
+										id="nuevaPassword" placeholder="Repetir contraseña"
+										name="nuevaPassword" th:field="*{nuevaPassword}">
+									<div class="error p-2"
+										th:if="${#fields.hasErrors('nuevaPassword')}"
+										th:errors="*{nuevaPassword}"></div>
+								</div>
+								<div class="col-sm-6 mb-3 mb-sm-0">
+									<input type="email" class="form-control form-control-user"
+										id="email" placeholder="Correo electronico" name="email"
+										th:field="*{email}">
+									<div class="error p-2" th:if="${#fields.hasErrors('email')}"
+										th:errors="*{email}"></div>
+									<div>
 										<input type="date" class="form-control form-control-user"
 											id="fecha" name="fechaNacimiento"
 											th:field="*{fechaNacimiento}">

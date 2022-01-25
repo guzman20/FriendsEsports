@@ -17,7 +17,8 @@
 			<p>Abajo veras diversas conversaciones empezadas por otros
 				usuarios.</p>
 			<form action="post" th:action="@{/conversacion/crear}" method="post">
-				<input type="hidden" id="juego" name="juego" th:value="${juego.idJuego}">
+				<input type="hidden" id="juego" name="juego"
+					th:value="${juego.idJuego}">
 				<button type="submit" class="btn btn-primary btn-user btn-block">Nuevo</button>
 			</form>
 			<div th:each="conversacion : ${conversaciones}">
@@ -47,7 +48,7 @@
 								th:if="${session.idUsuario == conversacion.usuario.getIdUsuario() or #authorization.expression('hasAuthority(''ROL_ADMIN'')')}"
 								class="col-2">
 								<a
-									th:href="@{/conversacion/{juego}/borrar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
+									th:href="@{/conversacion/borrar/{id}(id=${conversacion.idConversacion})}"
 									class="btn btn-danger">Borrar</a>
 							</div>
 							<div
@@ -62,15 +63,21 @@
 						</div>
 						<div style="display: none;">
 							<form action="post"
-								th:action="@{/conversacion/editar/{id}(id=${conversacion.idConversacion}, juego=${conversacion.juego})}"
-								method="post" enctype="multipart/form-data">
+								th:action="@{/conversacion/editar/{id}(id=${conversacion.idConversacion})}"
+								method="post" enctype="multipart/form-data"
+								th:object="${conversacion}">
 								<div class="form-group">
 									<label class="">Titulo: </label> <input type="texto"
 										id="titulo" name="titulo" th:value="${conversacion.titulo}"
-										class="form-control form-control-user"> <label
-										class="">Texto: </label>
+										class="form-control form-control-user" th:field="*{titulo}">
+									<div class="error p-2" th:if="${#fields.hasErrors('titulo')}"
+										th:errors="*{titulo}"></div>
+									<label class="">Texto: </label>
 									<textarea class="form-control form-control-user" id="texto"
-										th:text="${conversacion.texto}" name="texto" required="true"></textarea>
+										th:text="${conversacion.texto}" name="texto"
+										th:field="*{texto}" ></textarea>
+									<div class="error p-2" th:if="${#fields.hasErrors('texto')}"
+										th:errors="*{texto}"></div>
 									<label class="">Imagen: </label> <input type="file"
 										class="form-control form-control-user" id="imagen"
 										name="imagen">

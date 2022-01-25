@@ -41,7 +41,7 @@ public class RespuestaDTO {
 	}
 
 	public RespuestaDTO() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Long getIdrespuesta() {

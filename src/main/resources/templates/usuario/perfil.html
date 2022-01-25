@@ -74,7 +74,8 @@ form {
 			</div>
 
 			<div id="modificar" style="display: none;" class="pt-0 pb-5 px-5">
-				<form th:action="@{/usuario/editar}" method="post" class="user">
+				<form th:action="@{/usuario/editar}" method="post" class="user"
+					th:object="${usuarioEditar}">
 					<div class="p-5">
 						<div class="text-center">
 							<h1 class="h4 text-gray-900 mb-4">Modificar Usuario</h1>
@@ -83,32 +84,48 @@ form {
 							<div class="p-2">
 								<h1 class="h6 text-gray-900 mb-4">Nombre</h1>
 								<input type="text" class="form-control form-control-user"
-									id="nombre" name="nombre" th:value="${usuario.nombre}">
+									id="nombre" name="nombre" th:value="${usuario.nombre}"
+									th:field="*{nombre}">
+								<div class="error p-2" th:if="${#fields.hasErrors('nombre')}"
+									th:errors="*{nombre}"></div>
 							</div>
 							<div class="p-2">
 								<h1 class="h6 text-gray-900 mb-4">Nueva Contraseña</h1>
 								<input type="password" class="form-control form-control-user"
-									id="nuevaPassword" name="nuevaPassword">
+									id="nuevaPassword" name="nuevaPassword"
+									th:field="*{nuevaPassword}">
+								<div class="error p-2"
+									th:if="${#fields.hasErrors('nuevaPassword')}"
+									th:errors="*{nuevaPassword}"></div>
 							</div>
 							<div class="p-2">
 								<h1 class="h6 text-gray-900 mb-4">Antigua Contraseña</h1>
 								<input type="password" class="form-control form-control-user"
-									id="antiguaPassword" name="antiguaPassword" required="true">
+									id="antiguaPassword" name="antiguaPassword"
+									th:field="*{antiguaPassword}">
+								<div class="error p-2"
+									th:if="${#fields.hasErrors('antiguaPassword')}"
+									th:errors="*{antiguaPassword}"></div>
 							</div>
 							<div class="p-2">
 								<h1 class="h6 text-gray-900 mb-4">Email</h1>
 								<input type="email" class="form-control form-control-user"
 									id="email" placeholder="email" name="email"
-									th:value="${usuario.email}">
+									th:value="${usuario.email}" th:field="*{email}">
+								<div class="error p-2" th:if="${#fields.hasErrors('email')}"
+									th:errors="*{email}"></div>
 							</div>
 							<div class="p-2">
 								<h1 class="h6 text-gray-900 mb-4">Fecha de nacimiento</h1>
 								<input type="date" class="form-control form-control-user"
 									id="fechaNacimiento" placeholder="fechaNacimiento"
-									name="fechaNacimiento" th:value="${usuario.fechaNacimiento}">
+									name="fechaNacimiento" th:value="${usuario.fechaNacimiento}"
+									th:field="*{fechaNacimiento}">
+								<div class="error p-2"
+									th:if="${#fields.hasErrors('fechaNacimiento')}"
+									th:errors="*{fechaNacimiento}"></div>
 							</div>
-							<div class="alert alert-danger" role="alert" th:text="${error}"
-								th:if="${error}">Malardo</div>
+
 						</div>
 						<div class="form-group">
 							<div>

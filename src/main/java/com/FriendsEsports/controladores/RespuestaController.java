@@ -47,16 +47,16 @@ public class RespuestaController {
 	JuegoServicio juegoServicio;
 
 	@RequestMapping(value = "/creado/{idConversacion}", method = RequestMethod.POST)
-	public ModelAndView publicarRespuesta(@PathVariable("idConversacion") long idConversacion, HttpServletRequest request,
-			@Valid @ModelAttribute("respuesta") RespuestaDTO respuestaDTO, BindingResult result,
-			RedirectAttributes atributos) {
+	public ModelAndView publicarRespuesta(@PathVariable("idConversacion") long idConversacion,
+			HttpServletRequest request, @Valid @ModelAttribute("respuesta") RespuestaDTO respuestaDTO,
+			BindingResult result, RedirectAttributes atributos) {
 
 		ModelAndView mav = new ModelAndView();
 		if (result.hasErrors()) {
-			atributos.addFlashAttribute("org.springframework.validation.BindingResult.result", result);
+			atributos.addFlashAttribute("org.springframework.validation.BindingResult.respuesta", result);
 			atributos.addFlashAttribute("respuesta", respuestaDTO);
-			
-			mav = new ModelAndView("redirect:/conversacion/"+idConversacion);
+
+			mav = new ModelAndView("redirect:/conversacion/" + idConversacion);
 			List<Juego> juegos = juegoServicio.listarJuegos();
 
 			mav.addObject("juegos", juegos);
@@ -72,7 +72,7 @@ public class RespuestaController {
 
 			t = respuestaServicio.crearRespuesta(texto, usuario, c);
 
-			mav = new ModelAndView("redirect:/conversacion/"+idConversacion);
+			mav = new ModelAndView("redirect:/conversacion/" + idConversacion);
 			List<Juego> juegos = juegoServicio.listarJuegos();
 
 			mav.addObject("juegos", juegos);
@@ -94,14 +94,21 @@ public class RespuestaController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/editar/{idConversacion}/{idRespuesta}")
-	public ModelAndView editarConversacion(@PathVariable("idRespuesta") long idRespuesta,
+	public ModelAndView editarConversacion(@Valid @ModelAttribute("respuestaEditar") RespuestaDTO respuestaDTO,
+			BindingResult result, RedirectAttributes atributos, @PathVariable("idRespuesta") long idRespuesta,
 			@PathVariable("idConversacion") long idConversacion, HttpServletRequest request) {
-
-		String texto = request.getParameter("texto");
-		respuestaServicio.editarRespuesta(idRespuesta, texto);
 
 		ModelAndView mav = new ModelAndView();
 
+		if (result.hasErrors()) {
+			atributos.addFlashAttribute("org.springframework.validation.BindingResult.respuestaEditar", result);
+			atributos.addFlashAttribute("respuestaEditar", respuestaDTO);
+
+		} else {
+
+			String texto = request.getParameter("texto");
+			respuestaServicio.editarRespuesta(idRespuesta, texto);
+		}
 		mav.setViewName("redirect:/conversacion/" + idConversacion);
 		return mav;
 
