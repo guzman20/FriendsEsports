@@ -127,19 +127,21 @@ public class UsuarioController {
 				antiguoUsuario.setFechaNacimiento(fechaNacimiento);
 				usuarioServicio.editarUsuario(antiguoUsuario);
 			} else {
-				Usuario usuarioNuevo = new Usuario(nombre, nuevaPassword, email, fechaNacimiento);
+				Usuario usuarioNuevo = new Usuario(idUsuario, nombre, nuevaPassword, email, fechaNacimiento,
+						antiguoUsuario.getImagen());
 				usuarioServicio.editarUsuario(usuarioNuevo);
 			}
 		}
 
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("redirect:/usuario/perfil/"+idUsuario);
+		mav.setViewName("redirect:/usuario/perfil/" + idUsuario);
 		return mav;
 
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/listaConversaciones/{idUsuario}")
-	public ModelAndView historialConversaciones(@PathVariable("idUsuario") long idUsuario, HttpServletRequest request) {
+	public ModelAndView historialConversaciones(@ModelAttribute("conversacion") ConversacionDTO conversacionDTO,
+			@PathVariable("idUsuario") long idUsuario, HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView();
 

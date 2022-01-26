@@ -14,7 +14,6 @@ public class ConversacionDTO {
 
 	private Long idConversacion;
 	
-	@NotNull(message= "No puede ser nulo el juego.")
 	private String idJuego;
 	
 	@NotNull(message= "No puede ser nulo el titulo.")

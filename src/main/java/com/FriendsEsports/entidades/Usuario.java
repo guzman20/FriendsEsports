@@ -80,6 +80,14 @@ public class Usuario implements Serializable {
 		this.imagen = imagen;
 	}
 
+	public Usuario(Long idUsuario, String nombre, String password, String email, String fechaNacimiento) {
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.password = password;
+		this.email = email;
+		this.fechaNacimiento = fechaNacimiento;
+	}
+
 	public Usuario(String nombre, String password, String email, String fechaNacimiento, String imagen) {
 		this.nombre = nombre;
 		this.password = password;
@@ -168,7 +176,7 @@ public class Usuario implements Serializable {
 	public void setRespuestas(Set<Respuesta> respuestas) {
 		this.respuestas = respuestas;
 	}
-	
+
 	public static String getImagenPath() {
 		return imagenPath;
 	}

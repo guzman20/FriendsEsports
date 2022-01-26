@@ -74,8 +74,7 @@ form {
 								th:errors="*{titulo}"></div>
 							<label class="">Texto: </label>
 							<textarea class="form-control form-control-user" id="texto"
-								th:text="${conversacion.texto}" name="texto" th:field="*{texto}"
-								th:value="${conversacion.texto}"></textarea>
+								th:text="${conversacion.texto}" name="texto" th:field="*{texto}"></textarea>
 							<div class="error p-2" th:if="${#fields.hasErrors('texto')}"
 								th:errors="*{texto}"></div>
 							<label class="">Imagen: </label> <input type="file"
