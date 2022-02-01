@@ -119,6 +119,8 @@ public class UsuarioController {
 			String fechaNacimiento = request.getParameter("fechaNacimiento");
 			if (fechaNacimiento.equals("") || fechaNacimiento == null)
 				fechaNacimiento = antiguoUsuario.getFechaNacimiento();
+			
+			
 
 			String nuevaPassword = request.getParameter("nuevaPassword");
 			if (nuevaPassword.equals("") || nuevaPassword == null) {

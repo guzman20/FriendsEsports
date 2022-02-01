@@ -106,7 +106,7 @@ public class RespuestaController {
 
 		} else {
 
-			String texto = request.getParameter("texto");
+			String texto = request.getParameter("textoRespuesta");
 			respuestaServicio.editarRespuesta(idRespuesta, texto);
 		}
 		mav.setViewName("redirect:/conversacion/" + idConversacion);

@@ -89,7 +89,7 @@ public class ConversacionController {
 
 				Conversacion t = new Conversacion();
 
-				if (imagen.getOriginalFilename().length() != 0) {
+				if (!imagen.getOriginalFilename().equals("")) {
 					String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
 					File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);
@@ -100,9 +100,9 @@ public class ConversacionController {
 					stream.write(imagen.getBytes());
 					stream.close();
 
-					t = new Conversacion(juego, texto, titulo, usuario, nombreImagen);
+					t = new Conversacion(juego, titulo, texto, usuario, nombreImagen);
 				} else
-					t = new Conversacion(juego, texto, titulo, usuario);
+					t = new Conversacion(juego, titulo, texto, usuario);
 
 				conversacionServicio.crearConversacion(t);
 
@@ -148,7 +148,7 @@ public class ConversacionController {
 				String titulo = request.getParameter("titulo");
 				String texto = request.getParameter("texto");
 
-				if (imagen.getSize() != 0) {
+				if (!imagen.getOriginalFilename().equals("")) {
 					String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
 					File imagenGuardada = new File(Conversacion.getImagenPath() + nombreImagen);

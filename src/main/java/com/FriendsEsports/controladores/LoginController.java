@@ -78,7 +78,7 @@ public class LoginController {
 		}
 
 		try {
-			if (imagen == null) {
+			if (!imagen.getOriginalFilename().equals("")) {
 
 				String nombreImagen = StringUtils.cleanPath(imagen.getOriginalFilename());
 
